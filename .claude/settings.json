@@ -1,0 +1,6 @@
+{
+  "model": "sonnet",
+  "MAX_OUTPUT_TOKENS": 8000,
+  "MAX_THINKING_TOKENS": 10000,
+  "CLAUDE_CODE_SUBAGENT_MODEL": "haiku"
+}

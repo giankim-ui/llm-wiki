@@ -1,0 +1,26 @@
+# API keys & local settings
+**/.claude/settings.local.json
+
+# Node
+node_modules/
+dist/
+.cache/
+
+# Python
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env files
+.env
+.env.local
+*.env
+
+# KM v2.2 — chat raw exports (개인정보)
+10_RAW/chats/**/raw.json
+10_RAW/chats/**/raw/
+10_RAW/chats/claude/**/raw.json
+10_RAW/chats/gemini/**/raw.json
