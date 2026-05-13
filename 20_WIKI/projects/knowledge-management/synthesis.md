@@ -45,3 +45,26 @@ related: [llm-wiki-pattern, mirror-principle, raw-reading-discipline]
 - **Methodology insight**: 검증 게이트(9항목) 도입 — pilot 합격 후에만 full 진행하는 안전장치.
 - **Concepts extracted**: pilot-gate, phase-isolation
 - **Raw coords**: `10_RAW/projects/knowledge-management/plans/PLAN_통합지식관리체계_v2.2.1_260505.md` §0, Phase 3-pilot
+
+## [2026-04-27] result | organize.py .done 마커 지원 추가
+- **Δ vs prior**: result*.md 없이 완료된 프로젝트를 `.done` 빈 파일 마커로 인식. OKR 외 6개 프로젝트 완료 처리.
+- **Key decision**: `.done` mtime을 집계에서 제외 — 마커 생성일이 "마지막 활동일" 표시를 덮지 않도록.
+- **Raw coords**: `10_RAW/projects/knowledge-management/results/result-organize-done-marker.md` §요약·핵심설계결정
+
+## [2026-04-28] result | 검색 탭 사이드바 레이아웃 이식
+- **Δ vs prior**: meeting_dashboard.html 검색 탭을 flat 구조에서 월별 폴더 사이드바 + 카드 그리드 2열 레이아웃으로 개선.
+- **Key decision**: `#searchFilters`에 `display:none` 유지 — sync.py `@@AUTO_FILTER_*@@` 마커 보존.
+- **Raw coords**: `10_RAW/projects/knowledge-management/results/result-search-tab-sidebar-layout.md` §요약·핵심설계결정
+
+## [2026-05-11] result | organize.py 20-Obsidian 폴더 스캔 추가
+- **Δ vs prior**: !Claude 단독 → !Claude + 20-Obsidian 통합 인덱싱. `plan*`·`result*`·`research*.md`만 추적해 OneDrive I/O 부하 최소화.
+- **Key decision**: `[Ob]` 접두사로 Obsidian 항목 시각 구분, 출력(index/tags/recent)은 `!Claude`로 단일화.
+- **Raw coords**: `10_RAW/projects/knowledge-management/results/result-ob-scan-add-260511.md` §요약·핵심설계결정
+
+## [2026-05-11] plan-version | LLM-Wiki interview vault 구조 계획
+- **Δ vs prior**: GitHub 스켈레톤(`giankim-ui/llm-wiki`) 활용해 interview_STT / interview_records 폴더 기반 LLM-Wiki 구조 신설 계획.
+- **Raw coords**: `10_RAW/projects/knowledge-management/plans/plan-llmWiki-interview-260511.md` (전문)
+
+## [2026-05-12] plan-version | /projects 커맨드 갱신 계획
+- **Δ vs prior**: `/projects` 커맨드 대상 폴더를 `!Claude / HR-indexData / Smartmeeting - 문서` 기준으로 재정의, 자동 분류 규칙 PLAN v2.2.1 부록 F 기준으로 전면 수정 예정.
+- **Raw coords**: `10_RAW/projects/knowledge-management/plans/plan-260512-command-project-renewal.md` (전문)
