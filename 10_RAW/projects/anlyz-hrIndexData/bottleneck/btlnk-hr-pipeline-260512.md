@@ -1,3 +1,21 @@
+---
+type: bottleneck
+project: anlyz-hrIndexData
+category: tool-trap
+severity: high
+time_lost_min: 60
+root_cause: "DuckDB 파이프라인 구축 시 시트 구조 사전 파악 누락 + 컬럼 가정 오류 + BU PK 충돌"
+prevention: "Pre-flight 스크립트로 시트 구조 먼저 dump, auto_detect 금지, scope 포함 PK 설계"
+reusable_artifact: "[[pipeline-preflight-py]]"
+tags:
+  - hr-pipeline
+  - duckdb
+  - schema
+  - bottleneck
+date: 2026-05-12
+status: stable
+---
+
 # HR 데이터 파이프라인 에이전트 플레이북
 
 > 이 문서는 Claude 에이전트가 풀무원 HR 엑셀 → DuckDB 파이프라인을 신규 구축할 때 앞에 붙이는 시스템 프롬프트/플레이북이다.  

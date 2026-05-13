@@ -26,14 +26,14 @@ mirrors_raw: "[[handoff__HR-indexData]]"
 풀무원 인사위원회 보고용 HR People Analytics 대시보드 재설계 프로젝트. 2023.02~2026.Q1 인사위원회 PPTX 13개 챕터를 JSON 추출 후 ISO 30414 / Saratoga / SHRM 표준 기반 6대 KPI 축 24개 KPI 체계를 설계했다. DuckDB 파이프라인으로 3개년(2023·2024·2025) 인원현황 적재 완료, HCROI 등 핵심 KPI 자동 산출 파이프라인 구축 진행 중.
 
 ## Status & Progress
-| Phase | Status | Started | Completed | Notes |
-|---|---|---|---|---|
-| 분석·설계 | done | 2026-05-08 | 2026-05-08 | PPTX 13개 챕터 추출, 8가지 보고 한계 진단, 24개 KPI 체계 설계 |
-| Phase 1 (인원현황 파이프라인) | done | 2026-05-12 | 2026-05-12 | 3개년 DuckDB 적재 8,205명 검증 완료 |
-| Phase 1 (HCROI 파이프라인) | active | 2026-05-12 | — | 급여·손익 연계 HCROI 자동 산출 진행 |
-| Phase 1 (전체 8 KPI Quick Win) | — | — | — | ERP+급여+손익원장 기반 즉시 산출 가능 8 KPI |
-| Phase 2 (시각화·Power BI) | — | — | — | D1·D4 의사결정 완료 후 진입 |
-| Phase 3 (예측·시나리오) | — | — | — | 2027~ HCM AX Phase 2 연동 |
+| Phase                        | Status | Started    | Completed  | Notes                                       |
+| ---------------------------- | ------ | ---------- | ---------- | ------------------------------------------- |
+| 분석·설계                        | done   | 2026-05-08 | 2026-05-08 | PPTX 13개 챕터 추출, 8가지 보고 한계 진단, 24개 KPI 체계 설계 |
+| Phase 1 (인원현황 파이프라인)         | done   | 2026-05-12 | 2026-05-12 | 3개년 DuckDB 적재 8,205명 검증 완료                  |
+| Phase 1 (HCROI 파이프라인)        | active | 2026-05-12 | —          | 급여·손익 연계 HCROI 자동 산출 진행                     |
+| Phase 1 (전체 8 KPI Quick Win) | —      | —          | —          | ERP+급여+손익원장 기반 즉시 산출 가능 8 KPI               |
+| Phase 2 (시각화·Power BI)       | —      | —          | —          | D1·D4 의사결정 완료 후 진입                          |
+| Phase 3 (예측·시나리오)            | —      | —          | —          | 2027~ HCM AX Phase 2 연동                     |
 
 ## Key Plans
 | Version | Date | Key Changes | Raw |

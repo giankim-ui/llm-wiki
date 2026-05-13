@@ -83,4 +83,4 @@ decision, plan-version, result, phase-start, phase-complete, status-change, conc
 - Schema·CLAUDE.md 변경
 
 ## Frontmatter type Vocabulary
-asset-index, asset-synthesis, project-index, project-synthesis, concept, theme, comparison, framework, plan, research, chat-extract, source-structure, handoff, log, index
+asset-index, asset-synthesis, project-index, project-synthesis, concept, theme, comparison, framework, plan, research, chat-extract, source-structure, handoff, log, index, bottleneck
