@@ -53,3 +53,9 @@ maintained_by: claude-code
 - version: v1.0, date: 2026-05-04
 - raw coords: `10_RAW/projects/knowledge-management/plans/PLAN_통합지식관리체계_260504.md` §header (L1~15)
 - key: 최초 설계, Obsidian+frontmatter, 지식관리 체계 설계
+
+## [2026-05-13 13:35] ingest | bottleneck 폴더 신설 — HR 파이프라인 병목 분석 문서 분리
+- `10_RAW/anlyz-hrIndexData/clippings/agent-hr-pipeline-playbook-260512.md` → `bottleneck/btlnk-hr-pipeline-260512.md` rename+이동
+- `20_WIKI/bottleneck/` 구조 신설 (index, playbook, top-traps, queries, categories×5)
+- frontmatter 표준 적용: type=bottleneck, category, severity, time_lost_min, root_cause, prevention, reusable_artifact
+- raw read coordinates: btlnk-hr-pipeline-260512.md §1(병목분석표), §3(preflight스크립트)
