@@ -20,7 +20,7 @@ This vault is an LLM-maintained dual-axis knowledge base. You are the maintainer
 ## Rules
 1. NEVER modify Layer 1 raw. (단, `10_RAW/`에 새 파일을 이관·생성하는 것은 허용 — 기존 파일 편집만 금지)
 2. ALWAYS read root `INDEX.md` for navigation queries; `{axis}-INDEX.md` for axis-scoped queries.
-4. ALWAYS append to LOG.md (axis-appropriate) after ingest/query/lint with `## [YYYY-MM-DD HH:MM] <event> | <subject>`.
+<span style="color:red">4. ALWAYS append to LOG.md (axis-appropriate) after **every** plan/result/handoff Write AND after ingest/query/lint. Format (통일): `## [YYYY-MM-DD HH:MM] <event> | <subject> | <1줄 요약≤60자>`. (STEP 6 반영: 모든 이벤트 시분 필수, plan-version도 HH:MM 포함)</span>
 5. ALWAYS ensure frontmatter on every .md.
 6. NEVER skip cross-reference: ingest must touch INDEX.md(s) + LOG.md + ≥1 entity/concept/theme/comparison page besides item folder.
 7. NEVER duplicate analysis/document content in wiki. synthesis.md = compounding log only (5~10 lines per item, Δ vs prior).
