@@ -60,7 +60,7 @@ This vault is an LLM-maintained dual-axis knowledge base. You are the maintainer
 decision, plan-version, result, phase-start, phase-complete, status-change, concept-extracted, theme-extracted, handoff, ingest, query, lint
 
 ## Workflows
-- Reading Discipline: see PLAN v2.2.x §6.0
+- Reading Discipline: see PLAN v2.2.x §6.0 ("C:\Users\Pulmuone\OneDrive - 풀무원\20-Obsidian\10_RAW\projects\knowledge-management\plans\PLAN_통합지식관리체계_v2.2.1_260505.md")
 - Ingest: §6.1
 - Query: §6.2
 - Lint: §6.3

@@ -1,18 +1,21 @@
 ---
 type: index
 scope: root
-updated: 2026-05-07
+updated: 2026-05-13
 maintained_by: claude-code
 ---
 
 # Vault Dashboard
-> Active projects: 0 / Watchlist assets: 0 / Last activity: —
+> Active projects: 6 / Watchlist assets: 0 / Last activity: 2026-05-13
 
 ## ★ Top of Mind
 
 ### Active Projects (3 most recent)
 | Project | Phase | Last Activity |
 |---|---|---|
+| [[20_WIKI/projects/anlyz-hrIndexData/anlyz-hrIndexData\|anlyz-hrIndexData]] | phase1-pipeline | 2026-05-12 |
+| [[20_WIKI/projects/okr-matrix/okr-matrix\|okr-matrix]] | v2.2-ops | 2026-05-11 |
+| [[20_WIKI/projects/meeting-db/meeting-db\|meeting-db]] | operations | 2026-05-11 |
 
 ### Recent Asset Activity (5 most recent)
 | Asset | Event | Date |

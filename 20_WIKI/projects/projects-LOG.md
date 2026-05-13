@@ -11,6 +11,19 @@ maintained_by: claude-code
 -->
 <!-- Events: decision, plan-version, result, phase-start, phase-complete, status-change, concept-extracted, theme-extracted, handoff, ingest, query, lint -->
 
+## [2026-05-13 00:00] ingest | 5개 신규 프로젝트 wiki 부트스트랩
+- 대상: anlyz-hrIndexData, interview-stt, mailing-agent, meeting-db, okr-matrix
+- 각 프로젝트 {slug}.md + synthesis.md 생성
+- raw coords: `10_RAW/projects/*/` (각 프로젝트 핵심 plan/result/handoff 파일 참조)
+
+## [2026-05-12 18:28] ingest | bulk raw migration via /projects (71 files, 0 wikilinks cascaded)
+- 소스: !Claude (34), HR-indexData (19, handoff 2 포함), Smartmeeting - 문서 (18)
+- 슬러그별: mailing-agent=8, anlyz-hrIndexData=19, meeting-db=3, interview-stt=2, okr-matrix=30, knowledge-management=9
+- cascade 갱신 wiki: 0 (WIKI에 source basename 참조 없음, basename 변경 없음)
+- skip: 사전 필터 패턴 (`claude-code-best-practice-main/**`, `commands-main/**` — 외부 reference repo 다수)
+- 중복 rename: handoff__HR-indexData.md, HANDOFF-1__HR-indexData.md (소스 식별자 부여)
+- HR_Dashboard_Plan.md: S2 root에서 anlyz-hrIndexData/plans 로 이관
+
 ## [2026-05-05 11:59] phase-start | knowledge-management phase3-pilot
 - phase: phase3-pilot
 - raw coords: none (git 작업 기반)
