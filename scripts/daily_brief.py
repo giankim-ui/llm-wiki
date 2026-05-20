@@ -33,6 +33,26 @@ _FRONTMATTER_RE = re.compile(r"\A---[ \t]*\r?\n(.*?)\r?\n---[ \t]*\r?\n", re.DOT
 # Handles both [[path|display]] and [[path\|display]] (Obsidian table-cell pipe escape)
 _WIKILINK_DISPLAY_RE = re.compile(r"\[\[([^\]|\\]+?)(?:\\?\|([^\]]+))?\]\]")
 
+_FILENAME_DATE_RE = re.compile(r"-(\d{6})(?:-v\d+\.\d+)?\.md$", re.IGNORECASE)
+
+
+def file_effective_date(path: Path) -> date:
+    """파일명 -YYMMDD 우선, 없으면 st_ctime(생성시각) fallback.
+
+    Why: mtime은 vault에서 파일을 열기만 해도 갱신되어 어제 작성 파일을 오늘로 분류함.
+    """
+    m = _FILENAME_DATE_RE.search(path.name)
+    if m:
+        s = m.group(1)
+        try:
+            return date(2000 + int(s[:2]), int(s[2:4]), int(s[4:6]))
+        except ValueError:
+            pass
+    try:
+        return datetime.fromtimestamp(path.stat().st_ctime).date()
+    except OSError:
+        return datetime.fromtimestamp(path.stat().st_mtime).date()
+
 # ---------------------------------------------------------------------------
 # Data classes
 # ---------------------------------------------------------------------------
@@ -136,11 +156,11 @@ def scan_yesterday(yesterday: date) -> list[VaultFile]:
             if not path.is_file() or path in seen:
                 continue
             seen.add(path)
+            if file_effective_date(path) != yesterday:
+                continue
             try:
                 mtime = datetime.fromtimestamp(path.stat().st_mtime)
             except OSError:
-                continue
-            if mtime.date() != yesterday:
                 continue
             content = _read_safe(path)
             fm = parse_frontmatter(content)
@@ -409,19 +429,6 @@ def backfill_log(log_path: Path, ctx: DailyContext) -> None:
 
 
 # ---------------------------------------------------------------------------
-# Idempotency check
-# ---------------------------------------------------------------------------
-
-def already_updated_today(daily_path: Path, today: date) -> bool:
-    if not daily_path.exists():
-        return False
-    content = _read_safe(daily_path)
-    fm = parse_frontmatter(content)
-    updated_str = fm.get("updated", "")
-    return updated_str.startswith(today.strftime("%Y-%m-%d"))
-
-
-# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 
@@ -435,20 +442,11 @@ def main() -> None:
         action="store_true",
         help="어제 누락 LOG.md entries를 backfill",
     )
-    parser.add_argument(
-        "--skip-if-today",
-        action="store_true",
-        help="DAILY.md의 updated 날짜가 오늘이면 skip (idempotent)",
-    )
     args = parser.parse_args()
 
     today = date.today()
     yesterday = today - timedelta(days=1)
     daily_path = VAULT_ROOT / "DAILY.md"
-
-    if args.skip_if_today and already_updated_today(daily_path, today):
-        print(f"[skip] DAILY.md 이미 {today} 기준 갱신됨 - skip")
-        return
 
     print(f"[스캔] 어제({yesterday}) vault 파일 탐색 중...")
     yesterday_files = scan_yesterday(yesterday)
