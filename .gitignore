@@ -24,3 +24,13 @@ Thumbs.db
 10_RAW/chats/**/raw/
 10_RAW/chats/claude/**/raw.json
 10_RAW/chats/gemini/**/raw.json
+
+# Vault content — OneDrive 관리, git 제외
+10_RAW/
+20_WIKI/
+90_*/
+archive/
+
+# Volatile root .md (DAILY·LOG·INDEX 등)
+/*.md
+!CLAUDE.md
