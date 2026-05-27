@@ -24,6 +24,8 @@ This vault is an LLM-maintained dual-axis knowledge base. You are the maintainer
 - 날짜 헤더 `## YYYY-MM-DD` + 표 헤더(`| 시간 | 이벤트 | 파일 | 1줄 요약 |` + `|---|---|---|---|`) 삽입 후 첫 행 추가.
 - 같은 날이면 기존 표에 행만 추가: `| HH:MM | <event> | [[파일명]] | <요약≤60자> |`
 - **처리된 .md 파일 1건당 표 1행** — batch 요약("N건 갱신", "X건 + Y건") 금지.
+- **시간 = 파일 최초 생성 시각(ctime)** — 최종 수정 시각(mtime) 사용 금지 (vault open으로 갱신됨).
+- **표 행은 시간 오름차순 정렬** (HH:MM 기준, 같은 날 내에서).
 - 시분(HH:MM) 필수 — plan-version 포함 모든 이벤트.
 - 세부 bullet-point 확장 금지 — 표 행 1줄로 완결.
 - synthesis.md Δ 줄 ≈ LOG 표 행 1줄 요약 = 동일 granularity.

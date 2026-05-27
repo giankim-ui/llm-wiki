@@ -159,7 +159,8 @@ def scan_yesterday(yesterday: date) -> list[VaultFile]:
             if file_effective_date(path) != yesterday:
                 continue
             try:
-                mtime = datetime.fromtimestamp(path.stat().st_mtime)
+                # ctime = Windows 최초 생성 시각; mtime은 vault open만으로도 갱신됨
+                mtime = datetime.fromtimestamp(path.stat().st_ctime)
             except OSError:
                 continue
             content = _read_safe(path)
@@ -170,7 +171,7 @@ def scan_yesterday(yesterday: date) -> list[VaultFile]:
             project = fm.get("project", _infer_project(path))
             files.append(VaultFile(path, mtime, event_type, title, project, status))
 
-    files.sort(key=lambda f: f.mtime)
+    files.sort(key=lambda f: f.mtime)  # 오름차순 정렬 (ctime 기준)
     return files
 
 

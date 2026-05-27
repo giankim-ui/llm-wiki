@@ -9,7 +9,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python \"C:\\Users\\Pulmuone\\OneDrive - 풀무원\\20-Obsidian\\scripts\\daily_brief.py\" --skip-if-today"
+            "command": "python \"C:\\Users\\Pulmuone\\OneDrive - 풀무원\\20-Obsidian\\scripts\\daily_brief.py\""
           }
         ]
       }
