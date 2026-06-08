@@ -20,7 +20,16 @@ This vault is an LLM-maintained dual-axis knowledge base. You are the maintainer
 ## Rules
 1. NEVER modify Layer 1 raw. (단, `10_RAW/`에 새 파일을 이관·생성하는 것은 허용 — 기존 파일 편집만 금지)
 2. ALWAYS read root `INDEX.md` for navigation queries; `{axis}-INDEX.md` for axis-scoped queries.
-4. ALWAYS append to LOG.md (axis-appropriate) after ingest/query/lint with `## [YYYY-MM-DD HH:MM] <event> | <subject>`.
+<span style="color:red">4. ALWAYS append to LOG.md (axis-appropriate) after **every** plan/result/handoff Write AND after ingest/query/lint. **Format (통일 — 표 형식, 파일별 1행)** (per-file 정책 반영):
+- 날짜 헤더 `## YYYY-MM-DD` + 표 헤더(`| 시간 | 이벤트 | 파일 | 1줄 요약 |` + `|---|---|---|---|`) 삽입 후 첫 행 추가.
+- 같은 날이면 기존 표에 행만 추가: `| HH:MM | <event> | [[파일명]] | <요약≤60자> |`
+- **처리된 .md 파일 1건당 표 1행** — batch 요약("N건 갱신", "X건 + Y건") 금지.
+- **시간 = 파일 최초 생성 시각(ctime)** — 최종 수정 시각(mtime) 사용 금지 (vault open으로 갱신됨).
+- **표 행은 시간 오름차순 정렬** (HH:MM 기준, 같은 날 내에서).
+- 시분(HH:MM) 필수 — plan-version 포함 모든 이벤트.
+- 세부 bullet-point 확장 금지 — 표 행 1줄로 완결.
+- synthesis.md Δ 줄 ≈ LOG 표 행 1줄 요약 = 동일 granularity.
+**ingest 후에는 DAILY.md도 갱신한다** — `python scripts/daily_brief.py` (인자 없음) 실행. `--skip-if-today` 사용 금지.</span>
 5. ALWAYS ensure frontmatter on every .md.
 6. NEVER skip cross-reference: ingest must touch INDEX.md(s) + LOG.md + ≥1 entity/concept/theme/comparison page besides item folder.
 7. NEVER duplicate analysis/document content in wiki. synthesis.md = compounding log only (5~10 lines per item, Δ vs prior).
