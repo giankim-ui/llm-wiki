@@ -16,6 +16,7 @@ This vault is an LLM-maintained dual-axis knowledge base. You are the maintainer
 - Tier 1: `/INDEX.md` dashboard, `/LOG.md` cross-axis recent
 - Tier 2: `20_WIKI/{projects,assets}/{axis}-INDEX.md` + `{axis}-LOG.md`
 - Tier 3: `20_WIKI/{projects,assets}/<item>/<item>.md`  ← folder-note: 파일명 = 폴더명
+- Shared INDEX: `20_WIKI/{concepts,themes,comparisons,methodology}/<folder>-INDEX.md` — axis 무관 공유 폴더 INDEX. 별도 LOG 없이 이벤트는 root `LOG.md`에 기록.
 
 ## Rules
 1. NEVER modify Layer 1 raw. (단, `10_RAW/`에 새 파일을 이관·생성하는 것은 허용 — 기존 파일 편집만 금지)
@@ -66,12 +67,14 @@ This vault is an LLM-maintained dual-axis knowledge base. You are the maintainer
 - `status` change requires user confirm; LLM proposes only.
 
 ## LOG Event Vocabulary (BINDING)
-decision, plan-version, result, phase-start, phase-complete, status-change, concept-extracted, theme-extracted, handoff, ingest, query, lint
+decision, plan-version, result, phase-start, phase-complete, status-change, concept-extracted, theme-extracted, handoff, query, lint, clipping, research
+
+**`ingest`는 워크플로우 이름이며 LOG/synthesis 이벤트 값으로 절대 사용 금지.** `| ingest |` 쓰기는 PreToolUse 훅(`event-vocab-guard.py`)이 차단한다. `/projects` 이관은 LOG/synthesis 미기록 — `/ingest` 단계에서 파일별 기록.
 
 ## Workflows
 - Reading Discipline: see PLAN v2.2.x §6.0 ("C:\Users\Pulmuone\OneDrive - 풀무원\20-Obsidian\10_RAW\projects\knowledge-management\plans\PLAN_통합지식관리체계_v2.2.1_260505.md")
-- Ingest: §6.1
-- Query: §6.2
+- Ingest: §6.1 → `/ingest` 커맨드
+- Query: §6.2 → `/query` 커맨드. **file-back 경로 = `20_WIKI/methodology/<주제>-<YYMMDD>.md`** (BINDING — PLAN v2.0.0의 `50_RESEARCH/` 는 폐기 경로). 가치 있는 발견은 반드시 wiki 회수, `query` 이벤트로 root LOG 기록.
 - Lint: §6.3
 
 ## Agent Dispatch Policy (BINDING)
@@ -93,3 +96,17 @@ decision, plan-version, result, phase-start, phase-complete, status-change, conc
 
 ## Frontmatter type Vocabulary
 asset-index, asset-synthesis, project-index, project-synthesis, concept, theme, comparison, framework, plan, research, chat-extract, source-structure, handoff, log, index, bottleneck
+
+## Gotchas
+
+### LOG-01 | LOG 날짜 헤더는 ctime 날짜 기준 (로그 작성일 아님)
+**현상**: `result-distrib-save-260528` (ctime 5/28)이 6/1에 로깅되면서 `## 2026-06-01` 아래 잘못 배치됨.  
+**원인**: Rule 4가 `## YYYY-MM-DD` 날짜 기준을 명시하지 않아 구현 시 "오늘"을 사용.  
+**규칙**: LOG 행 추가 시 `## YYYY-MM-DD` 헤더는 **파일 ctime의 날짜**를 사용한다. 오늘 세션에서 로깅하더라도 ctime이 다른 날이면 해당 날짜 섹션에 삽입(없으면 생성)한다.  
+**판별법**: 파일명 `YYMMDD`가 오늘과 다르면 ctime 확인 후 해당 날짜 섹션에 배치.
+
+### LOG-02 | LOG/synthesis 이벤트에 금지 어휘(`ingest` 등) 사용 금지
+**현상**: `/projects` 실행 후 LOG에 `| ingest |` 이벤트가 3번 반복 기록됨.  
+**원인**: `/projects` 스킬 §5.7 템플릿이 `ingest` 이벤트를 사용하면서 `ingest.md` 금지 규칙과 충돌. `daily_brief.py`가 `ingest`를 유효 EventType으로 화이트리스트해 탐지 불가.  
+**규칙**: LOG/synthesis 표 행 이벤트 컬럼에는 **BINDING 어휘 13개만** 허용. `ingest`를 쓰면 PreToolUse 훅(`event-vocab-guard.py`)이 쓰기를 즉시 차단. **`/projects`는 LOG/synthesis 미기록** — 파일별 LOG 기록은 `/ingest` 단계에서만.  
+**감지**: `daily_brief.py` SessionStart에 LOG-02 금지 이벤트 전수 검사 포함.

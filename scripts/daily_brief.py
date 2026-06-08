@@ -27,7 +27,15 @@ SCAN_DIRS: list[Path] = [
     VAULT_ROOT / "archive",
 ]
 
-EventType = Literal["plan-version", "result", "handoff", "ingest", "unknown"]
+EventType = Literal["plan-version", "result", "handoff", "unknown"]
+
+# LOG/synthesis 허용 이벤트 (CLAUDE.md BINDING 13개)
+ALLOWED_LOG_EVENTS: frozenset[str] = frozenset({
+    "decision", "plan-version", "result", "phase-start", "phase-complete",
+    "status-change", "concept-extracted", "theme-extracted",
+    "handoff", "query", "lint", "clipping", "research",
+})
+FORBIDDEN_LOG_EVENTS: frozenset[str] = frozenset({"ingest"})
 
 _FRONTMATTER_RE = re.compile(r"\A---[ \t]*\r?\n(.*?)\r?\n---[ \t]*\r?\n", re.DOTALL)
 # Handles both [[path|display]] and [[path\|display]] (Obsidian table-cell pipe escape)
@@ -430,6 +438,112 @@ def backfill_log(log_path: Path, ctx: DailyContext) -> None:
 
 
 # ---------------------------------------------------------------------------
+# LOG-01 날짜 정합성 검사
+# ---------------------------------------------------------------------------
+
+_LOG_SECTION_RE = re.compile(r"^(?:<[^>]+>)?##\s+(\d{4}-\d{2}-\d{2})\b")
+_LOG_WIKILINK_RE = re.compile(r"\[\[([^\]|\\]+?)(?:\\?\|[^\]]*)?\]\]")
+
+
+def _build_raw_index(raw_root: Path) -> dict[str, Path]:
+    """10_RAW/projects 전체 .md 파일을 stem→path 딕셔너리로 인덱싱 (1회)."""
+    index: dict[str, Path] = {}
+    if not raw_root.exists():
+        return index
+    for p in raw_root.rglob("*.md"):
+        if p.is_file():
+            index[p.stem] = p
+    return index
+
+
+def check_log_date_mismatches(
+    log_path: Path, raw_root: Path
+) -> list[tuple[str, str, str]]:
+    """projects-LOG.md 행의 [[파일]] ctime 날짜와 섹션 헤더 날짜가 다른 항목 반환.
+
+    Returns list of (section_date, filename_stem, actual_ctime_date).
+    LOG-01 Gotcha 기반: 섹션 헤더 = 파일 ctime 날짜여야 함.
+    """
+    content = _read_safe(log_path)
+    raw_index = _build_raw_index(raw_root)
+    mismatches: list[tuple[str, str, str]] = []
+    current_section_date: date | None = None
+
+    for line in content.splitlines():
+        sec_m = _LOG_SECTION_RE.match(line)
+        if sec_m:
+            try:
+                current_section_date = date.fromisoformat(sec_m.group(1))
+            except ValueError:
+                current_section_date = None
+            continue
+
+        if current_section_date is None or "|" not in line:
+            continue
+
+        wm = _LOG_WIKILINK_RE.search(line)
+        if not wm:
+            continue
+
+        stem = wm.group(1).strip()
+        # 폴더 경로 참조(10_RAW/projects 등) 제외
+        if "/" in stem or "\\" in stem:
+            continue
+
+        actual_path = raw_index.get(stem)
+        if actual_path is None:
+            continue
+
+        try:
+            ctime_date = datetime.fromtimestamp(actual_path.stat().st_ctime).date()
+        except OSError:
+            continue
+
+        if ctime_date != current_section_date:
+            mismatches.append((
+                current_section_date.isoformat(),
+                stem,
+                ctime_date.isoformat(),
+            ))
+
+    return mismatches
+
+
+# ---------------------------------------------------------------------------
+# LOG-02 금지 이벤트 검사
+# ---------------------------------------------------------------------------
+
+_TABLE_EVENT_RE = re.compile(r"^\|\s*[^|]+\|\s*(\S+)\s*\|")
+
+
+def check_forbidden_events(
+    paths: list[Path],
+) -> list[tuple[str, int, str]]:
+    """LOG.md / *-LOG.md / synthesis.md 표 행에서 금지 이벤트를 탐지한다.
+
+    Returns list of (file_path_str, line_no, event_value).
+    LOG-02: `ingest` 등 BINDING 어휘 외 이벤트 사용 방지.
+    """
+    violations: list[tuple[str, int, str]] = []
+    for path in paths:
+        if not path.exists():
+            continue
+        try:
+            lines = path.read_text(encoding="utf-8").splitlines()
+        except OSError:
+            continue
+        for lineno, line in enumerate(lines, 1):
+            if "|" not in line:
+                continue
+            parts = [p.strip() for p in line.split("|")]
+            if len(parts) >= 6 and parts[0] == "" and parts[-1] == "":
+                event = parts[2]
+                if event and not set(event) <= set("-") and event in FORBIDDEN_LOG_EVENTS:
+                    violations.append((str(path), lineno, event))
+    return violations
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 
@@ -468,6 +582,43 @@ def main() -> None:
         active_plans=active_plans,
         projects=projects,
     )
+
+    # LOG-01 날짜 정합성 검사
+    log_path = VAULT_ROOT / "20_WIKI" / "projects" / "projects-LOG.md"
+    raw_root = VAULT_ROOT / "10_RAW" / "projects"
+    if log_path.exists():
+        print("[점검] LOG 날짜 정합성 검사 (LOG-01) ...")
+        mismatches = check_log_date_mismatches(log_path, raw_root)
+        if mismatches:
+            print(f"  [!] LOG-01 불일치 {len(mismatches)}건:")
+            for sec_date, fname, ctime_date in mismatches[:10]:  # 최대 10건 표시
+                print(f"    [[{fname}]] 섹션={sec_date} / ctime={ctime_date}")
+            if len(mismatches) > 10:
+                print(f"    ... 외 {len(mismatches) - 10}건")
+        else:
+            print("  ✓ LOG-01 정합성 OK")
+
+    # LOG-02 금지 이벤트 검사
+    log02_targets: list[Path] = [
+        VAULT_ROOT / "LOG.md",
+        VAULT_ROOT / "20_WIKI" / "projects" / "projects-LOG.md",
+    ]
+    for p in (VAULT_ROOT / "20_WIKI").rglob("synthesis.md"):
+        log02_targets.append(p)
+    print("[점검] 금지 이벤트 검사 (LOG-02) ...")
+    violations = check_forbidden_events(log02_targets)
+    if violations:
+        print(f"  [!] LOG-02 금지 이벤트 {len(violations)}건:")
+        for fpath, lineno, event in violations[:10]:
+            try:
+                short = Path(fpath).relative_to(VAULT_ROOT)
+            except ValueError:
+                short = Path(fpath).name
+            print(f"    {short}:{lineno} event=`{event}`")
+        if len(violations) > 10:
+            print(f"    ... 외 {len(violations) - 10}건")
+    else:
+        print("  OK LOG-02 금지 이벤트 없음")
 
     content = build_daily_md(ctx)
 

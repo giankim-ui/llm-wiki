@@ -34,3 +34,9 @@ archive/
 # Volatile root .md (DAILY·LOG·INDEX 등)
 /*.md
 !CLAUDE.md
+
+# Local/runtime — git 제외
+.obsidian/
+.omc/
+docs/
+00-IAM/
