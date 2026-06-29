@@ -319,11 +319,11 @@ _WEEKDAY_KO = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 
 
 def _has_matching_result(plan: VaultFile) -> bool:
-    """plan-{desc}-YYMMDD 에 대응하는 result-{desc}*.md 가 results/ 에 존재하면 True."""
+    """plan-{desc}-YYMMDD 에 대응하는 result-{desc}-*.md 가 results/ 에 존재하면 True."""
     stem = plan.path.stem
     desc = re.sub(r"^plan-", "", stem)
     desc = re.sub(r"-\d{6}(?:-v\d+\.\d+)?$", "", desc)
-    if not desc:
+    if not desc or desc.isdigit():
         return False
     parts = list(plan.path.parts)
     try:
@@ -334,7 +334,11 @@ def _has_matching_result(plan: VaultFile) -> bool:
     if not slug:
         return False
     results_dir = VAULT_ROOT / "10_RAW" / "projects" / slug / "results"
-    return any(results_dir.glob(f"result-{desc}*.md"))
+    # desc 뒤 하이픈 필수 → prefix-collision 방지 (result-report-role vs result-report-roles)
+    return any(
+        p for p in results_dir.glob(f"result-{desc}-*.md")
+        if p.stem.startswith(f"result-{desc}-")
+    )
 
 
 def build_summary_lines(ctx: DailyContext) -> tuple[str, str]:
