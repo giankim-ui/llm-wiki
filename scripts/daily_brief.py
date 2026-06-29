@@ -318,6 +318,25 @@ def format_projects_table(projects: list[tuple[str, str, str]]) -> str:
 _WEEKDAY_KO = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 
 
+def _has_matching_result(plan: VaultFile) -> bool:
+    """plan-{desc}-YYMMDD 에 대응하는 result-{desc}*.md 가 results/ 에 존재하면 True."""
+    stem = plan.path.stem
+    desc = re.sub(r"^plan-", "", stem)
+    desc = re.sub(r"-\d{6}(?:-v\d+\.\d+)?$", "", desc)
+    if not desc:
+        return False
+    parts = list(plan.path.parts)
+    try:
+        proj_idx = parts.index("projects")
+        slug = parts[proj_idx + 1]
+    except (ValueError, IndexError):
+        slug = plan.project or ""
+    if not slug:
+        return False
+    results_dir = VAULT_ROOT / "10_RAW" / "projects" / slug / "results"
+    return any(results_dir.glob(f"result-{desc}*.md"))
+
+
 def build_summary_lines(ctx: DailyContext) -> tuple[str, str]:
     last_event = ctx.yesterday_files[-1] if ctx.yesterday_files else None
     last_plan = ctx.active_plans[0] if ctx.active_plans else None
@@ -331,9 +350,11 @@ def build_summary_lines(ctx: DailyContext) -> tuple[str, str]:
         flow_line = "어제 기록된 이벤트 없음"
 
     if last_plan:
+        hint = " (result 있음 — done 처리 누락 가능)" if _has_matching_result(last_plan) else ""
         start_line = (
             f"[[{last_plan.path.stem}]] 구현 대기"
             + (f" ({last_plan.project})" if last_plan.project else "")
+            + hint
         )
     else:
         start_line = "미완 plan 없음"
@@ -456,13 +477,19 @@ def _build_raw_index(raw_root: Path) -> dict[str, Path]:
     return index
 
 
+_LOG01_SKIP_EVENTS: frozenset[str] = frozenset({
+    "status-change", "query", "lint", "phase-start", "phase-complete", "decision",
+})
+
+
 def check_log_date_mismatches(
     log_path: Path, raw_root: Path
 ) -> list[tuple[str, str, str]]:
     """projects-LOG.md 행의 [[파일]] ctime 날짜와 섹션 헤더 날짜가 다른 항목 반환.
 
     Returns list of (section_date, filename_stem, actual_ctime_date).
-    LOG-01 Gotcha 기반: 섹션 헤더 = 파일 ctime 날짜여야 함.
+    LOG-01 Gotcha 기반: 섹션 헤더 = 파일 effective_date여야 함.
+    status-change/query/lint 등 point-in-time 이벤트는 체크 대상 제외.
     """
     content = _read_safe(log_path)
     raw_index = _build_raw_index(raw_root)
@@ -481,6 +508,11 @@ def check_log_date_mismatches(
         if current_section_date is None or "|" not in line:
             continue
 
+        # point-in-time 이벤트(status-change 등)는 발생일 기준이므로 skip
+        cells = [c.strip() for c in line.split("|") if c.strip()]
+        if len(cells) >= 2 and cells[1].lower() in _LOG01_SKIP_EVENTS:
+            continue
+
         wm = _LOG_WIKILINK_RE.search(line)
         if not wm:
             continue
@@ -494,16 +526,13 @@ def check_log_date_mismatches(
         if actual_path is None:
             continue
 
-        try:
-            ctime_date = datetime.fromtimestamp(actual_path.stat().st_ctime).date()
-        except OSError:
-            continue
+        effective_date = file_effective_date(actual_path)
 
-        if ctime_date != current_section_date:
+        if effective_date != current_section_date:
             mismatches.append((
                 current_section_date.isoformat(),
                 stem,
-                ctime_date.isoformat(),
+                effective_date.isoformat(),
             ))
 
     return mismatches
