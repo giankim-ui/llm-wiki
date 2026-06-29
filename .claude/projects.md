@@ -27,6 +27,8 @@ Vault 의 분산된 archive .md 파일을 `10_RAW/projects/<slug>/{plans,results
 | `research*.md`, `research.v*.md`, `research-v*.md` (S-anlyz/archive) | `multi-agent-stock-analysis` | `clippings/` |
 | `CLAUDE_KR*`, `jp-stock-analysis-framework*`, `jSX-HTML-변환규칙*`, `investing-scriper*`, `supervisor-v1*`, `result.md`, `result-2026*` (S-anlyz*/archive) | `multi-agent-stock-analysis` | `clippings/` |
 
+> **소스 폴더 우선 규칙**: `plan-*.md` 패턴은 소스 폴더로 구분한다 — **cwd/archive** 는 `knowledge-management` 우선, **S-anlyz\*/archive** 는 `multi-agent-stock-analysis` 우선.
+
 ## 3. 모호 파일 (AskUserQuestion 런타임)
 
 다음 패턴은 자동 분류 불가 → 사용자에게 슬러그 묻기:
@@ -45,10 +47,17 @@ Vault 의 분산된 archive .md 파일을 `10_RAW/projects/<slug>/{plans,results
 
 ## 5. 실행 절차
 
+> Pre-flight 스캔은 `scripts/projects_classify.py` (ThreadPoolExecutor 병렬)를 사용한다.
+
 ### 5.1 Pre-flight: 변환 맵 수집
-1. 4개 소스 폴더에서 `.md` 파일 전수 enumerate (Glob + Bash ls)
-2. 각 파일에 분류 규칙 적용 → `(src_path, slug, type, dst_basename)` 4-tuple 리스트 생성
-3. 모호 파일은 AskUserQuestion 으로 slug 결정
+1. `python scripts/projects_classify.py` 실행 → stdout JSON 수신
+   - 출력 스키마: `{files: [{src_path, ctime_iso, slug, type, confidence, reason}], summary}`
+   - 4개 소스 폴더를 `ThreadPoolExecutor(max_workers=5)` 병렬 스캔
+2. `confidence=L3` (모호) 파일 → **Agent(haiku) 병렬 읽기**: 파일당 독립 Agent(model=haiku) 1개씩 단일 메시지에서 동시 호출
+   - 프롬프트: `"다음 파일의 앞 20줄을 Read하고, slug를 knowledge-management / multi-agent-stock-analysis / screening-mode / unknown 중 하나로만 답하라: {src_path}"`
+   - Agent 결과(slug 문자열만)를 분류 맵에 반영
+   - **읽기 전용** — Agent가 파일을 수정하거나 INDEX/LOG를 건드리면 안 됨
+3. AskUserQuestion: `confidence=L3` 이고 Agent도 `unknown` 판정한 파일만 사용자에게 묻기
 4. 중복 basename 충돌 검출 → rename 적용
 5. 최종 변환 맵 = `[(src, dst, basename_changed: bool), ...]`
 
