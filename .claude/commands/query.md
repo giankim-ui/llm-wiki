@@ -22,6 +22,14 @@ description: LLM-Wiki v2.2 query — INDEX부터 drill-down으로 답하고, 가
 | project | `20_WIKI/projects/projects-INDEX.md` |
 | 개념/방법론 | `20_WIKI/concepts/concepts-INDEX.md`, `20_WIKI/methodology/methodology-INDEX.md` |
 
+## 1b. "vault에 없음" 판정 전 필수 체크 (BINDING — 검색 누락 방지)
+
+INDEX drill-down으로 못 찾았다고 바로 "없음" 결론 금지. 아래 순서로 확인 후에만 부재 판정:
+
+1. `10_RAW/projects/*` **폴더명**을 Glob으로 훑어 키워드와 매칭되는 slug 있는지 확인 (파일 내용 grep보다 먼저).
+2. 전체 vault 대상 content grep이 필요하면 **head_limit을 0(무제한) 또는 충분히 크게** 지정 — 기본값(30) 사용 시 최근 파일이 많으면 오래된/관련 파일이 잘려 누락됨 (2026-07-13 infra-guide 재발 사례).
+3. 그래도 없으면 "vault에 없음"으로 사용자에게 보고.
+
 ## 2. Drill-down
 
 INDEX에서 후보 페이지 2~5개 식별 → **그것만** Read. 처음부터 종목/주제 폴더 전수 grep 금지.

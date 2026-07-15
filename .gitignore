@@ -9,6 +9,7 @@ dist/
 # Python
 __pycache__/
 *.pyc
+scripts/.morning_last_run
 
 # OS
 .DS_Store
