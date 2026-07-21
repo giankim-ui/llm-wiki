@@ -2,7 +2,7 @@
 """Daily brief generator for LLM-Wiki vault (Schema v2.2).
 
 Usage:
-    python scripts/daily_brief.py [--backfill-log] [--skip-if-today]
+    python scripts/daily_brief.py [--backfill-log] [--skip-if-today] [--no-lint]
 """
 
 from __future__ import annotations
@@ -43,6 +43,20 @@ _WIKILINK_DISPLAY_RE = re.compile(r"\[\[([^\]|\\]+?)(?:\\?\|([^\]]+))?\]\]")
 
 _FILENAME_DATE_RE = re.compile(r"-(\d{6})(?:-v\d+\.\d+)?\.md$", re.IGNORECASE)
 
+# path -> st_ctime 메모이즈 캐시. 동일 경로가 scan_yesterday/scan_active_plans/
+# LOG-01 검사에서 반복 조회되므로 실제 stat() 호출은 경로당 1회로 제한한다.
+_CTIME_CACHE: dict[Path, float] = {}
+
+
+def get_ctime(path: Path) -> float:
+    """path.stat().st_ctime 을 메모이즈해서 반환 (반복 stat 방지). OSError는 그대로 전파."""
+    cached = _CTIME_CACHE.get(path)
+    if cached is not None:
+        return cached
+    ctime = path.stat().st_ctime
+    _CTIME_CACHE[path] = ctime
+    return ctime
+
 
 def file_effective_date(path: Path) -> date:
     """파일명 -YYMMDD 우선, 없으면 st_ctime(생성시각) fallback.
@@ -57,7 +71,7 @@ def file_effective_date(path: Path) -> date:
         except ValueError:
             pass
     try:
-        return datetime.fromtimestamp(path.stat().st_ctime).date()
+        return datetime.fromtimestamp(get_ctime(path)).date()
     except OSError:
         return datetime.fromtimestamp(path.stat().st_mtime).date()
 
@@ -153,10 +167,14 @@ def _read_safe(path: Path) -> str:
         return ""
 
 
-def scan_yesterday(yesterday: date) -> list[VaultFile]:
-    files: list[VaultFile] = []
-    seen: set[Path] = set()
+def _collect_scan_files() -> list[Path]:
+    """SCAN_DIRS(10_RAW/projects + archive) 전체 .md 파일을 1회 rglob으로 수집.
 
+    scan_yesterday()와 scan_active_plans()가 동일 트리를 각자 rglob 하던 것을
+    단일 워크로 합쳐 재사용한다 (파일시스템 중복 순회 방지).
+    """
+    files: list[Path] = []
+    seen: set[Path] = set()
     for scan_dir in SCAN_DIRS:
         if not scan_dir.exists():
             continue
@@ -164,52 +182,57 @@ def scan_yesterday(yesterday: date) -> list[VaultFile]:
             if not path.is_file() or path in seen:
                 continue
             seen.add(path)
-            if file_effective_date(path) != yesterday:
-                continue
-            try:
-                # ctime = Windows 최초 생성 시각; mtime은 vault open만으로도 갱신됨
-                mtime = datetime.fromtimestamp(path.stat().st_ctime)
-            except OSError:
-                continue
-            content = _read_safe(path)
-            fm = parse_frontmatter(content)
-            event_type = classify_event(path, fm)
-            title = extract_title(content, fm, path)
-            status = fm.get("status", "").strip().lower()
-            project = fm.get("project", _infer_project(path))
-            files.append(VaultFile(path, mtime, event_type, title, project, status))
+            files.append(path)
+    return files
+
+
+def scan_yesterday(
+    yesterday: date, _files: list[Path] | None = None
+) -> list[VaultFile]:
+    files: list[VaultFile] = []
+    candidates = _files if _files is not None else _collect_scan_files()
+
+    for path in candidates:
+        if file_effective_date(path) != yesterday:
+            continue
+        try:
+            # ctime = Windows 최초 생성 시각; mtime은 vault open만으로도 갱신됨
+            mtime = datetime.fromtimestamp(get_ctime(path))
+        except OSError:
+            continue
+        content = _read_safe(path)
+        fm = parse_frontmatter(content)
+        event_type = classify_event(path, fm)
+        title = extract_title(content, fm, path)
+        status = fm.get("status", "").strip().lower()
+        project = fm.get("project", _infer_project(path))
+        files.append(VaultFile(path, mtime, event_type, title, project, status))
 
     files.sort(key=lambda f: f.mtime)  # 오름차순 정렬 (ctime 기준)
     return files
 
 
-def scan_active_plans() -> list[VaultFile]:
+def scan_active_plans(_files: list[Path] | None = None) -> list[VaultFile]:
     today = date.today()
     files: list[VaultFile] = []
-    seen: set[Path] = set()
+    candidates = _files if _files is not None else _collect_scan_files()
 
-    for scan_dir in SCAN_DIRS:
-        if not scan_dir.exists():
+    for path in candidates:
+        name_lower = path.name.lower()
+        # Only plan files
+        if not name_lower.startswith("plan"):
             continue
-        for path in scan_dir.rglob("*.md"):
-            if not path.is_file() or path in seen:
-                continue
-            seen.add(path)
-            name_lower = path.name.lower()
-            # Only plan files
-            if not name_lower.startswith("plan"):
-                continue
-            content = _read_safe(path)
-            fm = parse_frontmatter(content)
-            if fm.get("status", "").strip().lower() != "active":
-                continue
-            try:
-                mtime = datetime.fromtimestamp(path.stat().st_mtime)
-            except OSError:
-                mtime = datetime.now()
-            title = extract_title(content, fm, path)
-            project = fm.get("project", _infer_project(path))
-            files.append(VaultFile(path, mtime, "plan-version", title, project, "active"))
+        content = _read_safe(path)
+        fm = parse_frontmatter(content)
+        if fm.get("status", "").strip().lower() != "active":
+            continue
+        try:
+            mtime = datetime.fromtimestamp(path.stat().st_mtime)
+        except OSError:
+            mtime = datetime.now()
+        title = extract_title(content, fm, path)
+        project = fm.get("project", _infer_project(path))
+        files.append(VaultFile(path, mtime, "plan-version", title, project, "active"))
 
     files.sort(key=lambda f: f.mtime, reverse=True)
     return files
@@ -549,8 +572,25 @@ def check_log_date_mismatches(
 _TABLE_EVENT_RE = re.compile(r"^\|\s*[^|]+\|\s*(\S+)\s*\|")
 
 
+def _build_log_content_cache(paths: list[Path]) -> dict[Path, str]:
+    """LOG-02/LOG-03이 공유하는 파일 텍스트를 1회만 읽어 캐시한다.
+
+    이전에는 각 검사가 동일 synthesis.md/LOG.md 파일을 독립적으로 read_text() 했다.
+    """
+    cache: dict[Path, str] = {}
+    for path in paths:
+        if not path.exists():
+            continue
+        try:
+            cache[path] = path.read_text(encoding="utf-8")
+        except OSError:
+            continue
+    return cache
+
+
 def check_forbidden_events(
     paths: list[Path],
+    content_cache: dict[Path, str] | None = None,
 ) -> list[tuple[str, int, str]]:
     """LOG.md / *-LOG.md / synthesis.md 표 행에서 금지 이벤트를 탐지한다.
 
@@ -559,12 +599,18 @@ def check_forbidden_events(
     """
     violations: list[tuple[str, int, str]] = []
     for path in paths:
-        if not path.exists():
-            continue
-        try:
-            lines = path.read_text(encoding="utf-8").splitlines()
-        except OSError:
-            continue
+        if content_cache is not None:
+            text = content_cache.get(path)
+            if text is None:
+                continue
+            lines = text.splitlines()
+        else:
+            if not path.exists():
+                continue
+            try:
+                lines = path.read_text(encoding="utf-8").splitlines()
+            except OSError:
+                continue
         for lineno, line in enumerate(lines, 1):
             if "|" not in line:
                 continue
@@ -573,6 +619,102 @@ def check_forbidden_events(
                 event = parts[2]
                 if event and not set(event) <= set("-") and event in FORBIDDEN_LOG_EVENTS:
                     violations.append((str(path), lineno, event))
+    return violations
+
+
+# ---------------------------------------------------------------------------
+# LOG-03 날짜/시간 정렬 검사
+# ---------------------------------------------------------------------------
+
+_LOG_TIME_RE = re.compile(r"^([0-2][0-9]:[0-5][0-9])$")
+_LOG_BOLD_SUBHEADER_RE = re.compile(r"^\*\*(.+?)\*\*$")
+
+
+def check_log_sort_order(
+    paths: list[Path],
+    content_cache: dict[Path, str] | None = None,
+) -> list[tuple[str, str, str]]:
+    """LOG.md / *-LOG.md 표 형식 날짜 섹션의 정렬 붕괴를 탐지한다.
+
+    Returns list of (file_path_str, kind, detail).
+    kind:
+      - "dup-header": 동일 `## YYYY-MM-DD` 헤더가 파일 내 2회 이상 등장 (분산 append 재발 징후)
+      - "header-order": `## YYYY-MM-DD` 헤더가 내림차순이 아님
+      - "time-order": 같은 섹션 내 표 행 시간이 오름차순이 아님
+    2026-07-16 LOG.md/projects-LOG.md 날짜정렬 붕괴(동일 날짜 헤더 최대 3회 분산) 재발 방지용.
+    """
+    violations: list[tuple[str, str, str]] = []
+    for path in paths:
+        if content_cache is not None:
+            text = content_cache.get(path)
+            if text is None:
+                continue
+            lines = text.splitlines()
+        else:
+            if not path.exists():
+                continue
+            try:
+                lines = path.read_text(encoding="utf-8").splitlines()
+            except OSError:
+                continue
+
+        seen_dates: dict[str, int] = {}
+        header_dates: list[tuple[str, int]] = []
+        current_date: str | None = None
+        prev_time: str | None = None
+
+        for lineno, line in enumerate(lines, 1):
+            m = _LOG_SECTION_RE.match(line)
+            if m:
+                d = m.group(1)
+                if d in seen_dates:
+                    violations.append((
+                        str(path), "dup-header",
+                        f"L{lineno}: ## {d} 중복 (첫 등장 L{seen_dates[d]})",
+                    ))
+                else:
+                    seen_dates[d] = lineno
+                header_dates.append((d, lineno))
+                current_date = d
+                prev_time = None
+                continue
+
+            if _LOG_BOLD_SUBHEADER_RE.match(line.strip()):
+                # 프로젝트 slug 하위 소제목(projects-LOG.md) — 독립 미니테이블 시작
+                prev_time = None
+                continue
+
+            if current_date is None or "|" not in line:
+                continue
+
+            parts = [p.strip() for p in line.split("|")]
+            if parts and parts[0] == "":
+                parts = parts[1:]
+            if parts and parts[-1] == "":
+                parts = parts[:-1]
+            if not parts:
+                continue
+
+            t = parts[0]
+            if not _LOG_TIME_RE.match(t):
+                continue  # '—' 또는 헤더/구분 행은 시간정렬 체크 제외
+
+            if prev_time is not None and t < prev_time:
+                violations.append((
+                    str(path), "time-order",
+                    f"L{lineno}: {t} < 이전 {prev_time} (섹션 ## {current_date})",
+                ))
+            prev_time = t
+
+        for i in range(1, len(header_dates)):
+            prev_d, prev_ln = header_dates[i - 1]
+            cur_d, cur_ln = header_dates[i]
+            if cur_d > prev_d:
+                violations.append((
+                    str(path), "header-order",
+                    f"L{cur_ln}: ## {cur_d} 가 이전 헤더(L{prev_ln} ## {prev_d})보다 최신 — 내림차순 위반",
+                ))
+
     return violations
 
 
@@ -590,18 +732,25 @@ def main() -> None:
         action="store_true",
         help="어제 누락 LOG.md entries를 backfill",
     )
+    parser.add_argument(
+        "--no-lint",
+        action="store_true",
+        help="LOG-01/02/03 정합성 검사 콘솔 출력을 생략 (DAILY.md는 항상 그대로 재생성됨)",
+    )
     args = parser.parse_args()
 
     today = date.today()
     yesterday = today - timedelta(days=1)
     daily_path = VAULT_ROOT / "DAILY.md"
 
+    scan_files = _collect_scan_files()
+
     print(f"[스캔] 어제({yesterday}) vault 파일 탐색 중...")
-    yesterday_files = scan_yesterday(yesterday)
+    yesterday_files = scan_yesterday(yesterday, scan_files)
     print(f"  → {len(yesterday_files)}건 발견")
 
     print("[스캔] 미완 plan (status:active) 탐색 중...")
-    active_plans = scan_active_plans()
+    active_plans = scan_active_plans(scan_files)
     print(f"  → {len(active_plans)}건 발견")
 
     print("[스캔] 진행 중 프로젝트 목록 로드 중...")
@@ -616,42 +765,62 @@ def main() -> None:
         projects=projects,
     )
 
-    # LOG-01 날짜 정합성 검사
-    log_path = VAULT_ROOT / "20_WIKI" / "projects" / "projects-LOG.md"
-    raw_root = VAULT_ROOT / "10_RAW" / "projects"
-    if log_path.exists():
-        print("[점검] LOG 날짜 정합성 검사 (LOG-01) ...")
-        mismatches = check_log_date_mismatches(log_path, raw_root)
-        if mismatches:
-            print(f"  [!] LOG-01 불일치 {len(mismatches)}건:")
-            for sec_date, fname, ctime_date in mismatches[:10]:  # 최대 10건 표시
-                print(f"    [[{fname}]] 섹션={sec_date} / ctime={ctime_date}")
-            if len(mismatches) > 10:
-                print(f"    ... 외 {len(mismatches) - 10}건")
-        else:
-            print("  ✓ LOG-01 정합성 OK")
+    if not args.no_lint:
+        # LOG-01 날짜 정합성 검사
+        log_path = VAULT_ROOT / "20_WIKI" / "projects" / "projects-LOG.md"
+        raw_root = VAULT_ROOT / "10_RAW" / "projects"
+        if log_path.exists():
+            print("[점검] LOG 날짜 정합성 검사 (LOG-01) ...")
+            mismatches = check_log_date_mismatches(log_path, raw_root)
+            if mismatches:
+                print(f"  [!] LOG-01 불일치 {len(mismatches)}건:")
+                for sec_date, fname, ctime_date in mismatches[:10]:  # 최대 10건 표시
+                    print(f"    [[{fname}]] 섹션={sec_date} / ctime={ctime_date}")
+                if len(mismatches) > 10:
+                    print(f"    ... 외 {len(mismatches) - 10}건")
+            else:
+                print("  ✓ LOG-01 정합성 OK")
 
-    # LOG-02 금지 이벤트 검사
-    log02_targets: list[Path] = [
-        VAULT_ROOT / "LOG.md",
-        VAULT_ROOT / "20_WIKI" / "projects" / "projects-LOG.md",
-    ]
-    for p in (VAULT_ROOT / "20_WIKI").rglob("synthesis.md"):
-        log02_targets.append(p)
-    print("[점검] 금지 이벤트 검사 (LOG-02) ...")
-    violations = check_forbidden_events(log02_targets)
-    if violations:
-        print(f"  [!] LOG-02 금지 이벤트 {len(violations)}건:")
-        for fpath, lineno, event in violations[:10]:
-            try:
-                short = Path(fpath).relative_to(VAULT_ROOT)
-            except ValueError:
-                short = Path(fpath).name
-            print(f"    {short}:{lineno} event=`{event}`")
-        if len(violations) > 10:
-            print(f"    ... 외 {len(violations) - 10}건")
-    else:
-        print("  OK LOG-02 금지 이벤트 없음")
+        # LOG-02 금지 이벤트 검사
+        log02_targets: list[Path] = [
+            VAULT_ROOT / "LOG.md",
+            VAULT_ROOT / "20_WIKI" / "projects" / "projects-LOG.md",
+        ]
+        for p in (VAULT_ROOT / "20_WIKI").rglob("synthesis.md"):
+            log02_targets.append(p)
+        # synthesis.md/LOG.md는 LOG-02와 LOG-03가 공유하므로 1회만 읽어 캐시한다
+        log_content_cache = _build_log_content_cache(log02_targets)
+
+        print("[점검] 금지 이벤트 검사 (LOG-02) ...")
+        violations = check_forbidden_events(log02_targets, log_content_cache)
+        if violations:
+            print(f"  [!] LOG-02 금지 이벤트 {len(violations)}건:")
+            for fpath, lineno, event in violations[:10]:
+                try:
+                    short = Path(fpath).relative_to(VAULT_ROOT)
+                except ValueError:
+                    short = Path(fpath).name
+                print(f"    {short}:{lineno} event=`{event}`")
+            if len(violations) > 10:
+                print(f"    ... 외 {len(violations) - 10}건")
+        else:
+            print("  OK LOG-02 금지 이벤트 없음")
+
+        # LOG-03 날짜/시간 정렬 검사
+        print("[점검] 날짜/시간 정렬 검사 (LOG-03) ...")
+        sort_violations = check_log_sort_order(log02_targets, log_content_cache)
+        if sort_violations:
+            print(f"  [!] LOG-03 정렬 위반 {len(sort_violations)}건:")
+            for fpath, kind, detail in sort_violations[:10]:
+                try:
+                    short = Path(fpath).relative_to(VAULT_ROOT)
+                except ValueError:
+                    short = Path(fpath).name
+                print(f"    {short} [{kind}] {detail}")
+            if len(sort_violations) > 10:
+                print(f"    ... 외 {len(sort_violations) - 10}건")
+        else:
+            print("  OK LOG-03 정렬 위반 없음")
 
     content = build_daily_md(ctx)
 
