@@ -32,6 +32,17 @@ Thumbs.db
 90_*/
 archive/
 
+# 예외: retention-app p.02~04 구현 지시서만 버전관리
+!10_RAW/
+10_RAW/*
+!10_RAW/projects/
+10_RAW/projects/*
+!10_RAW/projects/anlyz-hrIndexData/
+10_RAW/projects/anlyz-hrIndexData/*
+!10_RAW/projects/anlyz-hrIndexData/plans/
+10_RAW/projects/anlyz-hrIndexData/plans/*
+!10_RAW/projects/anlyz-hrIndexData/plans/plan-ret-p02-p04-260724.md
+
 # Volatile root .md (DAILY·LOG·INDEX 등)
 /*.md
 !CLAUDE.md
