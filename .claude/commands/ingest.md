@@ -66,6 +66,20 @@ Agent(haiku)를 활용해 아래 갱신을 **병렬** 처리:
 5. 신규 concept 도출 시 → `20_WIKI/concepts/<new>.md` 생성 + `concepts/INDEX.md` reverse index 갱신
 6. 루트 `INDEX.md` · `LOG.md` 갱신
 
+### 5-1.5 Stage 라우팅 (folder-note frontmatter에 `stage_enabled: true`인 프로젝트만)
+
+이 단계는 opt-in이다. 허브 frontmatter에 `stage_enabled: true`가 없으면 전체를 건너뛰어 다른 프로젝트에 영향을 주지 않는다.
+
+a. 허브의 `current_stage`를 읽는다.
+
+b. 대상 파일의 stage를 결정한다. 파일 frontmatter에 `stage: N`이 있으면 그 값을 우선하고, 없으면 허브의 `current_stage`를 사용한다.
+
+c. 새 stage 개설 게이트를 평가한다. 현재 stage note의 `## 흐름` 행이 12개 이상이거나, 직전 행과 7일 이상 간격이 있거나, 대상 파일에 `supersedes:` 또는 `consolidates:`가 있으면 AskUserQuestion을 정확히 1회 호출한다. 선택지는 `현 stage 계속` / `새 stage 개설(제목 입력)` / `직접 입력`이다. 자동으로 새 stage를 만들지 않는다.
+
+d. 새 stage 개설을 선택한 경우에만 `_templates/project-stage.md`로 note를 만들고, 직전 note의 `next:`와 `status: done`, 허브의 `current_stage`를 갱신한다.
+
+e. 배정된 stage note의 `## 흐름` 표에 원본과 같은 granularity의 행을 1개 추가한다. 허브의 Stage Map 산출물 수·`last_activity`·`current_stage`도 갱신한다.
+
 ## 5.5. DAILY.md 갱신
 
 모든 wiki 파일 업데이트 후 반드시 실행:

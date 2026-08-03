@@ -41,7 +41,6 @@ archive/
 10_RAW/projects/anlyz-hrIndexData/*
 !10_RAW/projects/anlyz-hrIndexData/plans/
 10_RAW/projects/anlyz-hrIndexData/plans/*
-!10_RAW/projects/anlyz-hrIndexData/plans/plan-ret-p02-p04-260724.md
 
 # Volatile root .md (DAILY·LOG·INDEX 등)
 /*.md

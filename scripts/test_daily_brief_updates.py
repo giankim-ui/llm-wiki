@@ -1,4 +1,4 @@
-"""TDD 드라이런: 2026-06-29 세션 업데이트 검증 테스트.
+﻿"""TDD 드라이런: 2026-06-29 세션 업데이트 검증 테스트.
 
 검증 대상:
   - _has_matching_result()
@@ -13,7 +13,7 @@ from __future__ import annotations
 import sys
 import re
 import textwrap
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from pathlib import Path
 
 import pytest
@@ -203,17 +203,189 @@ class TestLog01Check:
         assert not missing, f"_LOG01_SKIP_EVENTS에 누락: {missing}"
 
 
+class TestLog03SortOrder:
+    """2026-07-16 LOG.md/projects-LOG.md 날짜정렬 붕괴 재발 방지 (check_log_sort_order)."""
+
+    def _write(self, path: Path, content: str):
+        path.write_text(textwrap.dedent(content), encoding="utf-8")
+
+    def test_duplicate_header_detected(self, tmp_path: Path):
+        log_path = tmp_path / "LOG.md"
+        self._write(log_path, """
+            ---
+            type: log
+            ---
+            ## 2026-07-08
+
+            | 시간 | 이벤트 | 파일 | 1줄 요약 |
+            |---|---|---|---|
+            | 10:00 | result | [[a]] | a |
+
+            ## 2026-07-07
+
+            | 시간 | 이벤트 | 파일 | 1줄 요약 |
+            |---|---|---|---|
+            | 09:00 | result | [[b]] | b |
+
+            ## 2026-07-08
+
+            | 시간 | 이벤트 | 파일 | 1줄 요약 |
+            |---|---|---|---|
+            | 11:00 | result | [[c]] | c |
+        """)
+        violations = db.check_log_sort_order([log_path])
+        kinds = [v[1] for v in violations]
+        assert "dup-header" in kinds, f"중복 헤더 미탐지: {violations}"
+
+    def test_header_descending_violation_detected(self, tmp_path: Path):
+        log_path = tmp_path / "LOG.md"
+        self._write(log_path, """
+            ---
+            type: log
+            ---
+            ## 2026-07-07
+
+            | 시간 | 이벤트 | 파일 | 1줄 요약 |
+            |---|---|---|---|
+            | 09:00 | result | [[a]] | a |
+
+            ## 2026-07-08
+
+            | 시간 | 이벤트 | 파일 | 1줄 요약 |
+            |---|---|---|---|
+            | 10:00 | result | [[b]] | b |
+        """)
+        violations = db.check_log_sort_order([log_path])
+        kinds = [v[1] for v in violations]
+        assert "header-order" in kinds, f"내림차순 위반 미탐지: {violations}"
+
+    def test_time_ascending_violation_detected(self, tmp_path: Path):
+        log_path = tmp_path / "LOG.md"
+        self._write(log_path, """
+            ---
+            type: log
+            ---
+            ## 2026-07-08
+
+            | 시간 | 이벤트 | 파일 | 1줄 요약 |
+            |---|---|---|---|
+            | 15:00 | result | [[a]] | a |
+            | 10:00 | result | [[b]] | b |
+        """)
+        violations = db.check_log_sort_order([log_path])
+        kinds = [v[1] for v in violations]
+        assert "time-order" in kinds, f"시간 오름차순 위반 미탐지: {violations}"
+
+    def test_em_dash_time_not_flagged(self, tmp_path: Path):
+        """'—' (시간불명) 행은 시간정렬 체크에서 제외되어야 함."""
+        log_path = tmp_path / "LOG.md"
+        self._write(log_path, """
+            ---
+            type: log
+            ---
+            ## 2026-06-25
+
+            | 시간 | 이벤트 | 파일 | 1줄 요약 |
+            |---|---|---|---|
+            | — | plan-version | [[a]] | a |
+            | 18:02 | result | [[b]] | b |
+        """)
+        violations = db.check_log_sort_order([log_path])
+        assert violations == [], f"em-dash 행 오탐: {violations}"
+
+    def test_bold_subheader_resets_time_sequence(self, tmp_path: Path):
+        """projects-LOG.md의 **slug** 소제목마다 독립 미니테이블 — 시간 리셋되어야 함(오탐 방지)."""
+        log_path = tmp_path / "projects-LOG.md"
+        self._write(log_path, """
+            ---
+            type: log
+            ---
+            ## 2026-06-30
+
+            **anlyz-hrIndexData**
+
+            | 시간 | 이벤트 | 파일 | 1줄 요약 |
+            |---|---|---|---|
+            | 09:38 | plan-version | [[a]] | a |
+            | 18:20 | plan-version | [[b]] | b |
+
+            **okr-matrix**
+
+            | 시간 | 이벤트 | 파일 | 1줄 요약 |
+            |---|---|---|---|
+            | 17:30 | plan-version | [[c]] | c |
+            | 18:14 | plan-version | [[d]] | d |
+        """)
+        violations = db.check_log_sort_order([log_path])
+        assert violations == [], f"slug 소제목 리셋 실패로 오탐 발생: {violations}"
+
+    def test_clean_file_no_violations(self, tmp_path: Path):
+        log_path = tmp_path / "LOG.md"
+        self._write(log_path, """
+            ---
+            type: log
+            ---
+            ## 2026-07-08
+
+            | 시간 | 이벤트 | 파일 | 1줄 요약 |
+            |---|---|---|---|
+            | 10:00 | result | [[a]] | a |
+            | 11:00 | result | [[b]] | b |
+
+            ## 2026-07-07
+
+            | 시간 | 이벤트 | 파일 | 1줄 요약 |
+            |---|---|---|---|
+            | 09:00 | result | [[c]] | c |
+        """)
+        violations = db.check_log_sort_order([log_path])
+        assert violations == [], f"정상 파일에서 오탐: {violations}"
+
+
 # ---------------------------------------------------------------------------
-# US-005: plan-hr-cost-mvp-260625 status=done 실제 파일 검증
+
+class TestActivePlansCompact:
+
+    def test_visible_limit_keeps_newest_fifteen(self):
+        today = date(2026, 7, 31)
+        active: list[db.VaultFile] = []
+        for idx in range(16):
+            vf = _make_vault_file(f"plan-noise-{idx:02d}-260731", "anlyz-hrIndexData")
+            vf.mtime = datetime(2026, 7, 31, 12, 0) - timedelta(days=idx)
+            active.append(vf)
+
+        table = db.format_active_plans_table(active, today)
+
+        assert "Older active plans (1)" in table
+        assert table.count("[[plan-noise-") == 16
+        assert "plan-noise-15-260731" in table
+
+    def test_plans_older_than_30_days_collapse(self):
+        today = date(2026, 7, 31)
+        active: list[db.VaultFile] = []
+        for idx in range(15):
+            vf = _make_vault_file(f"plan-recent-{idx:02d}-260731", "anlyz-hrIndexData")
+            vf.mtime = datetime(2026, 7, 31, 12, 0) - timedelta(days=idx)
+            active.append(vf)
+
+        old = _make_vault_file("plan-old-260701", "anlyz-hrIndexData")
+        old.mtime = datetime(2026, 7, 1, 12, 0)
+        active.append(old)
+
+        table = db.format_active_plans_table(active, today)
+
+        assert "Older active plans (1)" in table
+        assert "plan-old-260701" in table
+        assert table.index("plan-old-260701") > table.index("<details>")# US-005: plan-hr-cost-mvp-260625 status=done 실제 파일 검증
 # ---------------------------------------------------------------------------
 
 class TestPlanStatusDone:
 
     def test_plan_frontmatter_status_done(self):
-        """plan-hr-cost-mvp-260625.md frontmatter status == done."""
+        """plan-hr-cost-mvp-260625.md frontmatter status == done after v1 rehome."""
         plan_path = (
             VAULT_ROOT
-            / "10_RAW" / "projects" / "anlyz-hrIndexData"
+            / "10_RAW" / "projects" / "v1-dashboard"
             / "plans" / "plan-hr-cost-mvp-260625.md"
         )
         assert plan_path.exists(), f"파일 없음: {plan_path}"
@@ -224,7 +396,7 @@ class TestPlanStatusDone:
         )
 
     def test_plan_not_in_active_scan(self):
-        """scan_active_plans() 결과에 plan-hr-cost-mvp-260625 없음."""
+        """scan_active_plans() 결과에 done plan이 없음."""
         active = db.scan_active_plans()
         stems = [f.path.stem for f in active]
         assert "plan-hr-cost-mvp-260625" not in stems, (
@@ -265,3 +437,45 @@ class TestRSmd75:
         section = content[start:end]
         for kw in ["best-effort", "AskUserQuestion", "status-change", "매칭 순서"]:
             assert kw in section, f"§7.5에 '{kw}' 없음"
+
+
+# ---------------------------------------------------------------------------
+# US-007: WIKI-01/02 stage graph lint
+# ---------------------------------------------------------------------------
+
+class TestWikiStageLint:
+
+    def _make_stage_vault(self, tmp_path: Path) -> tuple[Path, Path]:
+        wiki = tmp_path / "20_WIKI"
+        projects = wiki / "projects" / "demo"
+        raw = tmp_path / "10_RAW" / "projects" / "demo" / "results"
+        projects.mkdir(parents=True)
+        raw.mkdir(parents=True)
+        (raw / "result-ok-260731.md").write_text("---\ntype: result\n---\n", encoding="utf-8")
+        (projects / "demo.md").write_text(
+            "---\ntype: project-index\nproject: demo\nstage_enabled: true\ncurrent_stage: 0\n---\n",
+            encoding="utf-8",
+        )
+        return wiki, tmp_path / "10_RAW" / "projects"
+
+    def test_wiki01_reports_missing_target(self, tmp_path: Path):
+        wiki, raw_root = self._make_stage_vault(tmp_path)
+        page = wiki / "projects" / "demo" / "synthesis.md"
+        page.write_text("[[result-ok-260731]] [[result-missing-260731]]\n", encoding="utf-8")
+
+        broken = db.check_wiki_broken_links(wiki, tmp_path)
+
+        assert [(item[1], item[2]) for item in broken] == [(1, "result-missing-260731")]
+
+    def test_wiki02_reports_unassigned_raw_target(self, tmp_path: Path):
+        wiki, raw_root = self._make_stage_vault(tmp_path)
+        projects = wiki / "projects" / "demo"
+        (projects / "synthesis.md").write_text("[[result-ok-260731]]\n", encoding="utf-8")
+        (projects / "stage-0-demo.md").write_text(
+            "---\ntype: project-stage\nproject: demo\n---\n", encoding="utf-8"
+        )
+
+        findings = db.check_stage_assignments(wiki / "projects", raw_root)
+
+        assert findings == [("demo", "result-ok-260731")]
+

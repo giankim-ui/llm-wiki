@@ -74,7 +74,7 @@ decision, plan-version, result, phase-start, phase-complete, status-change, conc
 ## Workflows
 - Reading Discipline: see PLAN v2.2.x §6.0 ("C:\Users\Pulmuone\OneDrive - 풀무원\20-Obsidian\10_RAW\projects\knowledge-management\plans\PLAN_통합지식관리체계_v2.2.1_260505.md")
 - Ingest: §6.1 → `/ingest` 커맨드
-- Query: §6.2 → `/query` 커맨드. **file-back 경로 = `20_WIKI/methodology/<주제>-<YYMMDD>.md`** (BINDING — PLAN v2.0.0의 `50_RESEARCH/` 는 폐기 경로). 가치 있는 발견은 반드시 wiki 회수, `query` 이벤트로 root LOG 기록.
+- Query: §6.2 → `/query` 커맨드. **file-back 경로 = `20_WIKI/methodology/<주제>-<YYMMDD>.md`** (BINDING — PLAN v2.0.0의 `50_RESEARCH/` 는 폐기 경로). 가치 있는 발견은 반드시 wiki 회수, `query` 이벤트로 root LOG 기록 (project/asset scope는 해당 axis LOG에도 동일 이벤트 기록, BINDING).
 - Lint: §6.3
 
 ## Agent Dispatch Policy (BINDING)
@@ -95,7 +95,7 @@ decision, plan-version, result, phase-start, phase-complete, status-change, conc
 - Schema·CLAUDE.md 변경
 
 ## Frontmatter type Vocabulary
-asset-index, asset-synthesis, project-index, project-synthesis, concept, theme, comparison, framework, plan, research, chat-extract, source-structure, handoff, log, index, bottleneck
+asset-index, asset-synthesis, project-index, project-synthesis, project-stage, concept, theme, comparison, framework, plan, research, chat-extract, source-structure, handoff, log, index, bottleneck
 
 ## Gotchas
 

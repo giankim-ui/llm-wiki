@@ -66,6 +66,10 @@ INDEX에서 후보 페이지 2~5개 식별 → **그것만** Read. 처음부터 
 - root `LOG.md` 에 노트 1건당 1행:
   - `| HH:MM | query | [[note]] | 요약≤60자 |`
   - 시간 = 노트 ctime, `## YYYY-MM-DD` 헤더는 **ctime 날짜** 기준 (LOG-01). 같은 날 표에 시간 오름차순 삽입.
+- **scope=project 인 경우** `20_WIKI/projects/projects-LOG.md` 에도 동일 이벤트 1행 추가(BINDING) — 해당 프로젝트 slug 섹션 하위, 같은 날짜 표에 시간 오름차순 삽입.
+- **scope=asset 인 경우** `20_WIKI/assets/assets-LOG.md` 에도 동일 형식으로 추가.
+- cross-axis/개념 scope는 axis LOG 대상 프로젝트/종목이 없으므로 root LOG.md만 기록.
+- **헤더 중복 생성 금지(BINDING)**: 새 `## YYYY-MM-DD` 섹션을 만들기 전, 대상 파일 전체를 grep 하여 동일 날짜 헤더(`(백로그)` 등 suffix 변형 포함)가 이미 존재하는지 확인한다. 존재하면 그 섹션에 시간 오름차순으로 행만 추가한다 — 파일 다른 위치에 같은 날짜의 새 헤더를 만들지 않는다. 정말 새 날짜면 날짜 내림차순 규칙에 맞는 위치에 헤더를 삽입한다.
 
 ## 금지 (BINDING)
 

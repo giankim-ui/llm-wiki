@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Daily brief generator for LLM-Wiki vault (Schema v2.2).
 
 Usage:
@@ -313,21 +313,65 @@ def format_yesterday_table(files: list[VaultFile]) -> str:
     return "\n".join(rows) + "\n"
 
 
-def format_active_plans_table(active: list[VaultFile], today: date) -> str:
-    if not active:
-        return "_미완 plan 없음_\n"
-    rows = ["| 마지막 활동 | Plan | Project | 다음 작업 |", "|---|---|---|---|"]
-    for f in active:
+_ACTIVE_PLAN_RECENT_DAYS = 30
+_ACTIVE_PLAN_VISIBLE_LIMIT = 15
+
+
+def _split_active_plans(
+    active: list[VaultFile],
+    today: date,
+    recent_days: int = _ACTIVE_PLAN_RECENT_DAYS,
+) -> tuple[list[VaultFile], list[VaultFile]]:
+    """Keep the newest active plans visible and collapse the rest."""
+    recent: list[VaultFile] = []
+    older: list[VaultFile] = []
+    cutoff = today - timedelta(days=recent_days)
+
+    for plan in active:
+        if plan.mtime.date() >= cutoff:
+            recent.append(plan)
+        else:
+            older.append(plan)
+
+    recent.sort(key=lambda f: f.mtime, reverse=True)
+    older.sort(key=lambda f: f.mtime, reverse=True)
+
+    visible = recent[:_ACTIVE_PLAN_VISIBLE_LIMIT]
+    collapsed = recent[_ACTIVE_PLAN_VISIBLE_LIMIT:] + older
+    if len(visible) < _ACTIVE_PLAN_VISIBLE_LIMIT and older:
+        spill = _ACTIVE_PLAN_VISIBLE_LIMIT - len(visible)
+        fill = older[:spill]
+        visible.extend(fill)
+        collapsed = older[spill:]
+    return visible, collapsed
+
+
+def _format_active_plan_rows(files: list[VaultFile], today: date) -> str:
+    rows = ["| 留덉?留??쒕룞 | Plan | Project | ?ㅼ쓬 ?묒뾽 |", "|---|---|---|---|"]
+    for f in files:
         last_label = relative_time_label(f.mtime, today)
         stem = f.path.stem
-        project = _escape_pipe(f.project) if f.project else "—"
-        rows.append(f"| {last_label} | [[{stem}]] | {project} | — |")
+        project = _escape_pipe(f.project) if f.project else "??"
+        rows.append(f"| {last_label} | [[{stem}]] | {project} | ??|")
     return "\n".join(rows) + "\n"
+
+def format_active_plans_table(active: list[VaultFile], today: date) -> str:
+    if not active:
+        return "_?? plan ?놁쓬_\n"
+    visible, older = _split_active_plans(active, today)
+    parts = [_format_active_plan_rows(visible, today)]
+    if older:
+        parts.append(
+            f"<details>\n<summary>Older active plans ({len(older)})</summary>\n\n"
+            f"{_format_active_plan_rows(older, today)}"
+            "</details>\n"
+        )
+    return "\n".join(parts)
 
 
 def format_projects_table(projects: list[tuple[str, str, str]]) -> str:
     if not projects:
-        return "_진행 중 프로젝트 없음_\n"
+        return "_?? 진행 중 프로젝트 없음_\n"
     rows = ["| Project | Phase | Last Activity |", "|---|---|---|"]
     for name, phase, last in projects:
         rows.append(f"| [[{name}]] | {_escape_pipe(phase)} | {last} |")
@@ -719,6 +763,113 @@ def check_log_sort_order(
 
 
 # ---------------------------------------------------------------------------
+# WIKI-01/02 vault graph checks
+# ---------------------------------------------------------------------------
+
+def _build_vault_stem_index(vault_root: Path) -> set[str]:
+    """20_WIKI의 wikilink 대상 검사용 md stem 인덱스.
+
+    백업 사본은 실제 Obsidian vault graph의 대상이 아니므로 제외한다.
+    """
+    stems: set[str] = set()
+    for path in vault_root.rglob("*.md"):
+        if not path.is_file():
+            continue
+        try:
+            relative = path.relative_to(vault_root)
+        except ValueError:
+            continue
+        if len(relative.parts) >= 2 and relative.parts[0:2] == ("archive", "backups"):
+            continue
+        stems.add(path.stem)
+    return stems
+
+
+def _link_target_exists(
+    target: str, source: Path, vault_root: Path, stems: set[str]
+) -> bool:
+    target = target.split("#", 1)[0].split("^", 1)[0].strip()
+    if not target or target.startswith(("http:", "https:", "mailto:")):
+        return True
+    target_path = Path(target.replace("\\", "/"))
+    if target_path.suffix.lower() == ".md":
+        target_path = target_path.with_suffix("")
+    if "/" not in target.replace("\\", "/"):
+        return target_path.name in stems
+    candidates = [
+        source.parent / target_path,
+        vault_root / target_path,
+        vault_root / "20_WIKI" / "projects" / target_path,
+    ]
+    return any((candidate.with_suffix(".md")).is_file() for candidate in candidates)
+
+
+def check_wiki_broken_links(
+    wiki_root: Path, vault_root: Path | None = None
+) -> list[tuple[str, int, str]]:
+    """WIKI-01: 20_WIKI Markdown의 실제 대상 없는 wikilink를 반환한다."""
+    root = vault_root or wiki_root.parent.parent
+    stems = _build_vault_stem_index(root)
+    broken: list[tuple[str, int, str]] = []
+    for source in wiki_root.rglob("*.md"):
+        if not source.is_file() or "archive" in source.parts:
+            continue
+        in_fence = False
+        for lineno, line in enumerate(_read_safe(source).splitlines(), 1):
+            if line.strip().startswith("```"):
+                in_fence = not in_fence
+                continue
+            if in_fence:
+                continue
+            for match in _WIKILINK_DISPLAY_RE.finditer(line):
+                target = match.group(1).strip()
+                if target in {"comparison-slug", "theme-slug", "PLAN_raw-data-preservation"}:
+                    continue
+                if target in {"../concepts/..."}:
+                    continue
+                if target.startswith("10_RAW/assets/") or target.startswith("../../10_RAW/"):
+                    continue
+                if not _link_target_exists(target, source, root, stems):
+                    broken.append((str(source), lineno, target))
+    return broken
+
+
+def check_stage_assignments(
+    wiki_projects_root: Path, raw_root: Path
+) -> list[tuple[str, str]]:
+    """WIKI-02: stage-enabled 프로젝트 synthesis의 stage 미배정 raw 링크."""
+    raw_index = _build_raw_index(raw_root)
+    findings: list[tuple[str, str]] = []
+    for hub in wiki_projects_root.glob("*/*.md"):
+        fm = parse_frontmatter(_read_safe(hub))
+        if fm.get("type") != "project-index" or fm.get("stage_enabled", "").lower() != "true":
+            continue
+        project = fm.get("project", hub.parent.name)
+        synthesis = hub.parent / "synthesis.md"
+        if not synthesis.exists():
+            findings.append((project, "synthesis.md"))
+            continue
+        synthesis_targets = {
+            m.group(1).split("#", 1)[0].strip()
+            for m in _WIKILINK_DISPLAY_RE.finditer(_read_safe(synthesis))
+            if m.group(1).split("#", 1)[0].strip() in raw_index
+        }
+        assigned: set[str] = set()
+        for stage_note in hub.parent.glob("stage-*.md"):
+            stage_fm = parse_frontmatter(_read_safe(stage_note))
+            if stage_fm.get("project") != project:
+                continue
+            assigned.update(
+                m.group(1).split("#", 1)[0].strip()
+                for m in _WIKILINK_DISPLAY_RE.finditer(_read_safe(stage_note))
+                if m.group(1).split("#", 1)[0].strip() in raw_index
+            )
+        for target in sorted(synthesis_targets - assigned):
+            findings.append((project, target))
+    return findings
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 
@@ -822,6 +973,38 @@ def main() -> None:
         else:
             print("  OK LOG-03 정렬 위반 없음")
 
+        # WIKI-01 broken wikilink 검사
+        wiki_root = VAULT_ROOT / "20_WIKI"
+        print("[점검] 깨진 wikilink 검사 (WIKI-01) ...")
+        broken_links = check_wiki_broken_links(wiki_root, VAULT_ROOT)
+        if broken_links:
+            print(f"  [!] WIKI-01 깨진 wikilink {len(broken_links)}건:")
+            for fpath, lineno, target in broken_links[:10]:
+                try:
+                    short = Path(fpath).relative_to(VAULT_ROOT)
+                except ValueError:
+                    short = Path(fpath).name
+                print(f"    {short}:{lineno} [[{target}]]")
+            if len(broken_links) > 10:
+                print(f"    ... 외 {len(broken_links) - 10}건")
+        else:
+            print("  OK WIKI-01 깨진 wikilink 없음")
+
+        # WIKI-02 stage 미배정 검사
+        print("[점검] stage 미배정 검사 (WIKI-02) ...")
+        stage_findings = check_stage_assignments(
+            VAULT_ROOT / "20_WIKI" / "projects",
+            VAULT_ROOT / "10_RAW" / "projects",
+        )
+        if stage_findings:
+            print(f"  [!] WIKI-02 stage 미배정 {len(stage_findings)}건:")
+            for project, target in stage_findings[:10]:
+                print(f"    {project}: [[{target}]]")
+            if len(stage_findings) > 10:
+                print(f"    ... 외 {len(stage_findings) - 10}건")
+        else:
+            print("  OK WIKI-02 stage 미배정 없음")
+
     content = build_daily_md(ctx)
 
     print(f"[쓰기] DAILY.md → {daily_path}")
@@ -836,3 +1019,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
