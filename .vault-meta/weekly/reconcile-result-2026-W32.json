@@ -1,0 +1,776 @@
+{
+  "schema_version": 1,
+  "run_id": "77d1689aea0f4e7d886f84a75e5c6b94",
+  "week": "2026-W32",
+  "command": "reconcile",
+  "completed": true,
+  "status": "passed",
+  "lint_report": "%TEMP%\\claude-weekly-state\\lint-2026-W32.json",
+  "work_items": [
+    {
+      "id": "allowlist-1",
+      "source": "20_WIKI/concepts/mirror-principle.md"
+    },
+    {
+      "id": "dup-basename-decisions",
+      "source": "20_WIKI/projects/anlyz-hrIndexData/decisions.md;20_WIKI/projects/knowledge-management/decisions.md"
+    },
+    {
+      "id": "dup-basename-synthesis",
+      "source": "20_WIKI/projects/ai-rpt-draft/synthesis.md;20_WIKI/projects/anlyz-hrIndexData/synthesis.md;20_WIKI/projects/gap-web/synthesis.md;20_WIKI/projects/hr-pipeline/synthesis.md;20_WIKI/projects/hr-report/synthesis.md;20_WIKI/projects/hrinno-portal/synthesis.md;20_WIKI/projects/infra-guide/synthesis.md;20_WIKI/projects/interview-stt/synthesis.md;20_WIKI/projects/knowledge-management/synthesis.md;20_WIKI/projects/mailing-agent/synthesis.md;20_WIKI/projects/manual-builder/synthesis.md;20_WIKI/projects/meeting-db/synthesis.md;20_WIKI/projects/memo/synthesis.md;20_WIKI/projects/okr-matrix-app/synthesis.md;20_WIKI/projects/okr-matrix/synthesis.md;20_WIKI/projects/omc/synthesis.md;20_WIKI/projects/seat-dashboard/synthesis.md;20_WIKI/projects/tooling/synthesis.md;20_WIKI/projects/v1-dashboard/synthesis.md;20_WIKI/projects/webapp-skeleton/synthesis.md;20_WIKI/projects/weekly-report/synthesis.md;20_WIKI/projects/youtube/synthesis.md"
+    },
+    {
+      "id": "empty-section-1",
+      "source": "20_WIKI/assets/assets-LOG.md#L7 (Assets Log)"
+    },
+    {
+      "id": "empty-section-2",
+      "source": "20_WIKI/comparisons/comparisons-INDEX.md#L10 (Asset Comparisons)"
+    },
+    {
+      "id": "empty-section-3",
+      "source": "20_WIKI/projects/ai-rpt-draft/ai-rpt-draft.md#L3 (Recently Done)"
+    },
+    {
+      "id": "empty-section-4",
+      "source": "20_WIKI/projects/hr-pipeline/synthesis.md#L131 (Scope)"
+    },
+    {
+      "id": "empty-section-5",
+      "source": "20_WIKI/projects/hr-report/hr-report.md#L23 (Recently Done)"
+    },
+    {
+      "id": "empty-section-6",
+      "source": "20_WIKI/projects/hrinno-portal/hrinno-portal.md#L45 (Recently Done)"
+    },
+    {
+      "id": "empty-section-7",
+      "source": "20_WIKI/projects/knowledge-management/decisions.md#L9 (knowledge-management — Decisions)"
+    },
+    {
+      "id": "empty-section-8",
+      "source": "20_WIKI/projects/knowledge-management/knowledge-management.md#L83 (Handoffs)"
+    },
+    {
+      "id": "empty-section-9",
+      "source": "20_WIKI/projects/manual-builder/manual-builder.md#L45 (Recently Done)"
+    },
+    {
+      "id": "empty-section-10",
+      "source": "20_WIKI/projects/meeting-db/meeting-db.md#L45 (Architecture)"
+    },
+    {
+      "id": "empty-section-11",
+      "source": "20_WIKI/projects/memo/memo.md#L19 (Overview)"
+    },
+    {
+      "id": "empty-section-12",
+      "source": "20_WIKI/projects/okr-matrix-app/okr-matrix-app.md#L3 (Recently Done)"
+    },
+    {
+      "id": "empty-section-13",
+      "source": "20_WIKI/projects/omc/omc.md#L3 (Recently Done)"
+    },
+    {
+      "id": "empty-section-14",
+      "source": "20_WIKI/projects/projects-INDEX.md#L68 (Theme Index)"
+    },
+    {
+      "id": "empty-section-15",
+      "source": "20_WIKI/projects/webapp-skeleton/webapp-skeleton.md#L23 (Recently Done)"
+    },
+    {
+      "id": "empty-section-16",
+      "source": "20_WIKI/projects/weekly-report/weekly-report.md#L32 (Key Plans)"
+    },
+    {
+      "id": "empty-section-17",
+      "source": "20_WIKI/projects/youtube/youtube.md#L36 (Key Decisions)"
+    },
+    {
+      "id": "empty-section-18",
+      "source": "20_WIKI/projects/youtube/youtube.md#L43 (Concept Links)"
+    },
+    {
+      "id": "empty-section-19",
+      "source": "20_WIKI/themes/themes-INDEX.md#L8 (Themes Index)"
+    },
+    {
+      "id": "empty-section-20",
+      "source": "20_WIKI/themes/themes-INDEX.md#L10 (Active Themes)"
+    },
+    {
+      "id": "empty-section-21",
+      "source": "20_WIKI/themes/themes-INDEX.md#L13 (Archived Themes)"
+    },
+    {
+      "id": "missing-frontmatter-1",
+      "source": "20_WIKI/projects/ai-rpt-draft/ai-rpt-draft.md"
+    },
+    {
+      "id": "missing-frontmatter-2",
+      "source": "20_WIKI/projects/ai-rpt-draft/synthesis.md"
+    },
+    {
+      "id": "missing-frontmatter-3",
+      "source": "20_WIKI/projects/hr-report/synthesis.md"
+    },
+    {
+      "id": "missing-frontmatter-4",
+      "source": "20_WIKI/projects/okr-matrix-app/okr-matrix-app.md"
+    },
+    {
+      "id": "missing-frontmatter-5",
+      "source": "20_WIKI/projects/okr-matrix-app/synthesis.md"
+    },
+    {
+      "id": "missing-frontmatter-6",
+      "source": "20_WIKI/projects/omc/omc.md"
+    },
+    {
+      "id": "missing-frontmatter-7",
+      "source": "20_WIKI/projects/omc/synthesis.md"
+    },
+    {
+      "id": "missing-frontmatter-8",
+      "source": "20_WIKI/projects/seat-dashboard/synthesis.md"
+    },
+    {
+      "id": "missing-frontmatter-9",
+      "source": "20_WIKI/projects/webapp-skeleton/synthesis.md"
+    },
+    {
+      "id": "raw-ref-1",
+      "source": "10_RAW/projects/claude-user-manage/results/result-seat-manage-260707-v1.0.md"
+    },
+    {
+      "id": "raw-ref-2",
+      "source": "10_RAW/projects/claude-user-manage/results/result-seat-manage-260707-v1.0.md"
+    },
+    {
+      "id": "raw-ref-3",
+      "source": "10_RAW/projects/claude-user-manage/results/result-seat-manage-260707-v1.0.md"
+    },
+    {
+      "id": "raw-ref-4",
+      "source": "10_RAW/projects/claude-user-manage/results/result-seat-manage-260707-v1.0.md"
+    },
+    {
+      "id": "raw-ref-5",
+      "source": "10_RAW/projects/knowledge-management/plans/plan-brief-cmplidx-260515-v1.0.md"
+    },
+    {
+      "id": "raw-ref-6",
+      "source": "10_RAW/projects/meeting-db/clippings/meeting_dashboard_분석.md"
+    },
+    {
+      "id": "raw-ref-7",
+      "source": "10_RAW/projects/meeting-db/clippings/meeting_dashboard_분석.md"
+    },
+    {
+      "id": "raw-ref-8",
+      "source": "10_RAW/projects/meeting-db/clippings/meeting_dashboard_분석.md"
+    },
+    {
+      "id": "raw-ref-9",
+      "source": "10_RAW/projects/meeting-db/clippings/meeting_dashboard_분석.md"
+    },
+    {
+      "id": "raw-ref-10",
+      "source": "10_RAW/projects/meeting-db/clippings/meeting_dashboard_분석.md"
+    },
+    {
+      "id": "raw-ref-11",
+      "source": "10_RAW/projects/meeting-db/clippings/meeting_dashboard_분석.md"
+    },
+    {
+      "id": "raw-ref-12",
+      "source": "10_RAW/projects/meeting-db/clippings/meeting_dashboard_분석.md"
+    },
+    {
+      "id": "raw-ref-13",
+      "source": "10_RAW/projects/meeting-db/clippings/meeting_dashboard_분석.md"
+    },
+    {
+      "id": "raw-ref-14",
+      "source": "10_RAW/projects/meeting-db/clippings/meeting_dashboard_분석.md"
+    },
+    {
+      "id": "raw-ref-15",
+      "source": "10_RAW/projects/meeting-db/clippings/research-todo-ui-v1.md"
+    },
+    {
+      "id": "raw-ref-16",
+      "source": "10_RAW/projects/meeting-db/clippings/research-todo-ui-v1.md"
+    },
+    {
+      "id": "raw-ref-17",
+      "source": "10_RAW/projects/meeting-db/clippings/research-todo-ui-v1.md"
+    },
+    {
+      "id": "raw-ref-18",
+      "source": "10_RAW/projects/meeting-db/clippings/research-todo-ui-v1.md"
+    },
+    {
+      "id": "raw-ref-19",
+      "source": "10_RAW/projects/meeting-db/clippings/research-todo-ui-v1.md"
+    },
+    {
+      "id": "raw-ref-20",
+      "source": "10_RAW/projects/meeting-db/clippings/research-todo-ui-v1.md"
+    },
+    {
+      "id": "raw-ref-21",
+      "source": "10_RAW/projects/meeting-db/clippings/research-todo-ui-v1.md"
+    },
+    {
+      "id": "raw-ref-22",
+      "source": "10_RAW/projects/meeting-db/clippings/research-todo-ui-v1.md"
+    },
+    {
+      "id": "raw-ref-23",
+      "source": "10_RAW/projects/meeting-db/clippings/research-todo-ui-v1.md"
+    },
+    {
+      "id": "raw-ref-24",
+      "source": "10_RAW/projects/okr-matrix/clippings/ork_research_v0.5.md"
+    },
+    {
+      "id": "raw-ref-25",
+      "source": "10_RAW/projects/okr-matrix/clippings/ork_research_v0.5.md"
+    },
+    {
+      "id": "raw-ref-26",
+      "source": "10_RAW/projects/okr-matrix/clippings/ork_research_v0.5.md"
+    },
+    {
+      "id": "raw-ref-27",
+      "source": "10_RAW/projects/okr-matrix/clippings/ork_research_v0.5.md"
+    },
+    {
+      "id": "raw-ref-28",
+      "source": "10_RAW/projects/okr-matrix/clippings/ork_research_v0.5.md"
+    },
+    {
+      "id": "raw-ref-29",
+      "source": "10_RAW/projects/okr-matrix/clippings/ork_research_v0.5.md"
+    },
+    {
+      "id": "raw-ref-30",
+      "source": "10_RAW/projects/okr-matrix/clippings/research.md"
+    },
+    {
+      "id": "raw-ref-31",
+      "source": "10_RAW/projects/okr-matrix/clippings/research.md"
+    },
+    {
+      "id": "raw-ref-32",
+      "source": "10_RAW/projects/okr-matrix/clippings/research.md"
+    },
+    {
+      "id": "raw-ref-33",
+      "source": "10_RAW/projects/okr-matrix/clippings/research.md"
+    },
+    {
+      "id": "raw-ref-34",
+      "source": "10_RAW/projects/okr-matrix/clippings/research.md"
+    },
+    {
+      "id": "raw-ref-35",
+      "source": "10_RAW/projects/okr-matrix/clippings/research.md"
+    },
+    {
+      "id": "raw-ref-36",
+      "source": "10_RAW/projects/okr-matrix/plans/plan(okr.v0.5).md"
+    },
+    {
+      "id": "raw-ref-37",
+      "source": "10_RAW/projects/okr-matrix/plans/plan(okr.v0.5).md"
+    },
+    {
+      "id": "raw-ref-38",
+      "source": "10_RAW/projects/okr-matrix/plans/plan(okr.v0.5).md"
+    },
+    {
+      "id": "raw-ref-39",
+      "source": "10_RAW/projects/okr-matrix/plans/plan(okr.v0.5).md"
+    },
+    {
+      "id": "raw-ref-40",
+      "source": "10_RAW/projects/okr-matrix/plans/plan(okr.v0.5).md"
+    },
+    {
+      "id": "raw-ref-41",
+      "source": "10_RAW/projects/okr-matrix/plans/plan(okr.v0.5).md"
+    },
+    {
+      "id": "raw-ref-42",
+      "source": "10_RAW/projects/okr-matrix/plans/plan(okr.v0.5).md"
+    },
+    {
+      "id": "raw-ref-43",
+      "source": "10_RAW/projects/okr-matrix/plans/plan(okr.v0.5).md"
+    },
+    {
+      "id": "raw-ref-44",
+      "source": "10_RAW/projects/okr-matrix/plans/plan(okr.v0.5).md"
+    },
+    {
+      "id": "raw-ref-45",
+      "source": "10_RAW/projects/okr-matrix/plans/plan(okr.v0.5).md"
+    },
+    {
+      "id": "raw-ref-46",
+      "source": "10_RAW/projects/okr-matrix/plans/plan.md"
+    },
+    {
+      "id": "raw-ref-47",
+      "source": "10_RAW/projects/okr-matrix/plans/plan.md"
+    },
+    {
+      "id": "raw-ref-48",
+      "source": "10_RAW/projects/okr-matrix/plans/plan.md"
+    },
+    {
+      "id": "raw-ref-49",
+      "source": "10_RAW/projects/okr-matrix/plans/plan.md"
+    },
+    {
+      "id": "raw-ref-50",
+      "source": "10_RAW/projects/okr-matrix/plans/plan.md"
+    },
+    {
+      "id": "raw-ref-51",
+      "source": "10_RAW/projects/okr-matrix/plans/plan.md"
+    },
+    {
+      "id": "raw-ref-52",
+      "source": "10_RAW/projects/okr-matrix/plans/plan.md"
+    },
+    {
+      "id": "raw-ref-53",
+      "source": "10_RAW/projects/okr-matrix/plans/plan.md"
+    },
+    {
+      "id": "raw-ref-54",
+      "source": "10_RAW/projects/okr-matrix/plans/plan.md"
+    },
+    {
+      "id": "raw-ref-55",
+      "source": "10_RAW/projects/okr-matrix/plans/plan.md"
+    },
+    {
+      "id": "raw-ref-56",
+      "source": "10_RAW/projects/v1-dashboard/plans/plan-dashboard-json-260521.md"
+    },
+    {
+      "id": "raw-ref-57",
+      "source": "10_RAW/projects/v1-dashboard/plans/plan-dashboard-json-260521.md"
+    },
+    {
+      "id": "raw-ref-58",
+      "source": "10_RAW/projects/v1-dashboard/plans/plan-dashboard-json-260521.md"
+    },
+    {
+      "id": "raw-ref-59",
+      "source": "10_RAW/projects/v1-dashboard/plans/plan-dashjson2-260521.md"
+    },
+    {
+      "id": "raw-ref-60",
+      "source": "10_RAW/projects/v1-dashboard/plans/plan-dashjson2-260521.md"
+    },
+    {
+      "id": "reconcile-candidate-gap-web-freshness",
+      "source": "20_WIKI/projects/gap-web/synthesis.md"
+    }
+  ],
+  "processed": [],
+  "skipped": [
+    {
+      "id": "reconcile-candidate-gap-web-freshness",
+      "code": "no-evidence",
+      "evidence": "20_WIKI/projects/gap-web/synthesis.md",
+      "note": "synthesis frontmatter updated 2026-07-31 vs last actual log entry / hub last_activity 2026-07-23; no content after that date confirms an error vs benign metadata touch. Freshness alone is not proof of truth (CLAUDE.md S-3) - insufficient evidence to rewrite."
+    }
+  ],
+  "out_of_scope": [
+    {
+      "id": "allowlist-1",
+      "reason": "already allowlisted by wiki_lint (target-not-found, accepted); not a claims/entity/decision contradiction"
+    },
+    {
+      "id": "dup-basename-decisions",
+      "reason": "structural filename-collision finding (wiki_lint domain: link-target disambiguation), not a factual contradiction between claims"
+    },
+    {
+      "id": "dup-basename-synthesis",
+      "reason": "structural filename-collision finding (wiki_lint domain: link-target disambiguation), not a factual contradiction between claims"
+    },
+    {
+      "id": "empty-section-1",
+      "reason": "empty template section (structural completeness check, wiki_lint domain), no competing claim to reconcile"
+    },
+    {
+      "id": "empty-section-2",
+      "reason": "empty template section (structural completeness check, wiki_lint domain), no competing claim to reconcile"
+    },
+    {
+      "id": "empty-section-3",
+      "reason": "empty template section (structural completeness check, wiki_lint domain), no competing claim to reconcile"
+    },
+    {
+      "id": "empty-section-4",
+      "reason": "empty template section (structural completeness check, wiki_lint domain), no competing claim to reconcile"
+    },
+    {
+      "id": "empty-section-5",
+      "reason": "empty template section (structural completeness check, wiki_lint domain), no competing claim to reconcile"
+    },
+    {
+      "id": "empty-section-6",
+      "reason": "empty template section (structural completeness check, wiki_lint domain), no competing claim to reconcile"
+    },
+    {
+      "id": "empty-section-7",
+      "reason": "empty template section (structural completeness check, wiki_lint domain), no competing claim to reconcile"
+    },
+    {
+      "id": "empty-section-8",
+      "reason": "empty template section (structural completeness check, wiki_lint domain), no competing claim to reconcile"
+    },
+    {
+      "id": "empty-section-9",
+      "reason": "empty template section (structural completeness check, wiki_lint domain), no competing claim to reconcile"
+    },
+    {
+      "id": "empty-section-10",
+      "reason": "empty template section (structural completeness check, wiki_lint domain), no competing claim to reconcile"
+    },
+    {
+      "id": "empty-section-11",
+      "reason": "empty template section (structural completeness check, wiki_lint domain), no competing claim to reconcile"
+    },
+    {
+      "id": "empty-section-12",
+      "reason": "empty template section (structural completeness check, wiki_lint domain), no competing claim to reconcile"
+    },
+    {
+      "id": "empty-section-13",
+      "reason": "empty template section (structural completeness check, wiki_lint domain), no competing claim to reconcile"
+    },
+    {
+      "id": "empty-section-14",
+      "reason": "empty template section (structural completeness check, wiki_lint domain), no competing claim to reconcile"
+    },
+    {
+      "id": "empty-section-15",
+      "reason": "empty template section (structural completeness check, wiki_lint domain), no competing claim to reconcile"
+    },
+    {
+      "id": "empty-section-16",
+      "reason": "empty template section (structural completeness check, wiki_lint domain), no competing claim to reconcile"
+    },
+    {
+      "id": "empty-section-17",
+      "reason": "empty template section (structural completeness check, wiki_lint domain), no competing claim to reconcile"
+    },
+    {
+      "id": "empty-section-18",
+      "reason": "empty template section (structural completeness check, wiki_lint domain), no competing claim to reconcile"
+    },
+    {
+      "id": "empty-section-19",
+      "reason": "empty template section (structural completeness check, wiki_lint domain), no competing claim to reconcile"
+    },
+    {
+      "id": "empty-section-20",
+      "reason": "empty template section (structural completeness check, wiki_lint domain), no competing claim to reconcile"
+    },
+    {
+      "id": "empty-section-21",
+      "reason": "empty template section (structural completeness check, wiki_lint domain), no competing claim to reconcile"
+    },
+    {
+      "id": "missing-frontmatter-1",
+      "reason": "missing frontmatter field (schema-conformance check, wiki_lint domain), not a claims contradiction"
+    },
+    {
+      "id": "missing-frontmatter-2",
+      "reason": "missing frontmatter field (schema-conformance check, wiki_lint domain), not a claims contradiction"
+    },
+    {
+      "id": "missing-frontmatter-3",
+      "reason": "missing frontmatter field (schema-conformance check, wiki_lint domain), not a claims contradiction"
+    },
+    {
+      "id": "missing-frontmatter-4",
+      "reason": "missing frontmatter field (schema-conformance check, wiki_lint domain), not a claims contradiction"
+    },
+    {
+      "id": "missing-frontmatter-5",
+      "reason": "missing frontmatter field (schema-conformance check, wiki_lint domain), not a claims contradiction"
+    },
+    {
+      "id": "missing-frontmatter-6",
+      "reason": "missing frontmatter field (schema-conformance check, wiki_lint domain), not a claims contradiction"
+    },
+    {
+      "id": "missing-frontmatter-7",
+      "reason": "missing frontmatter field (schema-conformance check, wiki_lint domain), not a claims contradiction"
+    },
+    {
+      "id": "missing-frontmatter-8",
+      "reason": "missing frontmatter field (schema-conformance check, wiki_lint domain), not a claims contradiction"
+    },
+    {
+      "id": "missing-frontmatter-9",
+      "reason": "missing frontmatter field (schema-conformance check, wiki_lint domain), not a claims contradiction"
+    },
+    {
+      "id": "raw-ref-1",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-2",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-3",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-4",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-5",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-6",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-7",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-8",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-9",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-10",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-11",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-12",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-13",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-14",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-15",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-16",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-17",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-18",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-19",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-20",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-21",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-22",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-23",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-24",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-25",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-26",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-27",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-28",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-29",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-30",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-31",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-32",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-33",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-34",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-35",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-36",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-37",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-38",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-39",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-40",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-41",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-42",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-43",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-44",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-45",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-46",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-47",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-48",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-49",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-50",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-51",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-52",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-53",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-54",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-55",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-56",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-57",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-58",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-59",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    },
+    {
+      "id": "raw-ref-60",
+      "reason": "raw-file-internal link/heading issue inside 10_RAW source; Rule 1 forbids modifying 10_RAW and this is not a wiki claim contradiction"
+    }
+  ],
+  "rewritten": [],
+  "conflicts": [],
+  "drafts": [],
+  "log_rows": [],
+  "errors": [],
+  "notes": "REPORT-ONLY run: 4-lane scan (claims/entity/decisions/source-freshness) executed via read-only agent over 20_WIKI/projects, entities, decisions. Zero factual contradictions found. Entity lane (duckdb, supabase) and decisions lane (anlyz-hrIndexData, knowledge-management) fully consistent. LOG-03 header-order violations in interview-stt and knowledge-management synthesis.md are formatting-only (no hidden contradiction) and are wiki_lint/CLAUDE Rule-4 concerns, not reconcile claim conflicts, not rewritten since report_only=true. No vault files were modified."
+}

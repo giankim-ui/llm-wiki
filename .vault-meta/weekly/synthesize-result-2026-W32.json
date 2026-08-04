@@ -1,0 +1,793 @@
+{
+  "schema_version": 1,
+  "run_id": "34d5baac7d194a018e6f4468f643e25b",
+  "week": "2026-W32",
+  "command": "synthesize",
+  "completed": true,
+  "status": "report-only",
+  "lint_report": "C:\\Users\\Pulmuone\\AppData\\Local\\Temp\\claude-weekly-state\\lint-2026-W32.json",
+  "work_items": [
+    {
+      "id": "lint:allowlisted_dangling_links:0",
+      "source": "20_WIKI/concepts/mirror-principle.md:24"
+    },
+    {
+      "id": "lint:duplicate_basenames:0",
+      "source": "basename=decisions"
+    },
+    {
+      "id": "lint:duplicate_basenames:1",
+      "source": "basename=synthesis"
+    },
+    {
+      "id": "lint:empty_sections:0",
+      "source": "20_WIKI/assets/assets-LOG.md:7"
+    },
+    {
+      "id": "lint:empty_sections:1",
+      "source": "20_WIKI/comparisons/comparisons-INDEX.md:10"
+    },
+    {
+      "id": "lint:empty_sections:2",
+      "source": "20_WIKI/projects/ai-rpt-draft/ai-rpt-draft.md:3"
+    },
+    {
+      "id": "lint:empty_sections:3",
+      "source": "20_WIKI/projects/hr-pipeline/synthesis.md:131"
+    },
+    {
+      "id": "lint:empty_sections:4",
+      "source": "20_WIKI/projects/hr-report/hr-report.md:23"
+    },
+    {
+      "id": "lint:empty_sections:5",
+      "source": "20_WIKI/projects/hrinno-portal/hrinno-portal.md:45"
+    },
+    {
+      "id": "lint:empty_sections:6",
+      "source": "20_WIKI/projects/knowledge-management/decisions.md:9"
+    },
+    {
+      "id": "lint:empty_sections:7",
+      "source": "20_WIKI/projects/knowledge-management/knowledge-management.md:83"
+    },
+    {
+      "id": "lint:empty_sections:8",
+      "source": "20_WIKI/projects/manual-builder/manual-builder.md:45"
+    },
+    {
+      "id": "lint:empty_sections:9",
+      "source": "20_WIKI/projects/meeting-db/meeting-db.md:45"
+    },
+    {
+      "id": "lint:empty_sections:10",
+      "source": "20_WIKI/projects/memo/memo.md:19"
+    },
+    {
+      "id": "lint:empty_sections:11",
+      "source": "20_WIKI/projects/okr-matrix-app/okr-matrix-app.md:3"
+    },
+    {
+      "id": "lint:empty_sections:12",
+      "source": "20_WIKI/projects/omc/omc.md:3"
+    },
+    {
+      "id": "lint:empty_sections:13",
+      "source": "20_WIKI/projects/projects-INDEX.md:68"
+    },
+    {
+      "id": "lint:empty_sections:14",
+      "source": "20_WIKI/projects/webapp-skeleton/webapp-skeleton.md:23"
+    },
+    {
+      "id": "lint:empty_sections:15",
+      "source": "20_WIKI/projects/weekly-report/weekly-report.md:32"
+    },
+    {
+      "id": "lint:empty_sections:16",
+      "source": "20_WIKI/projects/youtube/youtube.md:36"
+    },
+    {
+      "id": "lint:empty_sections:17",
+      "source": "20_WIKI/projects/youtube/youtube.md:43"
+    },
+    {
+      "id": "lint:empty_sections:18",
+      "source": "20_WIKI/themes/themes-INDEX.md:8"
+    },
+    {
+      "id": "lint:empty_sections:19",
+      "source": "20_WIKI/themes/themes-INDEX.md:10"
+    },
+    {
+      "id": "lint:empty_sections:20",
+      "source": "20_WIKI/themes/themes-INDEX.md:13"
+    },
+    {
+      "id": "lint:missing_frontmatter:0",
+      "source": "20_WIKI/projects/ai-rpt-draft/ai-rpt-draft.md"
+    },
+    {
+      "id": "lint:missing_frontmatter:1",
+      "source": "20_WIKI/projects/ai-rpt-draft/synthesis.md"
+    },
+    {
+      "id": "lint:missing_frontmatter:2",
+      "source": "20_WIKI/projects/hr-report/synthesis.md"
+    },
+    {
+      "id": "lint:missing_frontmatter:3",
+      "source": "20_WIKI/projects/okr-matrix-app/okr-matrix-app.md"
+    },
+    {
+      "id": "lint:missing_frontmatter:4",
+      "source": "20_WIKI/projects/okr-matrix-app/synthesis.md"
+    },
+    {
+      "id": "lint:missing_frontmatter:5",
+      "source": "20_WIKI/projects/omc/omc.md"
+    },
+    {
+      "id": "lint:missing_frontmatter:6",
+      "source": "20_WIKI/projects/omc/synthesis.md"
+    },
+    {
+      "id": "lint:missing_frontmatter:7",
+      "source": "20_WIKI/projects/seat-dashboard/synthesis.md"
+    },
+    {
+      "id": "lint:missing_frontmatter:8",
+      "source": "20_WIKI/projects/webapp-skeleton/synthesis.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:0",
+      "source": "10_RAW/projects/claude-user-manage/results/result-seat-manage-260707-v1.0.md:136"
+    },
+    {
+      "id": "lint:raw_reference_notes:1",
+      "source": "10_RAW/projects/claude-user-manage/results/result-seat-manage-260707-v1.0.md:136"
+    },
+    {
+      "id": "lint:raw_reference_notes:2",
+      "source": "10_RAW/projects/claude-user-manage/results/result-seat-manage-260707-v1.0.md:136"
+    },
+    {
+      "id": "lint:raw_reference_notes:3",
+      "source": "10_RAW/projects/claude-user-manage/results/result-seat-manage-260707-v1.0.md:136"
+    },
+    {
+      "id": "lint:raw_reference_notes:4",
+      "source": "10_RAW/projects/knowledge-management/plans/plan-brief-cmplidx-260515-v1.0.md:14"
+    },
+    {
+      "id": "lint:raw_reference_notes:5",
+      "source": "10_RAW/projects/meeting-db/clippings/meeting_dashboard_분석.md:10"
+    },
+    {
+      "id": "lint:raw_reference_notes:6",
+      "source": "10_RAW/projects/meeting-db/clippings/meeting_dashboard_분석.md:11"
+    },
+    {
+      "id": "lint:raw_reference_notes:7",
+      "source": "10_RAW/projects/meeting-db/clippings/meeting_dashboard_분석.md:12"
+    },
+    {
+      "id": "lint:raw_reference_notes:8",
+      "source": "10_RAW/projects/meeting-db/clippings/meeting_dashboard_분석.md:13"
+    },
+    {
+      "id": "lint:raw_reference_notes:9",
+      "source": "10_RAW/projects/meeting-db/clippings/meeting_dashboard_분석.md:14"
+    },
+    {
+      "id": "lint:raw_reference_notes:10",
+      "source": "10_RAW/projects/meeting-db/clippings/meeting_dashboard_분석.md:15"
+    },
+    {
+      "id": "lint:raw_reference_notes:11",
+      "source": "10_RAW/projects/meeting-db/clippings/meeting_dashboard_분석.md:93"
+    },
+    {
+      "id": "lint:raw_reference_notes:12",
+      "source": "10_RAW/projects/meeting-db/clippings/meeting_dashboard_분석.md:211"
+    },
+    {
+      "id": "lint:raw_reference_notes:13",
+      "source": "10_RAW/projects/meeting-db/clippings/meeting_dashboard_분석.md:311"
+    },
+    {
+      "id": "lint:raw_reference_notes:14",
+      "source": "10_RAW/projects/meeting-db/clippings/research-todo-ui-v1.md:13"
+    },
+    {
+      "id": "lint:raw_reference_notes:15",
+      "source": "10_RAW/projects/meeting-db/clippings/research-todo-ui-v1.md:14"
+    },
+    {
+      "id": "lint:raw_reference_notes:16",
+      "source": "10_RAW/projects/meeting-db/clippings/research-todo-ui-v1.md:15"
+    },
+    {
+      "id": "lint:raw_reference_notes:17",
+      "source": "10_RAW/projects/meeting-db/clippings/research-todo-ui-v1.md:16"
+    },
+    {
+      "id": "lint:raw_reference_notes:18",
+      "source": "10_RAW/projects/meeting-db/clippings/research-todo-ui-v1.md:17"
+    },
+    {
+      "id": "lint:raw_reference_notes:19",
+      "source": "10_RAW/projects/meeting-db/clippings/research-todo-ui-v1.md:18"
+    },
+    {
+      "id": "lint:raw_reference_notes:20",
+      "source": "10_RAW/projects/meeting-db/clippings/research-todo-ui-v1.md:19"
+    },
+    {
+      "id": "lint:raw_reference_notes:21",
+      "source": "10_RAW/projects/meeting-db/clippings/research-todo-ui-v1.md:20"
+    },
+    {
+      "id": "lint:raw_reference_notes:22",
+      "source": "10_RAW/projects/meeting-db/clippings/research-todo-ui-v1.md:21"
+    },
+    {
+      "id": "lint:raw_reference_notes:23",
+      "source": "10_RAW/projects/okr-matrix/clippings/ork_research_v0.5.md:6"
+    },
+    {
+      "id": "lint:raw_reference_notes:24",
+      "source": "10_RAW/projects/okr-matrix/clippings/ork_research_v0.5.md:7"
+    },
+    {
+      "id": "lint:raw_reference_notes:25",
+      "source": "10_RAW/projects/okr-matrix/clippings/ork_research_v0.5.md:8"
+    },
+    {
+      "id": "lint:raw_reference_notes:26",
+      "source": "10_RAW/projects/okr-matrix/clippings/ork_research_v0.5.md:9"
+    },
+    {
+      "id": "lint:raw_reference_notes:27",
+      "source": "10_RAW/projects/okr-matrix/clippings/ork_research_v0.5.md:10"
+    },
+    {
+      "id": "lint:raw_reference_notes:28",
+      "source": "10_RAW/projects/okr-matrix/clippings/ork_research_v0.5.md:11"
+    },
+    {
+      "id": "lint:raw_reference_notes:29",
+      "source": "10_RAW/projects/okr-matrix/clippings/research.md:6"
+    },
+    {
+      "id": "lint:raw_reference_notes:30",
+      "source": "10_RAW/projects/okr-matrix/clippings/research.md:7"
+    },
+    {
+      "id": "lint:raw_reference_notes:31",
+      "source": "10_RAW/projects/okr-matrix/clippings/research.md:8"
+    },
+    {
+      "id": "lint:raw_reference_notes:32",
+      "source": "10_RAW/projects/okr-matrix/clippings/research.md:9"
+    },
+    {
+      "id": "lint:raw_reference_notes:33",
+      "source": "10_RAW/projects/okr-matrix/clippings/research.md:10"
+    },
+    {
+      "id": "lint:raw_reference_notes:34",
+      "source": "10_RAW/projects/okr-matrix/clippings/research.md:11"
+    },
+    {
+      "id": "lint:raw_reference_notes:35",
+      "source": "10_RAW/projects/okr-matrix/plans/plan(okr.v0.5).md:11"
+    },
+    {
+      "id": "lint:raw_reference_notes:36",
+      "source": "10_RAW/projects/okr-matrix/plans/plan(okr.v0.5).md:12"
+    },
+    {
+      "id": "lint:raw_reference_notes:37",
+      "source": "10_RAW/projects/okr-matrix/plans/plan(okr.v0.5).md:13"
+    },
+    {
+      "id": "lint:raw_reference_notes:38",
+      "source": "10_RAW/projects/okr-matrix/plans/plan(okr.v0.5).md:14"
+    },
+    {
+      "id": "lint:raw_reference_notes:39",
+      "source": "10_RAW/projects/okr-matrix/plans/plan(okr.v0.5).md:15"
+    },
+    {
+      "id": "lint:raw_reference_notes:40",
+      "source": "10_RAW/projects/okr-matrix/plans/plan(okr.v0.5).md:16"
+    },
+    {
+      "id": "lint:raw_reference_notes:41",
+      "source": "10_RAW/projects/okr-matrix/plans/plan(okr.v0.5).md:17"
+    },
+    {
+      "id": "lint:raw_reference_notes:42",
+      "source": "10_RAW/projects/okr-matrix/plans/plan(okr.v0.5).md:18"
+    },
+    {
+      "id": "lint:raw_reference_notes:43",
+      "source": "10_RAW/projects/okr-matrix/plans/plan(okr.v0.5).md:19"
+    },
+    {
+      "id": "lint:raw_reference_notes:44",
+      "source": "10_RAW/projects/okr-matrix/plans/plan(okr.v0.5).md:20"
+    },
+    {
+      "id": "lint:raw_reference_notes:45",
+      "source": "10_RAW/projects/okr-matrix/plans/plan.md:12"
+    },
+    {
+      "id": "lint:raw_reference_notes:46",
+      "source": "10_RAW/projects/okr-matrix/plans/plan.md:13"
+    },
+    {
+      "id": "lint:raw_reference_notes:47",
+      "source": "10_RAW/projects/okr-matrix/plans/plan.md:14"
+    },
+    {
+      "id": "lint:raw_reference_notes:48",
+      "source": "10_RAW/projects/okr-matrix/plans/plan.md:15"
+    },
+    {
+      "id": "lint:raw_reference_notes:49",
+      "source": "10_RAW/projects/okr-matrix/plans/plan.md:16"
+    },
+    {
+      "id": "lint:raw_reference_notes:50",
+      "source": "10_RAW/projects/okr-matrix/plans/plan.md:17"
+    },
+    {
+      "id": "lint:raw_reference_notes:51",
+      "source": "10_RAW/projects/okr-matrix/plans/plan.md:18"
+    },
+    {
+      "id": "lint:raw_reference_notes:52",
+      "source": "10_RAW/projects/okr-matrix/plans/plan.md:19"
+    },
+    {
+      "id": "lint:raw_reference_notes:53",
+      "source": "10_RAW/projects/okr-matrix/plans/plan.md:20"
+    },
+    {
+      "id": "lint:raw_reference_notes:54",
+      "source": "10_RAW/projects/okr-matrix/plans/plan.md:21"
+    },
+    {
+      "id": "lint:raw_reference_notes:55",
+      "source": "10_RAW/projects/v1-dashboard/plans/plan-dashboard-json-260521.md:54"
+    },
+    {
+      "id": "lint:raw_reference_notes:56",
+      "source": "10_RAW/projects/v1-dashboard/plans/plan-dashboard-json-260521.md:55"
+    },
+    {
+      "id": "lint:raw_reference_notes:57",
+      "source": "10_RAW/projects/v1-dashboard/plans/plan-dashboard-json-260521.md:56"
+    },
+    {
+      "id": "lint:raw_reference_notes:58",
+      "source": "10_RAW/projects/v1-dashboard/plans/plan-dashjson2-260521.md:30"
+    },
+    {
+      "id": "lint:raw_reference_notes:59",
+      "source": "10_RAW/projects/v1-dashboard/plans/plan-dashjson2-260521.md:32"
+    }
+  ],
+  "processed": [],
+  "skipped": [],
+  "out_of_scope": [
+    {
+      "id": "lint:allowlisted_dangling_links:0",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:duplicate_basenames:0",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:duplicate_basenames:1",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:empty_sections:0",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:empty_sections:1",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:empty_sections:2",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:empty_sections:3",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:empty_sections:4",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:empty_sections:5",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:empty_sections:6",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:empty_sections:7",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:empty_sections:8",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:empty_sections:9",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:empty_sections:10",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:empty_sections:11",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:empty_sections:12",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:empty_sections:13",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:empty_sections:14",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:empty_sections:15",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:empty_sections:16",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:empty_sections:17",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:empty_sections:18",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:empty_sections:19",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:empty_sections:20",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:missing_frontmatter:0",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:missing_frontmatter:1",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:missing_frontmatter:2",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:missing_frontmatter:3",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:missing_frontmatter:4",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:missing_frontmatter:5",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:missing_frontmatter:6",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:missing_frontmatter:7",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:missing_frontmatter:8",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:0",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:1",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:2",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:3",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:4",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:5",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:6",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:7",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:8",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:9",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:10",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:11",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:12",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:13",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:14",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:15",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:16",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:17",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:18",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:19",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:20",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:21",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:22",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:23",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:24",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:25",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:26",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:27",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:28",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:29",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:30",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:31",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:32",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:33",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:34",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:35",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:36",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:37",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:38",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:39",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:40",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:41",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:42",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:43",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:44",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:45",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:46",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:47",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:48",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:49",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:50",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:51",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:52",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:53",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:54",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:55",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:56",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:57",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:58",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    },
+    {
+      "id": "lint:raw_reference_notes:59",
+      "reason": "wiki_lint structural finding (link/frontmatter/section/basename hygiene), not a synthesis candidate (cross-source convergence, entity convergence, concept evolution, or orphan rescue per synthesize.md lanes) - outside synthesize scope; owned by wiki_lint.py/ingest."
+    }
+  ],
+  "rewritten": [],
+  "conflicts": [],
+  "drafts": [],
+  "log_rows": [],
+  "errors": [],
+  "notes": {
+    "mode": "report-only",
+    "lanes_run": [
+      "cross-source-convergence",
+      "entity-convergence",
+      "concept-evolution",
+      "orphan-rescue"
+    ],
+    "lanes_scope_examined": [
+      "20_WIKI/concepts/concepts-INDEX.md (no existing auto-candidate for 2026-W32, 8 accepted concepts on record)",
+      "20_WIKI/projects/projects-INDEX.md + synthesis.md sampled across 10 projects (knowledge-management, anlyz-hrIndexData, seat-dashboard, meeting-db, gap-web, okr-matrix, infra-guide, hr-report, interview-stt, mailing-agent), dates 2026-07-28..2026-08-04",
+      "20_WIKI/entities/ (duckdb.md, supabase.md, entities-INDEX.md) checked for entity-convergence gaps",
+      "20_WIKI/themes/themes-INDEX.md confirmed empty (no themes exist -> concept-evolution lane structurally empty)",
+      "lint orphans=[] confirmed empty -> orphan-rescue lane structurally empty"
+    ],
+    "candidates_found": 0,
+    "candidates_considered_and_rejected": [
+      {
+        "abstraction": "Supabase -> DuckDB data-store transition",
+        "sources": [
+          "20_WIKI/projects/anlyz-hrIndexData/synthesis.md (2026-07-30)",
+          "20_WIKI/projects/seat-dashboard/synthesis.md (2026-07-13)"
+        ],
+        "reason": "fails independence bar (same HR-data ecosystem, coordinated rather than independently arrived at); operational engineering choice, not a reusable methodology/workaround; HR-data challenges already covered by existing concept retention-contract-drift"
+      }
+    ],
+    "would_create_if_not_report_only": "none - no candidate cleared the 2-independent-source bar this week",
+    "lint_report_note": "lint-2026-W32.json shows only structural findings (empty_sections, missing_frontmatter, duplicate_basenames, raw_reference_notes, one allowlisted dangling link) - none are claims/entity/concept-evolution/orphan signals in scope for synthesize."
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "projects": {
+    "ai-rpt-draft": "legacy",
+    "anlyz-hrIndexData": "stage",
+    "gap-web": "legacy",
+    "hr-pipeline": "legacy",
+    "hr-report": "legacy",
+    "hrinno-portal": "legacy",
+    "infra-guide": "legacy",
+    "interview-stt": "legacy",
+    "knowledge-management": "legacy",
+    "mailing-agent": "legacy",
+    "manual-builder": "legacy",
+    "meeting-db": "legacy",
+    "memo": "legacy",
+    "okr-matrix": "legacy",
+    "okr-matrix-app": "legacy",
+    "omc": "legacy",
+    "seat-dashboard": "legacy",
+    "tooling": "legacy",
+    "v1-dashboard": "legacy",
+    "webapp-skeleton": "legacy",
+    "weekly-report": "legacy",
+    "youtube": "legacy"
+  },
+  "default_mode": "legacy"
+}

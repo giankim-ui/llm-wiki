@@ -2,7 +2,7 @@
 """Daily brief generator for LLM-Wiki vault (Schema v2.2).
 
 Usage:
-    python scripts/daily_brief.py [--backfill-log] [--skip-if-today] [--no-lint]
+    python scripts/daily_brief.py [--backfill-log] [--skip-if-today] [--no-lint] [--dry-run]
 """
 
 from __future__ import annotations
@@ -42,6 +42,10 @@ _FRONTMATTER_RE = re.compile(r"\A---[ \t]*\r?\n(.*?)\r?\n---[ \t]*\r?\n", re.DOT
 _WIKILINK_DISPLAY_RE = re.compile(r"\[\[([^\]|\\]+?)(?:\\?\|([^\]]+))?\]\]")
 
 _FILENAME_DATE_RE = re.compile(r"-(\d{6})(?:-v\d+\.\d+)?\.md$", re.IGNORECASE)
+_USER_START = "<!-- @user:start -->"
+_USER_END = "<!-- @user:end -->"
+_GENERATED_START = "<!-- @generated:start -->"
+_GENERATED_END = "<!-- @generated:end -->"
 
 # path -> st_ctime 메모이즈 캐시. 동일 경로가 scan_yesterday/scan_active_plans/
 # LOG-01 검사에서 반복 조회되므로 실제 stat() 호출은 경로당 1회로 제한한다.
@@ -376,6 +380,198 @@ def format_projects_table(projects: list[tuple[str, str, str]]) -> str:
     for name, phase, last in projects:
         rows.append(f"| [[{name}]] | {_escape_pipe(phase)} | {last} |")
     return "\n".join(rows) + "\n"
+
+
+# ---------------------------------------------------------------------------
+# INDEX.md catalog builder
+# ---------------------------------------------------------------------------
+
+def _catalog_wiki_pages() -> list[Path]:
+    wiki_root = VAULT_ROOT / "20_WIKI"
+    if not wiki_root.is_dir():
+        return []
+    return sorted(
+        (path for path in wiki_root.rglob("*.md") if path.is_file()),
+        key=lambda path: path.relative_to(VAULT_ROOT).as_posix().casefold(),
+    )
+
+
+def _catalog_description(path: Path) -> str:
+    content = _read_safe(path)
+    fm = parse_frontmatter(content)
+    description = fm.get("description", "").strip().strip("\"'")
+    if description:
+        return description[:60]
+
+    body = _FRONTMATTER_RE.sub("", content, count=1)
+    for raw_line in body.splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith(("#", "|", "<!--", "```")):
+            continue
+        if re.fullmatch(
+            r"(?:\[\[)?(?:20_WIKI/)?[^\]]*/?synthesis(?:\|synthesis)?(?:\]\])?",
+            line,
+            flags=re.IGNORECASE,
+        ):
+            continue
+        line = re.sub(r"^[-*+]\s+", "", line)
+        line = re.sub(r"\[\[([^\]|]+)(?:\|[^\]]+)?\]\]", r"\1", line)
+        line = re.sub(r"[*_`~]", "", line).strip()
+        if line:
+            sentence = re.split(r"(?<=[.!?。！？])\s+", line, maxsplit=1)[0]
+            return sentence[:60]
+    return path.stem[:60]
+
+
+def _wikilink(target: str, display: str | None = None, *, table: bool = False) -> str:
+    """Build an Obsidian link, escaping the alias separator inside tables."""
+
+    if display is None:
+        return f"[[{target}]]"
+    separator = r"\|" if table else "|"
+    return f"[[{target}{separator}{display}]]"
+
+
+def _catalog_link(path: Path) -> str:
+    relative = path.relative_to(VAULT_ROOT).as_posix()
+    target = relative[:-3] if relative.casefold().endswith(".md") else relative
+    display = path.stem
+    return _wikilink(target, display)
+
+
+def _project_catalog_groups(pages: list[Path]) -> dict[str, list[Path]]:
+    groups: dict[str, list[Path]] = {}
+    for page in pages:
+        relative = page.relative_to(VAULT_ROOT / "20_WIKI")
+        if len(relative.parts) < 3:
+            continue
+        slug = relative.parts[1]
+        groups.setdefault(slug, []).append(page)
+    return dict(sorted(groups.items(), key=lambda item: item[0].casefold()))
+
+
+def _project_catalog_lines(lines: list[str], pages: list[Path]) -> None:
+    """Render one hub per project and nest child notes below it."""
+
+    groups = _project_catalog_groups(pages)
+    meta_pages = sorted(
+        (
+            page
+            for page in pages
+            if len(page.relative_to(VAULT_ROOT / "20_WIKI").parts) == 2
+        ),
+        key=lambda page: page.name.casefold(),
+    )
+    lines.append("## Project Navigation")
+    for page in meta_pages:
+        lines.append(f"- {_catalog_link(page)} — {_catalog_description(page)}")
+    lines.append("")
+    lines.append(f"## Projects ({len(groups)})")
+    for slug, group in groups.items():
+        visible = [page for page in group if page.name.casefold() != "synthesis.md"]
+        if not visible:
+            continue
+        hub = next(
+            (page for page in visible if page.stem.casefold() == slug.casefold()),
+            visible[0],
+        )
+        lines.append(f"- {_catalog_link(hub)} — {_catalog_description(hub)}")
+        children = sorted(
+            (page for page in visible if page != hub),
+            key=lambda page: page.relative_to(VAULT_ROOT).as_posix().casefold(),
+        )
+        for child in children:
+            lines.append(f"  - {_catalog_link(child)} — {_catalog_description(child)}")
+    lines.append("")
+
+
+def _preserved_user_block(existing: str) -> str:
+    start = existing.find(_USER_START)
+    end = existing.find(_USER_END, start + len(_USER_START)) if start >= 0 else -1
+    if start >= 0 and end >= 0:
+        return existing[start : end + len(_USER_END)].strip()
+    return f"{_USER_START}\n{_USER_END}"
+
+
+def build_catalog_index(existing: str = "") -> str:
+    """Build the root INDEX catalog without modifying the vault."""
+
+    pages = _catalog_wiki_pages()
+    by_area: dict[str, list[Path]] = {}
+    for page in pages:
+        relative = page.relative_to(VAULT_ROOT / "20_WIKI")
+        area = relative.parts[0] if relative.parts else "other"
+        by_area.setdefault(area, []).append(page)
+
+    lines = [
+        "---",
+        "type: index",
+        "scope: root",
+        f"updated: {date.today().isoformat()}",
+        "maintained_by: claude-code",
+        "---",
+        "",
+        "# Vault Catalog",
+        f"> 20_WIKI Markdown pages: {len(pages)} · last updated {date.today().isoformat()}",
+        "",
+        _preserved_user_block(existing),
+        "",
+        _GENERATED_START,
+        "## Navigation",
+        "| 축 | INDEX | LOG |",
+        "|---|---|---|",
+        "| Projects | [[20_WIKI/projects/projects-INDEX]] | [[20_WIKI/projects/projects-LOG]] |",
+        "| Assets | [[20_WIKI/assets/assets-INDEX]] | [[20_WIKI/assets/assets-LOG]] |",
+        "| Entities | [[20_WIKI/entities/entities-INDEX]] | — |",
+        "| Decisions | [[20_WIKI/decisions/decisions-INDEX]] | — |",
+        "| Concepts | [[20_WIKI/concepts/concepts-INDEX]] | — |",
+        "| Themes | [[20_WIKI/themes/themes-INDEX]] | — |",
+        "| Comparisons | [[20_WIKI/comparisons/comparisons-INDEX]] | — |",
+        "| Methodology | [[20_WIKI/methodology/methodology-INDEX]] | — |",
+        "",
+    ]
+
+    area_titles = {
+        "projects": "Projects",
+        "assets": "Assets",
+        "concepts": "Concepts",
+        "themes": "Themes",
+        "comparisons": "Comparisons",
+        "methodology": "Methodology",
+        "entities": "Entities",
+        "decisions": "Decisions",
+    }
+    ordered_areas = [
+        "projects", "assets", "entities", "decisions", "concepts",
+        "themes", "comparisons", "methodology",
+    ]
+    for area in ordered_areas:
+        area_pages = by_area.get(area, [])
+        if not area_pages:
+            continue
+        if area == "projects":
+            _project_catalog_lines(lines, area_pages)
+            continue
+        title = area_titles[area]
+        lines.append(f"## {title} ({len(area_pages)})")
+        for page in area_pages:
+            relative = page.relative_to(VAULT_ROOT / "20_WIKI")
+            depth = len(relative.parts) - 1
+            indent = "  " * max(depth - 1, 0)
+            lines.append(
+                f"{indent}- {_catalog_link(page)} — {_catalog_description(page)}"
+            )
+        lines.append("")
+
+    for area, area_pages in sorted(by_area.items()):
+        if area in area_titles:
+            continue
+        lines.append(f"## {area} ({len(area_pages)})")
+        lines.extend(f"- {_catalog_link(page)} — {_catalog_description(page)}" for page in area_pages)
+        lines.append("")
+
+    lines.extend([_GENERATED_END, "", "[[MAP|Vault Guide for Humans]]", ""])
+    return "\n".join(lines)
 
 
 # ---------------------------------------------------------------------------
@@ -781,7 +977,10 @@ def _build_vault_stem_index(vault_root: Path) -> set[str]:
             continue
         if len(relative.parts) >= 2 and relative.parts[0:2] == ("archive", "backups"):
             continue
-        stems.add(path.stem)
+        if path.suffix.lower() == ".md":
+            stems.add(path.name[: -len(path.suffix)])
+        else:
+            stems.add(path.name)
     return stems
 
 
@@ -801,7 +1000,12 @@ def _link_target_exists(
         vault_root / target_path,
         vault_root / "20_WIKI" / "projects" / target_path,
     ]
-    return any((candidate.with_suffix(".md")).is_file() for candidate in candidates)
+    for candidate in candidates:
+        if candidate.is_file():
+            return True
+        if candidate.suffix.lower() != ".md" and Path(f"{candidate}.md").is_file():
+            return True
+    return False
 
 
 def check_wiki_broken_links(
@@ -888,11 +1092,28 @@ def main() -> None:
         action="store_true",
         help="LOG-01/02/03 정합성 검사 콘솔 출력을 생략 (DAILY.md는 항상 그대로 재생성됨)",
     )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="변경 예정인 DAILY.md·INDEX.md 내용을 출력하고 파일은 수정하지 않음",
+    )
     args = parser.parse_args()
+
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except (AttributeError, ValueError):
+        pass
 
     today = date.today()
     yesterday = today - timedelta(days=1)
     daily_path = VAULT_ROOT / "DAILY.md"
+    index_path = VAULT_ROOT / "INDEX.md"
+
+    if args.dry_run:
+        print("[DRY-RUN] INDEX.md 카탈로그 생성 예정 내용 (파일 미수정)")
+        print(build_catalog_index(_read_safe(index_path)))
+        print("[DRY-RUN] DAILY.md·INDEX.md 모두 수정하지 않았습니다.")
+        return
 
     scan_files = _collect_scan_files()
 
@@ -1011,6 +1232,12 @@ def main() -> None:
     ok = write_with_retry(daily_path, content)
     if ok:
         print("[완료] DAILY.md 갱신 완료")
+
+    index_content = build_catalog_index(_read_safe(index_path))
+    print(f"[쓰기] INDEX.md 카탈로그 → {index_path}")
+    index_ok = write_with_retry(index_path, index_content)
+    if index_ok:
+        print("[완료] INDEX.md 카탈로그 갱신 완료")
 
     if args.backfill_log:
         log_path = VAULT_ROOT / "LOG.md"

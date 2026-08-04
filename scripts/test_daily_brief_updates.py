@@ -467,6 +467,16 @@ class TestWikiStageLint:
 
         assert [(item[1], item[2]) for item in broken] == [(1, "result-missing-260731")]
 
+    def test_wiki01_preserves_version_suffix_with_dot(self, tmp_path: Path):
+        wiki, raw_root = self._make_stage_vault(tmp_path)
+        plans = tmp_path / "10_RAW" / "projects" / "demo" / "plans"
+        plans.mkdir(parents=True)
+        (plans / "plan-v1.0.md").write_text("---\ntype: plan\n---\n", encoding="utf-8")
+        page = wiki / "projects" / "demo" / "synthesis.md"
+        page.write_text("[[10_RAW/projects/demo/plans/plan-v1.0]]\n", encoding="utf-8")
+
+        assert db.check_wiki_broken_links(wiki, tmp_path) == []
+
     def test_wiki02_reports_unassigned_raw_target(self, tmp_path: Path):
         wiki, raw_root = self._make_stage_vault(tmp_path)
         projects = wiki / "projects" / "demo"

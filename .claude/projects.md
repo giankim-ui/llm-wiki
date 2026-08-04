@@ -71,21 +71,22 @@ Vault 의 분산된 archive .md 파일을 `10_RAW/projects/<slug>/{plans,results
 
 영향받는 wiki 파일 목록 + 위치(line) 수집.
 
-### 5.3 사용자 보고 (실행 전)
-다음 형식으로 보고:
+### 5.3 사용자 통지 (실행 전, 확인 대기 없음)
+다음 형식으로 통지 후 **별도 확인 없이 바로 §5.4 진행**:
 ```
 [/projects] 이관 계획
 - 총 N개 파일 → 슬러그별 분포: km=X, multi=Y, screening=Z
 - AskUserQuestion 처리 필요: 모호 파일 M개
 - 중복 충돌 rename: P개
 - Wikilink cascade 영향 wiki 파일: Q개
-
-진행할까?
 ```
 
-여기서 사용자 확인 받기 (단순 yes/no 자연어).
+이 보고는 "지금부터 이렇게 실행합니다" 통지이며 진행 여부를 묻는 게이트가 아니다 — yes/no 확인 대기 금지. (단, §5.0 D3 신규 발견 소스 폴더 및 §3 Level 4 모호 슬러그 AskUserQuestion 은 그대로 유지되며 이 규칙과 무관하게 별도 정지점이다.)
 
 ### 5.4 실행
+0. 실행 시작 시 `$env:TEMP\claude-projects-state\moved.json` 을 새로 만든다.
+   - `schema_version: 1`, 새 `run_id`, `completed: false`, `consumed_at: null`, `entries: []`를 기록한다.
+   - 이전 manifest가 있어도 재사용하거나 이어 쓰지 않는다.
 1. 타겟 디렉토리 일괄 생성:
    ```bash
    mkdir -p 10_RAW/projects/{knowledge-management,multi-agent-stock-analysis,screening-mode}/{plans,results,handoffs,clippings}
@@ -94,6 +95,14 @@ Vault 의 분산된 archive .md 파일을 `10_RAW/projects/<slug>/{plans,results
 3. 빈 파일도 그대로 이관
 4. nested 폴더(예: `S-anlyz/archive/debug-archive/excel-py-260419.md`) → flatten
 5. **wiki 폴더 자동 git add** (사용자 승인 정책, 260505): `20_WIKI/projects/<slug>/` 가 untracked 이면 `git add 20_WIKI/projects/<slug>/` 자동 실행
+
+### 5.4.1 이동 manifest 기록 (Phase 3)
+
+- 각 파일은 `git mv` 성공 직후 목적지 파일이 실제로 존재하는지 확인한다.
+- 확인된 파일만 `entries`에 `source`, `destination`, `slug`, `type`을 기록한다. 예정 목록(`classified.json`)은 Stage 신규 판정에 사용하지 않는다.
+- 모든 이동과 목적지 확인이 끝난 경우에만 `completed: true`로 바꾼다. 중단·부분 실패 시 `false`로 남겨 `/ingest`가 Stage를 변경하지 않게 한다.
+- `/ingest`가 해당 실행을 성공적으로 처리한 뒤에만 `consumed_at`을 기록한다. `/projects`가 선제 소비하지 않는다.
+- `destination`은 현재 Vault의 `10_RAW/projects/` 안에 있는 파일이어야 하며, 다른 Vault의 manifest나 목적지 누락 항목은 Stage 라우팅에서 무시한다.
 
 ### 5.5 Post-flight: Wikilink Cascade
 basename 이 변경된 파일에 한해 영향 wiki 일괄 치환:
@@ -108,15 +117,7 @@ basename 이 변경된 파일에 한해 영향 wiki 일괄 치환:
 3. 미해결 wikilink 0건이어야 함. 있으면 보고 + 사용자 확인
 
 ### 5.7 LOG 갱신
-`20_WIKI/projects/projects-LOG.md` 에 append:
-```
-## [YYYY-MM-DD HH:MM] ingest | bulk raw migration via /projects (N files, M wikilinks cascaded)
-- raw read 좌표: none (이관만, 본문 read 없음)
-- 슬러그별: km=X, multi=Y, screening=Z
-- cascade 갱신 wiki: Q개
-```
-
-루트 `LOG.md` 에도 highlight append (Schema Rule #4).
+`/projects`는 raw 이관과 manifest 기록만 담당한다. `LOG.md`·`synthesis.md`에는 행을 쓰지 않는다. 파일별 LOG 기록은 `/ingest`가 실제 내용을 처리한 뒤 허용된 이벤트 어휘로 추가한다.
 
 ### 5.8 종료 보고
 ```

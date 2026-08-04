@@ -96,6 +96,9 @@ _ORPHAN_EXCLUDED_NAMES = {
     "getting-started.md",
     "daily.md",
 }
+_CATALOG_SOURCES = frozenset({"INDEX.md"})
+_GENERATED_START_RE = re.compile(r"<!--\s*@generated:start\s*-->", re.IGNORECASE)
+_GENERATED_END_RE = re.compile(r"<!--\s*@generated:end\s*-->", re.IGNORECASE)
 _ALLOWLIST_JSON_NAMES = ("lint-allowlist.json", "wiki-lint.json", "lint.json")
 _ALLOWLIST_KEYS = {
     "dangling_links",
@@ -775,6 +778,8 @@ def _empty_sections(page: _Page) -> list[dict[str, Any]]:
 
 def _orphan_candidate(page: _Page, wiki_prefix: str) -> bool:
     name = PurePosixPath(page.path).name.casefold()
+    if name.endswith("-index.md") or name.endswith("-log.md"):
+        return False
     if name in _ORPHAN_EXCLUDED_NAMES:
         return False
     relative = (
@@ -784,6 +789,61 @@ def _orphan_candidate(page: _Page, wiki_prefix: str) -> bool:
     if folded.startswith("meta/") or folded.startswith("folds/"):
         return False
     return True
+
+
+def _is_raw_source(source: str) -> bool:
+    return source.casefold().startswith("10_raw/")
+
+
+def _catalog_stale_pages(
+    pages_by_path: Mapping[str, _Page],
+    structural_pages: Sequence[_Page],
+    resolver: _Resolver,
+    wiki_prefix: str,
+) -> list[dict[str, str]]:
+    """Return wiki pages omitted from the root INDEX generated section.
+
+    Before Phase 2 the vault has no generated catalog markers, so this check is
+    intentionally inactive. Once the markers exist, only links in that section
+    count as catalog entries; links elsewhere in INDEX.md are dashboard prose.
+    """
+
+    if wiki_prefix != "20_WIKI":
+        return []
+    index = pages_by_path.get("INDEX.md")
+    if index is None:
+        return []
+    start = _GENERATED_START_RE.search(index.text)
+    end = _GENERATED_END_RE.search(index.text, start.end() if start else 0)
+    if start is None or end is None or end.start() < start.end():
+        return []
+
+    section = index.text[start.end() : end.start()]
+    section_page = _Page(
+        path="INDEX.md",
+        absolute=index.absolute,
+        text=section,
+        masked=_mask_markdown_code(section),
+        frontmatter=_Frontmatter(False, frozenset(), (), 0),
+        headings=frozenset(),
+        block_ids=frozenset(),
+        is_wiki_page=False,
+    )
+    linked: set[str] = set()
+    for link in _parse_links(section_page):
+        candidates = resolver.resolve(link)
+        if len(candidates) == 1 and candidates[0].path.startswith("20_WIKI/"):
+            linked.add(candidates[0].path)
+
+    return [
+        {"path": page.path}
+        for page in structural_pages
+        if not (
+            page.path.casefold().startswith("20_wiki/projects/")
+            and PurePosixPath(page.path).name.casefold() == "synthesis.md"
+        )
+        if page.path not in linked
+    ]
 
 
 def _ledger_contracts() -> tuple[str, str, Any, Any]:
@@ -951,7 +1011,11 @@ def lint_vault(
         )
     elif wiki_dir.is_dir():
         wiki_pages = sorted(
-            (page for page in pages_by_path.values() if page.is_wiki_page),
+            (
+                page
+                for page in pages_by_path.values()
+                if page.is_wiki_page or page.path in _CATALOG_SOURCES
+            ),
             key=lambda page: _path_sort_key(page.path),
         )
     else:
@@ -966,6 +1030,7 @@ def lint_vault(
     incoming: dict[str, set[str]] = {page.path: set() for page in wiki_pages}
     dead_links: list[dict[str, Any]] = []
     ambiguous_targets: list[dict[str, Any]] = []
+    raw_reference_notes: list[dict[str, Any]] = []
     allowlisted: list[dict[str, Any]] = []
     stale_index_entries: list[dict[str, Any]] = []
     links_scanned = 0
@@ -983,7 +1048,10 @@ def lint_vault(
                     "syntax": link.syntax,
                     "candidates": [candidate.path for candidate in candidates],
                 }
-                ambiguous_targets.append(entry)
+                if _is_raw_source(link.source):
+                    raw_reference_notes.append({**entry, "finding_type": "ambiguous_target"})
+                else:
+                    ambiguous_targets.append(entry)
                 if is_index:
                     stale_index_entries.append({**entry, "reason": "ambiguous-target"})
                 continue
@@ -1007,13 +1075,20 @@ def lint_vault(
                     "syntax": link.syntax,
                     "reason": reason,
                 }
-                dead_links.append(entry)
+                if _is_raw_source(link.source):
+                    raw_reference_notes.append({**entry, "finding_type": "dead_link"})
+                else:
+                    dead_links.append(entry)
                 if is_index:
                     stale_index_entries.append(entry.copy())
                 continue
 
             candidate = candidates[0]
-            if candidate.path in incoming and candidate.path != link.source:
+            if (
+                candidate.path in incoming
+                and candidate.path != link.source
+                and link.source not in _CATALOG_SOURCES
+            ):
                 incoming[candidate.path].add(link.source)
             fragment_reason = _fragment_error(link, candidate)
             if fragment_reason is None:
@@ -1036,7 +1111,10 @@ def lint_vault(
                 "reason": fragment_reason,
                 "resolved_path": candidate.path,
             }
-            dead_links.append(entry)
+            if _is_raw_source(link.source):
+                raw_reference_notes.append({**entry, "finding_type": "dead_link"})
+            else:
+                dead_links.append(entry)
             if is_index:
                 stale_index_entries.append(entry.copy())
 
@@ -1087,6 +1165,7 @@ def lint_vault(
 
     dead_links.sort(key=_entry_sort_key)
     ambiguous_targets.sort(key=_entry_sort_key)
+    raw_reference_notes.sort(key=_entry_sort_key)
     allowlisted.sort(key=_entry_sort_key)
     stale_index_entries.sort(key=_entry_sort_key)
     duplicate_basenames.sort(key=_entry_sort_key)
@@ -1100,6 +1179,7 @@ def lint_vault(
     categories: dict[str, list[dict[str, Any]]] = {
         "dead_links": dead_links,
         "ambiguous_targets": ambiguous_targets,
+        "raw_reference_notes": raw_reference_notes,
         "duplicate_basenames": duplicate_basenames,
         "orphans": orphans,
         "missing_frontmatter": missing_frontmatter,
@@ -1110,7 +1190,16 @@ def lint_vault(
         "provenance_errors": provenance_errors,
     }
     category_counts = {name: len(entries) for name, entries in categories.items()}
-    issues_found = sum(category_counts.values())
+    issues_found = sum(
+        count for name, count in category_counts.items() if name != "raw_reference_notes"
+    )
+    catalog_stale = _catalog_stale_pages(
+        pages_by_path, structural_pages, resolver, wiki_prefix
+    )
+    catalog_stale.sort(key=_entry_sort_key)
+    categories["catalog_stale"] = catalog_stale
+    category_counts["catalog_stale"] = len(catalog_stale)
+    issues_found += len(catalog_stale)
 
     report: dict[str, Any] = {
         "version": REPORT_VERSION,
@@ -1186,6 +1275,14 @@ def render_markdown(report: dict[str, Any]) -> str:
             ),
         ),
         (
+            "Raw Reference Notes",
+            "raw_reference_notes",
+            lambda item: (
+                f"- {_code(item['source'])}:{item['line']} -> {_code(item['target'])} "
+                f"({item['finding_type']}{': ' + item['reason'] if item.get('reason') else ''})"
+            ),
+        ),
+        (
             "Duplicate Basenames",
             "duplicate_basenames",
             lambda item: (
@@ -1220,6 +1317,11 @@ def render_markdown(report: dict[str, Any]) -> str:
                 f"- {_code(item['source'])}:{item['line']} -> {_code(item['target'])} "
                 f"({item['reason']})"
             ),
+        ),
+        (
+            "Catalog Stale",
+            "catalog_stale",
+            lambda item: f"- {_code(item['path'])}: missing from INDEX.md generated section",
         ),
         (
             "Read Errors",
@@ -1284,6 +1386,10 @@ def main(argv: Sequence[str] | None = None) -> int:
     except (OSError, ValueError) as exc:
         print(f"lint error: {exc}", file=sys.stderr)
         return 2
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except (AttributeError, ValueError):
+        pass
     if args.format == "markdown":
         sys.stdout.write(render_markdown(report))
     else:

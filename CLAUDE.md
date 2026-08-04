@@ -10,13 +10,13 @@ This vault is an LLM-maintained dual-axis knowledge base. You are the maintainer
 ## Two Axes
 - **Asset axis**: `10_RAW/assets/<CATEGORY>-<ID>/`, `20_WIKI/assets/<ID>/`
 - **Project axis**: `10_RAW/projects/<slug>/`, `20_WIKI/projects/<slug>/`
-- Shared: `20_WIKI/{concepts,themes,comparisons,industry,macro,frameworks,methodology,screening}/`
+- Shared: `20_WIKI/{concepts,themes,comparisons,industry,macro,frameworks,methodology,screening,entities,decisions}/`
 
 ## 3-Tier Navigation
-- Tier 1: `/INDEX.md` dashboard, `/LOG.md` cross-axis recent
-- Tier 2: `20_WIKI/{projects,assets}/{axis}-INDEX.md` + `{axis}-LOG.md`
+- Tier 1: `/INDEX.md` — **볼트 전체 카탈로그** (2026-08-03 개정, second-brain 편입). 대시보드가 아니라 `20_WIKI/` 전 페이지를 폴더별로 나열·재생성한다. `<!-- @generated -->` 구간만 자동 갱신, `<!-- @user -->` 구간은 절대 침범 금지. `/LOG.md` cross-axis recent
+- Tier 2: `20_WIKI/{projects,assets,entities,decisions}/{axis}-INDEX.md` + `{axis}-LOG.md` (entities·decisions 는 LOG 없음, 이벤트는 root `LOG.md`)
 - Tier 3: `20_WIKI/{projects,assets}/<item>/<item>.md`  ← folder-note: 파일명 = 폴더명
-- Shared INDEX: `20_WIKI/{concepts,themes,comparisons,methodology}/<folder>-INDEX.md` — axis 무관 공유 폴더 INDEX. 별도 LOG 없이 이벤트는 root `LOG.md`에 기록.
+- Shared INDEX: `20_WIKI/{concepts,themes,comparisons,methodology,entities,decisions}/<folder>-INDEX.md` — axis 무관 공유 폴더 INDEX. 별도 LOG 없이 이벤트는 root `LOG.md`에 기록.
 
 ## Rules
 1. NEVER modify Layer 1 raw. (단, `10_RAW/`에 새 파일을 이관·생성하는 것은 허용 — 기존 파일 편집만 금지)
@@ -30,10 +30,10 @@ This vault is an LLM-maintained dual-axis knowledge base. You are the maintainer
 - 시분(HH:MM) 필수 — plan-version 포함 모든 이벤트.
 - 세부 bullet-point 확장 금지 — 표 행 1줄로 완결.
 - synthesis.md Δ 줄 ≈ LOG 표 행 1줄 요약 = 동일 granularity.
-**ingest 후에는 DAILY.md도 갱신한다** — `python scripts/daily_brief.py` (인자 없음) 실행. `--skip-if-today` 사용 금지.</span>
+**ingest 후에는 DAILY.md와 INDEX.md를 갱신한다** — `python scripts/daily_brief.py` (인자 없음) 실행. `--skip-if-today` 사용 금지.</span>
 5. ALWAYS ensure frontmatter on every .md.
 6. NEVER skip cross-reference: ingest must touch INDEX.md(s) + LOG.md + ≥1 entity/concept/theme/comparison page besides item folder.
-7. NEVER duplicate analysis/document content in wiki. synthesis.md = compounding log only (5~10 lines per item, Δ vs prior).
+7. NEVER duplicate analysis/document content in wiki. synthesis.md = compounding log only (5~10 lines per item, Δ vs prior). **이 규칙은 재작성 금지 조항이 아니다** — 명확화(2026-08-03, second-brain 편입): 등급별 쓰기 범위는 `## Writing Scope by Tier (BINDING)` 참조.
 8. YAML `tags` MUST use block sequence format (never inline array). Empty = `tags:` (no value). Tags MUST NOT start with a number — prefix codes with a descriptive type prefix (e.g. `type-001` not `001`).
    ```yaml
    # CORRECT
@@ -44,6 +44,37 @@ This vault is an LLM-maintained dual-axis knowledge base. You are the maintainer
    tags: [knowledge-base, 001]
    ```
 9. INGEST ORDER (BINDING): `20_WIKI/` 페이지 생성 전, 소스 raw 파일이 반드시 `10_RAW/` 에 먼저 존재해야 한다. `mirrors_raw` 가 `10_RAW/` 외부를 가리키면 INVALID — wiki 생성 전 raw 이관을 먼저 완료하라.
+
+## Writing Scope by Tier (BINDING, 2026-08-03 신설)
+
+second-brain 스킬 편입(`reconcile`·`synthesize`·`/ingest` 재작성)으로 "오래된 사실을 교체"하는 쓰기가 처음 도입된다. Rule 7 은 재작성 금지 조항이 아니라 "내용 복제 금지 + `synthesis.md` 는 누적 로그" 규정이었다 — 과거 조사 문서가 이를 append-only 로 과잉 해석했다. 등급별 쓰기 범위를 아래로 명문화한다.
+
+| 등급 | 대상 | 규칙 |
+|---|---|---|
+| **갱신 (재작성 허용)** | folder-note(hub), stage note, concept, entity, `20_WIKI/decisions/*`, `20_WIKI/projects/*/decisions.md` | 오래된 사실을 교체한다. 단 `## History` 섹션으로 이전 주장·출처·날짜를 남긴다. entity 는 `timeline:` 행 추가로 대체 |
+| **덧붙이기만** | `synthesis.md`, `LOG.md`, `{axis}-LOG.md` | 표 행 추가만. 과거 행 내용 수정 금지 (링크 표기 정정은 예외, 사용자 승인 필요) |
+| **구간 재생성** | `INDEX.md`, `{axis}-INDEX.md` | `<!-- @generated -->` 안쪽만. `<!-- @user -->` 구간 침범 절대 금지 |
+| **읽기 전용** | `10_RAW/` 기존 파일, `_attachments/`, `90_ARCHIVE/` | Rule 1. 신규 파일 생성만 허용 |
+
+entity 페이지는 개인정보 경계를 지킨다 — 업무 관계자 수준(담당 조직·벤더·도구)만 기록하고, 직원 개인의 사번·평가·급여는 절대 넣지 않는다.
+
+## Authority Hierarchy (BINDING, 2026-08-03 신설)
+
+`reconcile` 이 모순을 판정할 때, 또는 두 문서의 사실이 어긋날 때 아래 순서로 어느 쪽이 참인지 정한다.
+
+| 등급 | 근거 | 예 |
+|---|---|---|
+| 1 | 사용자 확정 | 대화에서 confirm 한 것. `status` 변경은 이미 사용자 confirm 필수 |
+| 2 | 실측·검증 출력 | lint 결과, pytest, DB 쿼리, 파일 수 카운트 |
+| 3 | `result-*` 문서 | 빌드 통과 + 체크리스트가 붙은 완료 기록 |
+| 4 | `20_WIKI/decisions/*` · `decisions.md` · gotchas | 사람이 판정을 끝낸 사후 기록 |
+| 5 | `synthesis.md` · `LOG.md` | 시간순 관찰. 당시엔 사실이나 갱신되지 않음 |
+| 6 | `plan-*` · `research` · clipping | 의도·조사. 아직 검증 안 됨 |
+
+- 동급끼리 부딪히면 **날짜 최신** 우선
+- entity 는 `timeline:` 의 `from`/`until` 이 등급 판정보다 우선 — 시점이 명시된 사실은 그 시점에서 참
+- `CLAUDE.md`·`_templates/` 는 사실이 아니라 구조 규정이므로 서열 밖에 두고 항상 우선
+- `~/.claude/memory/` 는 볼트 밖이고 "Claude 가 일하는 방식" 이라 모순 판정 대상이 아니다 — `reconcile` 스캔 제외
 
 ## Raw Reading Discipline (MOS Lesson — BINDING)
 1. NEVER Read .json/.html/.md in `10_RAW/` in full. Coordinates first.
@@ -67,7 +98,9 @@ This vault is an LLM-maintained dual-axis knowledge base. You are the maintainer
 - `status` change requires user confirm; LLM proposes only.
 
 ## LOG Event Vocabulary (BINDING)
-decision, plan-version, result, phase-start, phase-complete, status-change, concept-extracted, theme-extracted, handoff, query, lint, clipping, research
+decision, plan-version, result, phase-start, phase-complete, status-change, concept-extracted, theme-extracted, handoff, query, lint, clipping, research, reconcile, synthesize
+
+`reconcile`·`synthesize` 는 2026-08-03 second-brain 편입으로 추가 (13개 → 15개). `decision`·`concept-extracted` 로 뭉개지 않는다 — 어휘를 뭉개면 나중에 탐지 불가한 사례가 LOG-02 로 이미 있었다.
 
 **`ingest`는 워크플로우 이름이며 LOG/synthesis 이벤트 값으로 절대 사용 금지.** `| ingest |` 쓰기는 PreToolUse 훅(`event-vocab-guard.py`)이 차단한다. `/projects` 이관은 LOG/synthesis 미기록 — `/ingest` 단계에서 파일별 기록.
 
@@ -95,7 +128,9 @@ decision, plan-version, result, phase-start, phase-complete, status-change, conc
 - Schema·CLAUDE.md 변경
 
 ## Frontmatter type Vocabulary
-asset-index, asset-synthesis, project-index, project-synthesis, project-stage, concept, theme, comparison, framework, plan, research, chat-extract, source-structure, handoff, log, index, bottleneck
+asset-index, asset-synthesis, project-index, project-synthesis, project-stage, concept, theme, comparison, framework, plan, research, chat-extract, source-structure, handoff, log, index, bottleneck, entity, decision-record, conflict
+
+`entity`·`decision-record`·`conflict` 는 2026-08-03 second-brain 편입으로 추가 (16개 → 19개). 선택 키(옵션): `auto_generated`(bool), `entity_kind`(person|company|tool), `timeline`(array), `description`(string, 카탈로그 한 줄 설명 출처).
 
 ## Gotchas
 
@@ -110,3 +145,7 @@ asset-index, asset-synthesis, project-index, project-synthesis, project-stage, c
 **원인**: `/projects` 스킬 §5.7 템플릿이 `ingest` 이벤트를 사용하면서 `ingest.md` 금지 규칙과 충돌. `daily_brief.py`가 `ingest`를 유효 EventType으로 화이트리스트해 탐지 불가.  
 **규칙**: LOG/synthesis 표 행 이벤트 컬럼에는 **BINDING 어휘 13개만** 허용. `ingest`를 쓰면 PreToolUse 훅(`event-vocab-guard.py`)이 쓰기를 즉시 차단. **`/projects`는 LOG/synthesis 미기록** — 파일별 LOG 기록은 `/ingest` 단계에서만.  
 **감지**: `daily_brief.py` SessionStart에 LOG-02 금지 이벤트 전수 검사 포함.
+
+### LINK-01 | 사용자 점검용 파일 링크는 볼트 기준 상대 링크
+**현상**: Windows 절대경로 링크는 사용자가 Obsidian에서 바로 점검하기 어렵다.
+**규칙**: 결과 보고·핸드오프의 로컬 파일 링크는 현재 볼트 루트 기준 상대 경로로 제공한다. 예: `[INDEX.md](INDEX.md)`, `[개념](20_WIKI/concepts/example.md)`.

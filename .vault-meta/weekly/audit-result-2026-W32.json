@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "run_id": "34d5baac7d194a018e6f4468f643e25b",
+  "week": "2026-W32",
+  "verdict": "pass",
+  "findings": [
+    {
+      "check": "raw coordinates are real",
+      "severity": "info",
+      "evidence": "Glob confirmed the referenced anlyz-hrIndexData plan files exist; the reconcile out-of-scope note is accurate.",
+      "verdict": "confirmed"
+    },
+    {
+      "check": "skipped/out-of-scope reasons substantively supported",
+      "severity": "info",
+      "evidence": "All 93 lint work items are structural wiki_lint findings outside the reconcile and synthesize lanes; out-of-scope classification is supported.",
+      "verdict": "confirmed"
+    },
+    {
+      "check": "conflicts contain both sides",
+      "severity": "info",
+      "evidence": "No conflict files were created this week.",
+      "verdict": "not applicable"
+    },
+    {
+      "check": "drafts have enough sources",
+      "severity": "info",
+      "evidence": "No draft was created; the considered Supabase-to-DuckDB candidate was rejected for failing the independent-source bar, with cited source pages verified.",
+      "verdict": "confirmed"
+    },
+    {
+      "check": "History preserves the old claim",
+      "severity": "info",
+      "evidence": "No page was rewritten this week.",
+      "verdict": "not applicable"
+    },
+    {
+      "check": "lint internal consistency",
+      "severity": "low",
+      "evidence": "The lint summary metric is inconsistent with its category counts; the two result JSONs nevertheless account for all 93 work items 1:1.",
+      "verdict": "confirmed"
+    },
+    {
+      "check": "SessionStart WIKI-01 false positive",
+      "severity": "low",
+      "evidence": "The separate daily_brief path-suffix check mishandles version names ending in -vN.M; wiki_lint reports no dead links and reconcile rechecked the targets.",
+      "verdict": "confirmed"
+    }
+  ]
+}
