@@ -13,6 +13,26 @@
           }
         ]
       }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"C:\\Users\\Pulmuone\\OneDrive - 풀무원\\20-Obsidian\\.claude\\hooks\\decision-write-guard.py\""
+          }
+        ]
+      },
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"C:\\Users\\Pulmuone\\OneDrive - 풀무원\\20-Obsidian\\.claude\\hooks\\decision-write-guard.py\""
+          }
+        ]
+      }
     ]
   }
 }
