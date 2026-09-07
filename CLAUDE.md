@@ -149,3 +149,9 @@ asset-index, asset-synthesis, project-index, project-synthesis, project-stage, c
 ### LINK-01 | 사용자 점검용 파일 링크는 볼트 기준 상대 링크
 **현상**: Windows 절대경로 링크는 사용자가 Obsidian에서 바로 점검하기 어렵다.
 **규칙**: 결과 보고·핸드오프의 로컬 파일 링크는 현재 볼트 루트 기준 상대 경로로 제공한다. 예: `[INDEX.md](INDEX.md)`, `[개념](20_WIKI/concepts/example.md)`.
+
+### WIKI-03 | weekly-routine.cmd 반복 실패 시 자동 auto-fix 흐름 사용
+**현상 (2026-09-07)**: `weekly-routine.cmd` 더블클릭 시 `wiki_lint.py`의 `ambiguous_targets`(8건)로 weekly gate 매번 차단. 수동 진단 결과 원인 3가지: (1) 신규 `.agents/` 폴더가 `_IGNORED_WALK_DIRS`에 없어 wikilink 후보로 스캔됨(`[[SKILL]]` 다중매치), (2) `daily_brief.py`의 WIKI-01 링크 해석기가 `10_RAW/` 하위 경로를 후보로 시도하지 않아 실제 존재하는 파일도 오탐(17건), (3) `[[HANDOFF-1]]`/`[[plan-dash-onprem-deploy-260806-v1.0]]` 같은 bare 링크가 여러 파일과 매치.
+**원인**: `wiki_lint.py` walk 필터가 dot-prefixed 디렉터리를 일괄 무시하지 않았고, `daily_brief.py` 링크 해석기의 후보 루트 목록이 `10_RAW/`를 빠뜨렸으며, 일부 표 행이 전체경로 대신 bare 파일명으로 링크돼 있었음.
+**규칙**: `scripts/wiki_lint.py`(dot-dir 전체 제외)와 `scripts/daily_brief.py`(`10_RAW/` 후보 추가)를 수정해 재발 원인을 제거함(커밋 `198aeda`). 그래도 새로운 lint 차단이 재발하면 `scripts/weekly_gate.py`가 `_auto_fix_lint()`로 **주 1회 한도**의 자동 수정을 시도한다 — lint 차단 시 `claude -p` 서브프로세스를 1회 스폰해 진단·수정 후 재검증하고, 결과를 `.vault-meta/weekly/lint-autofix-issue-{week}.md`에 기록한다. 이미 해당 주에 시도했다면(마커: `%TEMP%/claude-weekly-state/autofix-attempted-{week}.json`) 재시도하지 않고 이슈 리포트 경로만 안내 — 무한 루프 방지. 강제 재시도는 `weekly_gate.py --force`.
+**감지**: `.vault-meta/weekly/lint-autofix-issue-*.md` 존재 여부로 자동 수정 이력 확인. `resolved: no`면 수동 `/debug` 필요.

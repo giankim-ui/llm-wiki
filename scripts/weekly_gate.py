@@ -199,6 +199,91 @@ def _run_auditor(week: str, run_id: str, lint_json: Path, diff_report: Path, rec
     return 0
 
 
+def _autofix_marker_path(week: str) -> Path:
+    return STATE_DIR / f"autofix-attempted-{week}.json"
+
+
+def _autofix_prompt(lint_json: Path, markdown_report: Path) -> str:
+    return (
+        "[WEEKLY LINT AUTO-FIX] wiki_lint reported blocking findings that stop the weekly gate. "
+        f"Lint JSON: {lint_json}. Lint markdown report: {markdown_report}. "
+        "Diagnose each blocking finding (dead_links, ambiguous_targets, configuration_errors, "
+        "read_errors, provenance_errors) per this repo's CLAUDE.md rules. Root-cause each; do not "
+        "blanket-allowlist. Fix minimally: correct wikilinks, or fix scripts/wiki_lint.py or "
+        "scripts/daily_brief.py ONLY if the checker itself is wrong (a real, Obsidian-resolvable link "
+        "reported broken) — never to silence a genuine dead link. Only add to "
+        ".vault-meta/lint-allowlist.json for links that are genuinely intentional external/placeholder "
+        "references, with justification — not as a blanket pass. Never modify 10_RAW/ or _attachments/ "
+        "(read-only per CLAUDE.md Rule 1). Do not run weekly_gate.py or weekly-routine.cmd yourself — "
+        "only run `python scripts/wiki_lint.py --format json` to verify. Print a short summary of files "
+        "changed and final lint status to stdout."
+    )
+
+
+def _run_autofix_claude(prompt: str) -> tuple[int, str]:
+    completed = subprocess.run(
+        [
+            "cmd", "/c", "claude",
+            "--add-dir", str(VAULT_ROOT),
+            "--allowedTools=Read,Edit,Write,Grep,Glob,Bash(python *),Bash(python3 *)",
+            "-p", prompt,
+        ],
+        cwd=str(VAULT_ROOT), capture_output=True, text=True, encoding="utf-8", errors="replace"
+    )
+    output = completed.stdout or ""
+    if completed.stderr:
+        output += "\n[stderr]\n" + completed.stderr
+    return completed.returncode, output
+
+
+def _write_autofix_issue_report(
+    week: str, before_report: str, claude_output: str, after_report: str, resolved: bool
+) -> Path:
+    RESULT_DIR.mkdir(parents=True, exist_ok=True)
+    path = RESULT_DIR / f"lint-autofix-issue-{week}.md"
+    text = (
+        f"# Weekly Lint Auto-Fix — {week}\n\n"
+        f"## Resolved\n\n{'yes' if resolved else 'no'}\n\n"
+        f"## Lint report before fix\n\n```\n{before_report}\n```\n\n"
+        f"## Auto-fix subprocess output\n\n```\n{claude_output}\n```\n\n"
+        f"## Lint report after fix\n\n```\n{after_report}\n```\n"
+    )
+    path.write_text(text, encoding="utf-8")
+    return path
+
+
+def _auto_fix_lint(
+    week: str, before_report: str, lint_json: Path, markdown_path: Path, force: bool = False
+) -> tuple[int, Path, Path, str]:
+    STATE_DIR.mkdir(parents=True, exist_ok=True)
+    marker = _autofix_marker_path(week)
+    if marker.exists() and not force:
+        try:
+            prior = json.loads(marker.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            prior = {}
+        print(
+            f"[weekly] auto-fix already attempted for {week} (resolved={prior.get('resolved')}); "
+            f"see {prior.get('report')}. Run /debug manually or pass --force to retry."
+        )
+        return _lint_report(week)
+
+    print("[weekly] lint blocked; attempting bounded auto-fix (1 pass)...")
+    _rc, claude_output = _run_autofix_claude(_autofix_prompt(lint_json, markdown_path))
+    new_rc, new_markdown_path, new_lint_json, new_report = _lint_report(week)
+    resolved = new_rc == 0
+    issue_path = _write_autofix_issue_report(week, before_report, claude_output, new_report, resolved)
+    _atomic_json(
+        marker,
+        {"week": week, "resolved": resolved, "report": str(issue_path), "ts": datetime.now().isoformat()},
+    )
+    if resolved:
+        print(f"[weekly] auto-fix resolved lint blockers for {week}. Issue report: {issue_path}")
+    else:
+        print(f"[weekly] auto-fix did NOT resolve lint blockers for {week}. Manual /debug needed. Issue report: {issue_path}")
+    return new_rc, new_markdown_path, new_lint_json, new_report
+
+
 def _finalize_prompt(week: str, run_id: str, lint_json: Path, reconcile: Path, synthesize: Path, report_only: bool) -> str:
     mode = "Do not write; report only." if report_only else "Apply only evidence-backed RAW review and failure-history append operations."
     return (
@@ -216,6 +301,10 @@ def run(*, force: bool = False, dry_run: bool = False, report_only: bool = False
         return 0
     lint_rc, markdown_path, lint_json, report = _lint_report(week)
     print(report, end="" if report.endswith("\n") else "\n")
+    if lint_rc != 0:
+        lint_rc, markdown_path, lint_json, report = _auto_fix_lint(
+            week, report, lint_json, markdown_path, force=force
+        )
     if lint_rc != 0:
         print(f"[weekly] lint failed ({lint_rc}); writer/auditor stages not started")
         return lint_rc

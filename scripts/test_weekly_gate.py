@@ -111,7 +111,51 @@ def test_lint_failure_does_not_call_claude_or_write_marker(tmp_path: Path, monke
     marker = tmp_path / ".weekly_last_run"
     monkeypatch.setattr(gate, "MARKER_PATH", marker)
     monkeypatch.setattr(gate, "_lint_report", lambda week: lint_result(tmp_path, rc=1, text="lint failed\n"))
+    monkeypatch.setattr(gate, "_auto_fix_lint", lambda *args, **kwargs: lint_result(tmp_path, rc=1, text="lint failed\n"))
     monkeypatch.setattr(gate, "_run_writer", lambda *args: pytest.fail("Claude must not run"))
 
     assert gate.run() == 1
     assert not marker.exists()
+
+
+def test_autofix_resolves_lint_and_pipeline_continues(tmp_path: Path, monkeypatch):
+    monkeypatch.setattr(gate, "STATE_DIR", tmp_path)
+    monkeypatch.setattr(gate, "RESULT_DIR", tmp_path / "weekly")
+    monkeypatch.setattr(gate, "_run_autofix_claude", lambda prompt: (0, "fixed 1 link"))
+
+    calls = {"n": 0}
+
+    def fake_lint_report(week):
+        calls["n"] += 1
+        if calls["n"] == 1:
+            return lint_result(tmp_path, rc=0, text="lint clean\n")
+        return lint_result(tmp_path, rc=0, text="lint clean\n")
+
+    monkeypatch.setattr(gate, "_lint_report", fake_lint_report)
+
+    rc, _, _, _ = gate._auto_fix_lint(
+        "2026-W32", "before text", tmp_path / "lint.json", tmp_path / "lint.md"
+    )
+
+    assert rc == 0
+    issue_path = (tmp_path / "weekly") / "lint-autofix-issue-2026-W32.md"
+    assert issue_path.exists()
+    assert "yes" in issue_path.read_text(encoding="utf-8")
+    marker = json.loads(gate._autofix_marker_path("2026-W32").read_text(encoding="utf-8"))
+    assert marker["resolved"] is True
+
+
+def test_autofix_already_attempted_skips_second_claude_call(tmp_path: Path, monkeypatch):
+    monkeypatch.setattr(gate, "STATE_DIR", tmp_path)
+    monkeypatch.setattr(gate, "RESULT_DIR", tmp_path / "weekly")
+    marker = gate._autofix_marker_path("2026-W32")
+    marker.parent.mkdir(parents=True, exist_ok=True)
+    marker.write_text(json.dumps({"week": "2026-W32", "resolved": False, "report": "prior.md"}), encoding="utf-8")
+    monkeypatch.setattr(gate, "_run_autofix_claude", lambda *args: pytest.fail("must not call Claude twice"))
+    monkeypatch.setattr(gate, "_lint_report", lambda week: lint_result(tmp_path, rc=1, text="still failing\n"))
+
+    rc, _, _, _ = gate._auto_fix_lint(
+        "2026-W32", "before text", tmp_path / "lint.json", tmp_path / "lint.md"
+    )
+
+    assert rc != 0
