@@ -157,3 +157,15 @@ def test_lint_is_read_only(tmp_path: Path):
     after = snapshot()
 
     assert after == before
+
+
+def test_dot_prefixed_directories_are_not_walked(tmp_path: Path):
+    _wiki_page(tmp_path, "page.md", "[[SKILL]]\n")
+    _write(tmp_path, "10_RAW/assets/SKILL.md", "# Skill\n")
+    _write(tmp_path, ".agents/skills/query/SKILL.md", "# Decoy skill\n")
+
+    report = _lint(tmp_path)
+
+    assert not any(
+        item.get("target") == "SKILL" for item in report["ambiguous_targets"]
+    )

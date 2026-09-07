@@ -409,6 +409,7 @@ def _walk_files(root: Path) -> list[Path]:
                 name
                 for name in dirnames
                 if name not in _IGNORED_WALK_DIRS
+                and not name.startswith(".")
                 and not (current_path / name).is_symlink()
             ),
             key=lambda value: (value.casefold(), value),

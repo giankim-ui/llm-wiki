@@ -477,6 +477,20 @@ class TestWikiStageLint:
 
         assert db.check_wiki_broken_links(wiki, tmp_path) == []
 
+    def test_wiki01_resolves_path_qualified_target_under_10_raw(self, tmp_path: Path):
+        wiki, raw_root = self._make_stage_vault(tmp_path)
+        handoffs = tmp_path / "10_RAW" / "projects" / "demo" / "handoffs"
+        handoffs.mkdir(parents=True)
+        (handoffs / "HANDOFF-1.md").write_text("---\ntype: handoff\n---\n", encoding="utf-8")
+        page = wiki / "projects" / "demo" / "demo.md"
+        page.write_text(
+            "---\ntype: project-index\nproject: demo\nstage_enabled: true\ncurrent_stage: 0\n---\n"
+            "[[projects/demo/handoffs/HANDOFF-1]]\n",
+            encoding="utf-8",
+        )
+
+        assert db.check_wiki_broken_links(wiki, tmp_path) == []
+
     def test_wiki02_reports_unassigned_raw_target(self, tmp_path: Path):
         wiki, raw_root = self._make_stage_vault(tmp_path)
         projects = wiki / "projects" / "demo"

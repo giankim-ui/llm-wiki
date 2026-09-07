@@ -999,6 +999,7 @@ def _link_target_exists(
         source.parent / target_path,
         vault_root / target_path,
         vault_root / "20_WIKI" / "projects" / target_path,
+        vault_root / "10_RAW" / target_path,
     ]
     for candidate in candidates:
         if candidate.is_file():

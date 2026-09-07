@@ -1,5 +1,7 @@
 {
   "dangling_links": [
-    "10_RAW/assets/US-MSFT/"
+    "10_RAW/assets/US-MSFT/",
+    "plan-hc-p01-dbimpl-260819-v1.0",
+    "plan-hc-p01-impl-260818-v1.0"
   ]
 }
