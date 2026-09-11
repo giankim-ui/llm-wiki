@@ -7,7 +7,7 @@
     "hr-pipeline": "legacy",
     "hr-report": "legacy",
     "hrinno-portal": "legacy",
-    "infra-guide": "legacy",
+    "infra-guide": "stage",
     "interview-stt": "legacy",
     "knowledge-management": "legacy",
     "mailing-agent": "legacy",
