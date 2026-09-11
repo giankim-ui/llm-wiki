@@ -51,3 +51,8 @@ archive/
 .omc/
 docs/
 00-IAM/
+
+# 로컬 잡파일 — vault 작업과 무관
+set_wifi_dhcp.cmd
+set_wifi_static_ipv4.cmd
+Pasted image*.png
