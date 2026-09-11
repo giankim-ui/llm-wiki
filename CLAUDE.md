@@ -109,6 +109,7 @@ decision, plan-version, result, phase-start, phase-complete, status-change, conc
 - Ingest: §6.1 → `/ingest` 커맨드
 - Query: §6.2 → `/query` 커맨드. **file-back 경로 = `20_WIKI/methodology/<주제>-<YYMMDD>.md`** (BINDING — PLAN v2.0.0의 `50_RESEARCH/` 는 폐기 경로). 가치 있는 발견은 반드시 wiki 회수, `query` 이벤트로 root LOG 기록 (project/asset scope는 해당 axis LOG에도 동일 이벤트 기록, BINDING).
 - Lint: §6.3
+- Weekly pipeline (`reconcile → synthesize → finalize → audit`, `scripts/weekly_gate.py`): **자동 진행 (BINDING, 2026-09-07 신설)**. 한 단계 완료(result JSON 기록) 후 다음 단계·lint auto-fix 진행 여부를 사용자에게 묻지 않고 끝까지 실행한다. `AskUserQuestion`은 치명적·비가역적 이슈(돌이킬 수 없는 쓰기, 실질 개인정보 노출, 근거 없는 authority-tie)에만 사용 — 통상적 단계 전환은 해당하지 않는다.
 
 ## Agent Dispatch Policy (BINDING)
 아래 **규칙 기반 작업**은 반드시 `Agent` tool (model: `haiku`)로 병렬 처리한다.

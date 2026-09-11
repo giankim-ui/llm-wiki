@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import argparse
 import base64
+import difflib
 import hashlib
 import json
 import os
@@ -93,6 +94,31 @@ def _user_block(raw: bytes) -> bytes | None:
 def _append_only(path: str) -> bool:
     name = Path(path).name
     return name == "synthesis.md" or name == "LOG.md" or name.endswith("-LOG.md")
+
+
+def _normalize_newlines(data: bytes) -> bytes:
+    return data.replace(b"\r\n", b"\n")
+
+
+def _content_only_insertions(old: bytes, new: bytes) -> bool:
+    """True if `new` can be produced from `old` by inserting lines only.
+
+    LOG/synthesis pages order date headers newest-first (per CLAUDE.md
+    Rule 4 / LOG-03), so a correct append inserts new sections near the top
+    rather than at the literal end of the file. A strict byte-suffix check
+    would reject that. Any deleted or altered line is still a violation.
+    Line-ending style (CRLF vs LF) is not content and is normalized away
+    before comparing, since a save from a different tool commonly flips it
+    for the whole file without touching any actual text.
+    """
+    old_norm = _normalize_newlines(old)
+    new_norm = _normalize_newlines(new)
+    if new_norm.startswith(old_norm):
+        return True
+    old_lines = old_norm.decode("utf-8", errors="replace").splitlines(keepends=True)
+    new_lines = new_norm.decode("utf-8", errors="replace").splitlines(keepends=True)
+    matcher = difflib.SequenceMatcher(None, old_lines, new_lines, autojunk=False)
+    return all(tag in ("equal", "insert") for tag, *_rest in matcher.get_opcodes())
 
 
 def _index_file(path: str) -> bool:
@@ -288,7 +314,8 @@ def _validate_filesystem(data: dict[str, Any], before: dict[str, Any], after: di
         path = root / relative
         if _append_only(relative):
             old = base64.b64decode(before.get("append_prefixes", {}).get(relative, ""))
-            if not path.read_bytes().startswith(old):
+            new = path.read_bytes()
+            if not new.startswith(old) and not _content_only_insertions(old, new):
                 errors.append(f"append-only violation: {relative}")
         if _index_file(relative):
             old_hash = before.get("user_blocks", {}).get(relative)

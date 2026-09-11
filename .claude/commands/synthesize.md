@@ -74,3 +74,7 @@ The weekly gate supplies `run_id`, `week`, the lint JSON path, and an exact resu
 ```
 
 The Python gate enforces one draft per week, `auto_generated: true`, `status: draft`, two or more project links, complete work-item accounting, and disclosure of every Wiki write. A missing or malformed result is a failed stage, not a successful “no-op.”
+
+## 5. Autonomy
+
+Do not pause to ask the user whether to continue this stage's routine work — just do it and report. Only stop and use `AskUserQuestion` for a critical, irreversible issue (destructive/unrecoverable write, real privacy-boundary exposure, or a genuine authority-hierarchy tie with no evidence-backed winner). Once this result JSON is written, STOP — do not run lint auto-fix or finalize yourself. `weekly_gate.py` owns stage sequencing and runs each stage in its own subprocess with its own snapshot/validate/audit gate; running a later stage yourself breaks that gate (its writes get attributed to the wrong stage's snapshot and fail validation).

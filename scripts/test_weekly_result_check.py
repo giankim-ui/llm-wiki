@@ -127,6 +127,48 @@ def test_append_only_and_user_block_are_enforced(tmp_path: Path):
     assert any("@user" in error for error in errors)
 
 
+def test_append_only_allows_newest_first_top_insertion(tmp_path: Path):
+    _write(tmp_path, "20_WIKI/demo-LOG.md", "# hub\n\n## 2026-08-26\n\n| a | b |\n")
+    before_path = tmp_path / "before.json"
+    before = check.write_snapshot(tmp_path, before_path)
+    _write(tmp_path, "20_WIKI/demo-LOG.md", "# hub\n\n## 2026-09-07\n\n| c | d |\n\n## 2026-08-26\n\n| a | b |\n")
+    for relative in ("20_WIKI/demo-LOG.md",):
+        path = tmp_path / relative
+        old_mtime = before["entries"][relative]["mtime_ns"]
+        path.touch()
+        path_mtime = max(path.stat().st_mtime_ns, old_mtime + 1)
+        import os
+
+        os.utime(path, ns=(path_mtime, path_mtime))
+    after_path = tmp_path / "after.json"
+    after = check.write_snapshot(tmp_path, after_path, previous=before)
+    result = _base()
+    result["rewritten"] = [{"path": "20_WIKI/demo-LOG.md"}]
+    errors = check.validate_result(result, "reconcile", "run-1", "2026-W32", Path("lint-2026-W32.json"), before, after, tmp_path)
+    assert not any("append-only" in error for error in errors)
+
+
+def test_append_only_ignores_crlf_lf_normalization(tmp_path: Path):
+    import os
+
+    relative = "20_WIKI/demo-LOG.md"
+    path = tmp_path / relative
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes(b"# hub\r\n\r\n## 2026-08-26\r\n\r\n| a | b |\r\n")
+    before_path = tmp_path / "before.json"
+    before = check.write_snapshot(tmp_path, before_path)
+    path.write_bytes(b"# hub\n\n## 2026-09-07\n\n| c | d |\n\n## 2026-08-26\n\n| a | b |\n")
+    old_mtime = before["entries"][relative]["mtime_ns"]
+    new_mtime = max(path.stat().st_mtime_ns, old_mtime + 1)
+    os.utime(path, ns=(new_mtime, new_mtime))
+    after_path = tmp_path / "after.json"
+    after = check.write_snapshot(tmp_path, after_path, previous=before)
+    result = _base()
+    result["rewritten"] = [{"path": relative}]
+    errors = check.validate_result(result, "reconcile", "run-1", "2026-W32", Path("lint-2026-W32.json"), before, after, tmp_path)
+    assert not any("append-only" in error for error in errors)
+
+
 def test_synthesize_draft_contract(tmp_path: Path):
     before, after, _, _ = _snapshots(tmp_path)
     draft = _write(tmp_path, "20_WIKI/concepts/candidate.md", "---\ntype: concept\nstatus: draft\nauto_generated: true\nprojects:\n  - a\n  - b\n---\n\n# Candidate\n")

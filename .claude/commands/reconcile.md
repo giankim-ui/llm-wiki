@@ -12,7 +12,7 @@ description: Weekly second-brain reconciliation — detect, resolve, or record c
 - Never modify an existing file under `10_RAW/`.
 - Never fabricate a fact, date, person, source, or resolution. If the evidence is insufficient, use `TBD` or create an open conflict.
 - Preserve `INDEX.md` and every axis `*-INDEX.md` `<!-- @user:start -->` block byte-for-byte. Regenerate only the `@generated` block when required.
-- `synthesis.md`, `LOG.md`, and axis `*-LOG.md` are append-only. Do not rewrite old rows.
+- `synthesis.md`, `LOG.md`, and axis `*-LOG.md` are append-only: every existing byte (table rows AND frontmatter, e.g. `updated`/`last_activity`) must remain unchanged; only add new rows or a new dated section. "Stale" frontmatter in these files is not something this stage fixes — leave it and, if it matters, raise it as a normal wiki-page rewrite candidate for a *different* page, never edit it in place here.
 - A rewritten wiki page must retain its prior claim in a new `## History` section with old source/date and new source/date. Entity updates add a `timeline:` row instead of replacing history.
 - Use the six-level authority hierarchy in `CLAUDE.md` S-3. A later plan cannot defeat a verified result merely because it is newer.
 
@@ -72,3 +72,7 @@ The weekly gate supplies `run_id`, `week`, the lint JSON path, and an exact resu
 ```
 
 Every lint work item must appear exactly once in `processed`, `skipped`, or `out_of_scope`. A free-form skip explanation without the closed `code` and opening `evidence` is invalid. `completed: true` without the result file is not completion.
+
+## 6. Autonomy
+
+Do not pause to ask the user whether to continue this stage's routine work — just do it and report. Only stop and use `AskUserQuestion` for a critical, irreversible issue (destructive/unrecoverable write, real privacy-boundary exposure, or a genuine authority-hierarchy tie with no evidence-backed winner). Once this result JSON is written, STOP — do not run `/synthesize`, lint auto-fix, or finalize yourself. `weekly_gate.py` owns stage sequencing and runs each stage in its own subprocess with its own snapshot/validate/audit gate; running a later stage yourself breaks that gate (its writes get attributed to the wrong stage's snapshot and fail validation).

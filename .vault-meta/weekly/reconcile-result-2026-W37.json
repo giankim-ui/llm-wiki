@@ -1,0 +1,1047 @@
+{
+  "schema_version": 1,
+  "run_id": "7ebaea23cbca4482883f2bd44b08b0fd",
+  "week": "2026-W37",
+  "command": "reconcile",
+  "completed": true,
+  "status": "passed",
+  "lint_report": "C:\\Users\\Pulmuone\\AppData\\Local\\Temp\\claude-weekly-state\\lint-2026-W37.json",
+  "work_items": [
+    {
+      "id": "lint:allowlisted_dangling_links:0",
+      "source": "20_WIKI/concepts/mirror-principle.md"
+    },
+    {
+      "id": "lint:allowlisted_dangling_links:1",
+      "source": "20_WIKI/methodology/hc-db-pitfalls-260819.md"
+    },
+    {
+      "id": "lint:allowlisted_dangling_links:2",
+      "source": "20_WIKI/methodology/hc-db-pitfalls-260819.md"
+    },
+    {
+      "id": "lint:allowlisted_dangling_links:3",
+      "source": "20_WIKI/methodology/labor-cost-dash-260818.md"
+    },
+    {
+      "id": "lint:allowlisted_dangling_links:4",
+      "source": "20_WIKI/projects/anlyz-hrIndexData/stage-5-hc-dashboard-onprem.md"
+    },
+    {
+      "id": "lint:allowlisted_dangling_links:5",
+      "source": "20_WIKI/projects/anlyz-hrIndexData/stage-5-hc-dashboard-onprem.md"
+    },
+    {
+      "id": "lint:allowlisted_dangling_links:6",
+      "source": "20_WIKI/projects/anlyz-hrIndexData/synthesis.md"
+    },
+    {
+      "id": "lint:allowlisted_dangling_links:7",
+      "source": "20_WIKI/projects/anlyz-hrIndexData/synthesis.md"
+    },
+    {
+      "id": "lint:allowlisted_dangling_links:8",
+      "source": "20_WIKI/projects/projects-LOG.md"
+    },
+    {
+      "id": "lint:allowlisted_dangling_links:9",
+      "source": "20_WIKI/projects/projects-LOG.md"
+    },
+    {
+      "id": "lint:duplicate_basenames:0",
+      "source": "20_WIKI/projects/anlyz-hrIndexData/decisions.md"
+    },
+    {
+      "id": "lint:duplicate_basenames:1",
+      "source": "20_WIKI/projects/ai-rpt-draft/synthesis.md"
+    },
+    {
+      "id": "lint:empty_sections:0",
+      "source": "20_WIKI/assets/assets-LOG.md#L7 (Assets Log)"
+    },
+    {
+      "id": "lint:empty_sections:1",
+      "source": "20_WIKI/comparisons/comparisons-INDEX.md#L10 (Asset Comparisons)"
+    },
+    {
+      "id": "lint:empty_sections:2",
+      "source": "20_WIKI/projects/ai-rpt-draft/ai-rpt-draft.md#L3 (Recently Done)"
+    },
+    {
+      "id": "lint:empty_sections:3",
+      "source": "20_WIKI/projects/hr-pipeline/synthesis.md#L149 (Scope)"
+    },
+    {
+      "id": "lint:empty_sections:4",
+      "source": "20_WIKI/projects/hr-report/hr-report.md#L23 (Recently Done)"
+    },
+    {
+      "id": "lint:empty_sections:5",
+      "source": "20_WIKI/projects/hrinno-portal/hrinno-portal.md#L45 (Recently Done)"
+    },
+    {
+      "id": "lint:empty_sections:6",
+      "source": "20_WIKI/projects/knowledge-management/decisions.md#L9 (knowledge-management — Decisions)"
+    },
+    {
+      "id": "lint:empty_sections:7",
+      "source": "20_WIKI/projects/knowledge-management/knowledge-management.md#L83 (Handoffs)"
+    },
+    {
+      "id": "lint:empty_sections:8",
+      "source": "20_WIKI/projects/manual-builder/manual-builder.md#L45 (Recently Done)"
+    },
+    {
+      "id": "lint:empty_sections:9",
+      "source": "20_WIKI/projects/meeting-db/meeting-db.md#L55 (Architecture)"
+    },
+    {
+      "id": "lint:empty_sections:10",
+      "source": "20_WIKI/projects/memo/memo.md#L19 (Overview)"
+    },
+    {
+      "id": "lint:empty_sections:11",
+      "source": "20_WIKI/projects/okr-matrix-app/okr-matrix-app.md#L3 (Recently Done)"
+    },
+    {
+      "id": "lint:empty_sections:12",
+      "source": "20_WIKI/projects/omc/omc.md#L3 (Recently Done)"
+    },
+    {
+      "id": "lint:empty_sections:13",
+      "source": "20_WIKI/projects/projects-INDEX.md#L70 (Theme Index)"
+    },
+    {
+      "id": "lint:empty_sections:14",
+      "source": "20_WIKI/projects/webapp-skeleton/webapp-skeleton.md#L23 (Recently Done)"
+    },
+    {
+      "id": "lint:empty_sections:15",
+      "source": "20_WIKI/projects/weekly-report/weekly-report.md#L32 (Key Plans)"
+    },
+    {
+      "id": "lint:empty_sections:16",
+      "source": "20_WIKI/projects/youtube/youtube.md#L36 (Key Decisions)"
+    },
+    {
+      "id": "lint:empty_sections:17",
+      "source": "20_WIKI/projects/youtube/youtube.md#L43 (Concept Links)"
+    },
+    {
+      "id": "lint:empty_sections:18",
+      "source": "20_WIKI/themes/themes-INDEX.md#L8 (Themes Index)"
+    },
+    {
+      "id": "lint:empty_sections:19",
+      "source": "20_WIKI/themes/themes-INDEX.md#L10 (Active Themes)"
+    },
+    {
+      "id": "lint:empty_sections:20",
+      "source": "20_WIKI/themes/themes-INDEX.md#L13 (Archived Themes)"
+    },
+    {
+      "id": "lint:missing_frontmatter:0",
+      "source": "20_WIKI/projects/ai-rpt-draft/ai-rpt-draft.md"
+    },
+    {
+      "id": "lint:missing_frontmatter:1",
+      "source": "20_WIKI/projects/ai-rpt-draft/synthesis.md"
+    },
+    {
+      "id": "lint:missing_frontmatter:2",
+      "source": "20_WIKI/projects/hr-report/synthesis.md"
+    },
+    {
+      "id": "lint:missing_frontmatter:3",
+      "source": "20_WIKI/projects/okr-matrix-app/okr-matrix-app.md"
+    },
+    {
+      "id": "lint:missing_frontmatter:4",
+      "source": "20_WIKI/projects/okr-matrix-app/synthesis.md"
+    },
+    {
+      "id": "lint:missing_frontmatter:5",
+      "source": "20_WIKI/projects/omc/omc.md"
+    },
+    {
+      "id": "lint:missing_frontmatter:6",
+      "source": "20_WIKI/projects/omc/synthesis.md"
+    },
+    {
+      "id": "lint:missing_frontmatter:7",
+      "source": "20_WIKI/projects/seat-dashboard/synthesis.md"
+    },
+    {
+      "id": "lint:missing_frontmatter:8",
+      "source": "20_WIKI/projects/webapp-skeleton/synthesis.md"
+    },
+    {
+      "id": "lint:orphans:0",
+      "source": "20_WIKI/projects/notepad-autosave/notepad-autosave.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:0",
+      "source": "10_RAW/projects/anlyz-hrIndexData/clippings/keep-mockup-design-260805.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:1",
+      "source": "10_RAW/projects/anlyz-hrIndexData/handoffs/handoff-hc-p01-260820-2.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:2",
+      "source": "10_RAW/projects/anlyz-hrIndexData/handoffs/handoff-hc-p01-260820.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:3",
+      "source": "10_RAW/projects/anlyz-hrIndexData/results/result-hq-hist-260806.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:4",
+      "source": "10_RAW/projects/anlyz-hrIndexData/results/result-workforce-260805.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:5",
+      "source": "10_RAW/projects/infra-guide/clippings/01-인증-SSO.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:6",
+      "source": "10_RAW/projects/infra-guide/clippings/01-인증-SSO.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:7",
+      "source": "10_RAW/projects/infra-guide/clippings/01-인증-SSO.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:8",
+      "source": "10_RAW/projects/infra-guide/clippings/01-인증-SSO.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:9",
+      "source": "10_RAW/projects/infra-guide/clippings/01-인증-SSO.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:10",
+      "source": "10_RAW/projects/infra-guide/clippings/01-인증-SSO.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:11",
+      "source": "10_RAW/projects/infra-guide/clippings/01-인증-SSO.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:12",
+      "source": "10_RAW/projects/infra-guide/clippings/01-인증-SSO.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:13",
+      "source": "10_RAW/projects/infra-guide/clippings/01-인증-SSO.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:14",
+      "source": "10_RAW/projects/infra-guide/clippings/02-알림-메일.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:15",
+      "source": "10_RAW/projects/infra-guide/clippings/02-알림-메일.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:16",
+      "source": "10_RAW/projects/infra-guide/clippings/02-알림-메일.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:17",
+      "source": "10_RAW/projects/infra-guide/clippings/02-알림-메일.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:18",
+      "source": "10_RAW/projects/infra-guide/clippings/02-알림-메일.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:19",
+      "source": "10_RAW/projects/infra-guide/clippings/02-알림-메일.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:20",
+      "source": "10_RAW/projects/infra-guide/clippings/02-알림-메일.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:21",
+      "source": "10_RAW/projects/knowledge-management/handoffs/HANDOFF-root-260803-p4.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:22",
+      "source": "10_RAW/projects/knowledge-management/handoffs/HANDOFF-root-260803-p4.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:23",
+      "source": "10_RAW/projects/knowledge-management/handoffs/HANDOFF-root-260803-p4.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:24",
+      "source": "10_RAW/projects/knowledge-management/plans/plan-brief-cmplidx-260515-v1.0.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:25",
+      "source": "10_RAW/projects/meeting-db/clippings/meeting_dashboard_분석.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:26",
+      "source": "10_RAW/projects/meeting-db/clippings/meeting_dashboard_분석.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:27",
+      "source": "10_RAW/projects/meeting-db/clippings/meeting_dashboard_분석.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:28",
+      "source": "10_RAW/projects/meeting-db/clippings/meeting_dashboard_분석.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:29",
+      "source": "10_RAW/projects/meeting-db/clippings/meeting_dashboard_분석.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:30",
+      "source": "10_RAW/projects/meeting-db/clippings/meeting_dashboard_분석.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:31",
+      "source": "10_RAW/projects/meeting-db/clippings/meeting_dashboard_분석.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:32",
+      "source": "10_RAW/projects/meeting-db/clippings/meeting_dashboard_분석.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:33",
+      "source": "10_RAW/projects/meeting-db/clippings/meeting_dashboard_분석.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:34",
+      "source": "10_RAW/projects/meeting-db/clippings/research-todo-ui-v1.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:35",
+      "source": "10_RAW/projects/meeting-db/clippings/research-todo-ui-v1.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:36",
+      "source": "10_RAW/projects/meeting-db/clippings/research-todo-ui-v1.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:37",
+      "source": "10_RAW/projects/meeting-db/clippings/research-todo-ui-v1.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:38",
+      "source": "10_RAW/projects/meeting-db/clippings/research-todo-ui-v1.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:39",
+      "source": "10_RAW/projects/meeting-db/clippings/research-todo-ui-v1.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:40",
+      "source": "10_RAW/projects/meeting-db/clippings/research-todo-ui-v1.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:41",
+      "source": "10_RAW/projects/meeting-db/clippings/research-todo-ui-v1.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:42",
+      "source": "10_RAW/projects/meeting-db/clippings/research-todo-ui-v1.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:43",
+      "source": "10_RAW/projects/okr-matrix/clippings/ork_research_v0.5.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:44",
+      "source": "10_RAW/projects/okr-matrix/clippings/ork_research_v0.5.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:45",
+      "source": "10_RAW/projects/okr-matrix/clippings/ork_research_v0.5.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:46",
+      "source": "10_RAW/projects/okr-matrix/clippings/ork_research_v0.5.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:47",
+      "source": "10_RAW/projects/okr-matrix/clippings/ork_research_v0.5.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:48",
+      "source": "10_RAW/projects/okr-matrix/clippings/ork_research_v0.5.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:49",
+      "source": "10_RAW/projects/okr-matrix/clippings/research.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:50",
+      "source": "10_RAW/projects/okr-matrix/clippings/research.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:51",
+      "source": "10_RAW/projects/okr-matrix/clippings/research.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:52",
+      "source": "10_RAW/projects/okr-matrix/clippings/research.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:53",
+      "source": "10_RAW/projects/okr-matrix/clippings/research.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:54",
+      "source": "10_RAW/projects/okr-matrix/clippings/research.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:55",
+      "source": "10_RAW/projects/okr-matrix/plans/plan(okr.v0.5).md"
+    },
+    {
+      "id": "lint:raw_reference_notes:56",
+      "source": "10_RAW/projects/okr-matrix/plans/plan(okr.v0.5).md"
+    },
+    {
+      "id": "lint:raw_reference_notes:57",
+      "source": "10_RAW/projects/okr-matrix/plans/plan(okr.v0.5).md"
+    },
+    {
+      "id": "lint:raw_reference_notes:58",
+      "source": "10_RAW/projects/okr-matrix/plans/plan(okr.v0.5).md"
+    },
+    {
+      "id": "lint:raw_reference_notes:59",
+      "source": "10_RAW/projects/okr-matrix/plans/plan(okr.v0.5).md"
+    },
+    {
+      "id": "lint:raw_reference_notes:60",
+      "source": "10_RAW/projects/okr-matrix/plans/plan(okr.v0.5).md"
+    },
+    {
+      "id": "lint:raw_reference_notes:61",
+      "source": "10_RAW/projects/okr-matrix/plans/plan(okr.v0.5).md"
+    },
+    {
+      "id": "lint:raw_reference_notes:62",
+      "source": "10_RAW/projects/okr-matrix/plans/plan(okr.v0.5).md"
+    },
+    {
+      "id": "lint:raw_reference_notes:63",
+      "source": "10_RAW/projects/okr-matrix/plans/plan(okr.v0.5).md"
+    },
+    {
+      "id": "lint:raw_reference_notes:64",
+      "source": "10_RAW/projects/okr-matrix/plans/plan(okr.v0.5).md"
+    },
+    {
+      "id": "lint:raw_reference_notes:65",
+      "source": "10_RAW/projects/okr-matrix/plans/plan.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:66",
+      "source": "10_RAW/projects/okr-matrix/plans/plan.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:67",
+      "source": "10_RAW/projects/okr-matrix/plans/plan.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:68",
+      "source": "10_RAW/projects/okr-matrix/plans/plan.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:69",
+      "source": "10_RAW/projects/okr-matrix/plans/plan.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:70",
+      "source": "10_RAW/projects/okr-matrix/plans/plan.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:71",
+      "source": "10_RAW/projects/okr-matrix/plans/plan.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:72",
+      "source": "10_RAW/projects/okr-matrix/plans/plan.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:73",
+      "source": "10_RAW/projects/okr-matrix/plans/plan.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:74",
+      "source": "10_RAW/projects/okr-matrix/plans/plan.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:75",
+      "source": "10_RAW/projects/seat-dashboard/results/result-seat-manage-260707-v1.0.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:76",
+      "source": "10_RAW/projects/seat-dashboard/results/result-seat-manage-260707-v1.0.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:77",
+      "source": "10_RAW/projects/seat-dashboard/results/result-seat-manage-260707-v1.0.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:78",
+      "source": "10_RAW/projects/seat-dashboard/results/result-seat-manage-260707-v1.0.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:79",
+      "source": "10_RAW/projects/v1-dashboard/plans/plan-dashboard-json-260521.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:80",
+      "source": "10_RAW/projects/v1-dashboard/plans/plan-dashboard-json-260521.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:81",
+      "source": "10_RAW/projects/v1-dashboard/plans/plan-dashboard-json-260521.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:82",
+      "source": "10_RAW/projects/v1-dashboard/plans/plan-dashjson2-260521.md"
+    },
+    {
+      "id": "lint:raw_reference_notes:83",
+      "source": "10_RAW/projects/v1-dashboard/plans/plan-dashjson2-260521.md"
+    },
+    {
+      "id": "manual:mailing-agent-research-drift",
+      "source": "20_WIKI/decisions/conflict-mailing-research-content-drift.md"
+    }
+  ],
+  "processed": [],
+  "skipped": [
+    {
+      "id": "manual:mailing-agent-research-drift",
+      "code": "authority-tie",
+      "evidence": "20_WIKI/decisions/conflict-mailing-research-content-drift.md",
+      "note": "pre-existing open conflict re-reviewed under claims/source-freshness lanes; no new evidence this week (same ctime, drifted content, user decision still pending) - left unchanged, not re-litigated"
+    }
+  ],
+  "out_of_scope": [
+    {
+      "id": "lint:allowlisted_dangling_links:0",
+      "reason": "pre-approved allowlisted dangling link (lint config), not a claims/entity/decision/freshness contradiction (source: 20_WIKI/concepts/mirror-principle.md)"
+    },
+    {
+      "id": "lint:allowlisted_dangling_links:1",
+      "reason": "pre-approved allowlisted dangling link (lint config), not a claims/entity/decision/freshness contradiction (source: 20_WIKI/methodology/hc-db-pitfalls-260819.md)"
+    },
+    {
+      "id": "lint:allowlisted_dangling_links:2",
+      "reason": "pre-approved allowlisted dangling link (lint config), not a claims/entity/decision/freshness contradiction (source: 20_WIKI/methodology/hc-db-pitfalls-260819.md)"
+    },
+    {
+      "id": "lint:allowlisted_dangling_links:3",
+      "reason": "pre-approved allowlisted dangling link (lint config), not a claims/entity/decision/freshness contradiction (source: 20_WIKI/methodology/labor-cost-dash-260818.md)"
+    },
+    {
+      "id": "lint:allowlisted_dangling_links:4",
+      "reason": "pre-approved allowlisted dangling link (lint config), not a claims/entity/decision/freshness contradiction (source: 20_WIKI/projects/anlyz-hrIndexData/stage-5-hc-dashboard-onprem.md)"
+    },
+    {
+      "id": "lint:allowlisted_dangling_links:5",
+      "reason": "pre-approved allowlisted dangling link (lint config), not a claims/entity/decision/freshness contradiction (source: 20_WIKI/projects/anlyz-hrIndexData/stage-5-hc-dashboard-onprem.md)"
+    },
+    {
+      "id": "lint:allowlisted_dangling_links:6",
+      "reason": "pre-approved allowlisted dangling link (lint config), not a claims/entity/decision/freshness contradiction (source: 20_WIKI/projects/anlyz-hrIndexData/synthesis.md)"
+    },
+    {
+      "id": "lint:allowlisted_dangling_links:7",
+      "reason": "pre-approved allowlisted dangling link (lint config), not a claims/entity/decision/freshness contradiction (source: 20_WIKI/projects/anlyz-hrIndexData/synthesis.md)"
+    },
+    {
+      "id": "lint:allowlisted_dangling_links:8",
+      "reason": "pre-approved allowlisted dangling link (lint config), not a claims/entity/decision/freshness contradiction (source: 20_WIKI/projects/projects-LOG.md)"
+    },
+    {
+      "id": "lint:allowlisted_dangling_links:9",
+      "reason": "pre-approved allowlisted dangling link (lint config), not a claims/entity/decision/freshness contradiction (source: 20_WIKI/projects/projects-LOG.md)"
+    },
+    {
+      "id": "lint:duplicate_basenames:0",
+      "reason": "structural filename collision by design (each project owns its own decisions.md/synthesis.md), not a content contradiction - reconcile lanes don't cover file-naming hygiene (source: 20_WIKI/projects/anlyz-hrIndexData/decisions.md)"
+    },
+    {
+      "id": "lint:duplicate_basenames:1",
+      "reason": "structural filename collision by design (each project owns its own decisions.md/synthesis.md), not a content contradiction - reconcile lanes don't cover file-naming hygiene (source: 20_WIKI/projects/ai-rpt-draft/synthesis.md)"
+    },
+    {
+      "id": "lint:empty_sections:0",
+      "reason": "template placeholder scaffolding with no content yet, not a claims conflict between two assertions (source: 20_WIKI/assets/assets-LOG.md#L7 (Assets Log))"
+    },
+    {
+      "id": "lint:empty_sections:1",
+      "reason": "template placeholder scaffolding with no content yet, not a claims conflict between two assertions (source: 20_WIKI/comparisons/comparisons-INDEX.md#L10 (Asset Comparisons))"
+    },
+    {
+      "id": "lint:empty_sections:2",
+      "reason": "template placeholder scaffolding with no content yet, not a claims conflict between two assertions (source: 20_WIKI/projects/ai-rpt-draft/ai-rpt-draft.md#L3 (Recently Done))"
+    },
+    {
+      "id": "lint:empty_sections:3",
+      "reason": "template placeholder scaffolding with no content yet, not a claims conflict between two assertions (source: 20_WIKI/projects/hr-pipeline/synthesis.md#L149 (Scope))"
+    },
+    {
+      "id": "lint:empty_sections:4",
+      "reason": "template placeholder scaffolding with no content yet, not a claims conflict between two assertions (source: 20_WIKI/projects/hr-report/hr-report.md#L23 (Recently Done))"
+    },
+    {
+      "id": "lint:empty_sections:5",
+      "reason": "template placeholder scaffolding with no content yet, not a claims conflict between two assertions (source: 20_WIKI/projects/hrinno-portal/hrinno-portal.md#L45 (Recently Done))"
+    },
+    {
+      "id": "lint:empty_sections:6",
+      "reason": "template placeholder scaffolding with no content yet, not a claims conflict between two assertions (source: 20_WIKI/projects/knowledge-management/decisions.md#L9 (knowledge-management — Decisions))"
+    },
+    {
+      "id": "lint:empty_sections:7",
+      "reason": "template placeholder scaffolding with no content yet, not a claims conflict between two assertions (source: 20_WIKI/projects/knowledge-management/knowledge-management.md#L83 (Handoffs))"
+    },
+    {
+      "id": "lint:empty_sections:8",
+      "reason": "template placeholder scaffolding with no content yet, not a claims conflict between two assertions (source: 20_WIKI/projects/manual-builder/manual-builder.md#L45 (Recently Done))"
+    },
+    {
+      "id": "lint:empty_sections:9",
+      "reason": "template placeholder scaffolding with no content yet, not a claims conflict between two assertions (source: 20_WIKI/projects/meeting-db/meeting-db.md#L55 (Architecture))"
+    },
+    {
+      "id": "lint:empty_sections:10",
+      "reason": "template placeholder scaffolding with no content yet, not a claims conflict between two assertions (source: 20_WIKI/projects/memo/memo.md#L19 (Overview))"
+    },
+    {
+      "id": "lint:empty_sections:11",
+      "reason": "template placeholder scaffolding with no content yet, not a claims conflict between two assertions (source: 20_WIKI/projects/okr-matrix-app/okr-matrix-app.md#L3 (Recently Done))"
+    },
+    {
+      "id": "lint:empty_sections:12",
+      "reason": "template placeholder scaffolding with no content yet, not a claims conflict between two assertions (source: 20_WIKI/projects/omc/omc.md#L3 (Recently Done))"
+    },
+    {
+      "id": "lint:empty_sections:13",
+      "reason": "template placeholder scaffolding with no content yet, not a claims conflict between two assertions (source: 20_WIKI/projects/projects-INDEX.md#L70 (Theme Index))"
+    },
+    {
+      "id": "lint:empty_sections:14",
+      "reason": "template placeholder scaffolding with no content yet, not a claims conflict between two assertions (source: 20_WIKI/projects/webapp-skeleton/webapp-skeleton.md#L23 (Recently Done))"
+    },
+    {
+      "id": "lint:empty_sections:15",
+      "reason": "template placeholder scaffolding with no content yet, not a claims conflict between two assertions (source: 20_WIKI/projects/weekly-report/weekly-report.md#L32 (Key Plans))"
+    },
+    {
+      "id": "lint:empty_sections:16",
+      "reason": "template placeholder scaffolding with no content yet, not a claims conflict between two assertions (source: 20_WIKI/projects/youtube/youtube.md#L36 (Key Decisions))"
+    },
+    {
+      "id": "lint:empty_sections:17",
+      "reason": "template placeholder scaffolding with no content yet, not a claims conflict between two assertions (source: 20_WIKI/projects/youtube/youtube.md#L43 (Concept Links))"
+    },
+    {
+      "id": "lint:empty_sections:18",
+      "reason": "template placeholder scaffolding with no content yet, not a claims conflict between two assertions (source: 20_WIKI/themes/themes-INDEX.md#L8 (Themes Index))"
+    },
+    {
+      "id": "lint:empty_sections:19",
+      "reason": "template placeholder scaffolding with no content yet, not a claims conflict between two assertions (source: 20_WIKI/themes/themes-INDEX.md#L10 (Active Themes))"
+    },
+    {
+      "id": "lint:empty_sections:20",
+      "reason": "template placeholder scaffolding with no content yet, not a claims conflict between two assertions (source: 20_WIKI/themes/themes-INDEX.md#L13 (Archived Themes))"
+    },
+    {
+      "id": "lint:missing_frontmatter:0",
+      "reason": "structural frontmatter completeness issue, belongs to lint auto-fix stage not reconcile's contradiction lanes (source: 20_WIKI/projects/ai-rpt-draft/ai-rpt-draft.md)"
+    },
+    {
+      "id": "lint:missing_frontmatter:1",
+      "reason": "structural frontmatter completeness issue, belongs to lint auto-fix stage not reconcile's contradiction lanes (source: 20_WIKI/projects/ai-rpt-draft/synthesis.md)"
+    },
+    {
+      "id": "lint:missing_frontmatter:2",
+      "reason": "structural frontmatter completeness issue, belongs to lint auto-fix stage not reconcile's contradiction lanes (source: 20_WIKI/projects/hr-report/synthesis.md)"
+    },
+    {
+      "id": "lint:missing_frontmatter:3",
+      "reason": "structural frontmatter completeness issue, belongs to lint auto-fix stage not reconcile's contradiction lanes (source: 20_WIKI/projects/okr-matrix-app/okr-matrix-app.md)"
+    },
+    {
+      "id": "lint:missing_frontmatter:4",
+      "reason": "structural frontmatter completeness issue, belongs to lint auto-fix stage not reconcile's contradiction lanes (source: 20_WIKI/projects/okr-matrix-app/synthesis.md)"
+    },
+    {
+      "id": "lint:missing_frontmatter:5",
+      "reason": "structural frontmatter completeness issue, belongs to lint auto-fix stage not reconcile's contradiction lanes (source: 20_WIKI/projects/omc/omc.md)"
+    },
+    {
+      "id": "lint:missing_frontmatter:6",
+      "reason": "structural frontmatter completeness issue, belongs to lint auto-fix stage not reconcile's contradiction lanes (source: 20_WIKI/projects/omc/synthesis.md)"
+    },
+    {
+      "id": "lint:missing_frontmatter:7",
+      "reason": "structural frontmatter completeness issue, belongs to lint auto-fix stage not reconcile's contradiction lanes (source: 20_WIKI/projects/seat-dashboard/synthesis.md)"
+    },
+    {
+      "id": "lint:missing_frontmatter:8",
+      "reason": "structural frontmatter completeness issue, belongs to lint auto-fix stage not reconcile's contradiction lanes (source: 20_WIKI/projects/webapp-skeleton/synthesis.md)"
+    },
+    {
+      "id": "lint:orphans:0",
+      "reason": "navigation/linking issue (unlinked page), not a claims/entity/decision/freshness contradiction (source: 20_WIKI/projects/notepad-autosave/notepad-autosave.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:0",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/anlyz-hrIndexData/clippings/keep-mockup-design-260805.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:1",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/anlyz-hrIndexData/handoffs/handoff-hc-p01-260820-2.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:2",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/anlyz-hrIndexData/handoffs/handoff-hc-p01-260820.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:3",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/anlyz-hrIndexData/results/result-hq-hist-260806.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:4",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/anlyz-hrIndexData/results/result-workforce-260805.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:5",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/infra-guide/clippings/01-인증-SSO.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:6",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/infra-guide/clippings/01-인증-SSO.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:7",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/infra-guide/clippings/01-인증-SSO.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:8",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/infra-guide/clippings/01-인증-SSO.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:9",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/infra-guide/clippings/01-인증-SSO.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:10",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/infra-guide/clippings/01-인증-SSO.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:11",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/infra-guide/clippings/01-인증-SSO.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:12",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/infra-guide/clippings/01-인증-SSO.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:13",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/infra-guide/clippings/01-인증-SSO.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:14",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/infra-guide/clippings/02-알림-메일.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:15",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/infra-guide/clippings/02-알림-메일.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:16",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/infra-guide/clippings/02-알림-메일.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:17",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/infra-guide/clippings/02-알림-메일.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:18",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/infra-guide/clippings/02-알림-메일.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:19",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/infra-guide/clippings/02-알림-메일.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:20",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/infra-guide/clippings/02-알림-메일.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:21",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/knowledge-management/handoffs/HANDOFF-root-260803-p4.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:22",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/knowledge-management/handoffs/HANDOFF-root-260803-p4.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:23",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/knowledge-management/handoffs/HANDOFF-root-260803-p4.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:24",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/knowledge-management/plans/plan-brief-cmplidx-260515-v1.0.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:25",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/meeting-db/clippings/meeting_dashboard_분석.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:26",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/meeting-db/clippings/meeting_dashboard_분석.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:27",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/meeting-db/clippings/meeting_dashboard_분석.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:28",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/meeting-db/clippings/meeting_dashboard_분석.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:29",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/meeting-db/clippings/meeting_dashboard_분석.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:30",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/meeting-db/clippings/meeting_dashboard_분석.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:31",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/meeting-db/clippings/meeting_dashboard_분석.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:32",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/meeting-db/clippings/meeting_dashboard_분석.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:33",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/meeting-db/clippings/meeting_dashboard_분석.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:34",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/meeting-db/clippings/research-todo-ui-v1.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:35",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/meeting-db/clippings/research-todo-ui-v1.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:36",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/meeting-db/clippings/research-todo-ui-v1.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:37",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/meeting-db/clippings/research-todo-ui-v1.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:38",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/meeting-db/clippings/research-todo-ui-v1.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:39",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/meeting-db/clippings/research-todo-ui-v1.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:40",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/meeting-db/clippings/research-todo-ui-v1.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:41",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/meeting-db/clippings/research-todo-ui-v1.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:42",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/meeting-db/clippings/research-todo-ui-v1.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:43",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/okr-matrix/clippings/ork_research_v0.5.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:44",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/okr-matrix/clippings/ork_research_v0.5.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:45",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/okr-matrix/clippings/ork_research_v0.5.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:46",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/okr-matrix/clippings/ork_research_v0.5.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:47",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/okr-matrix/clippings/ork_research_v0.5.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:48",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/okr-matrix/clippings/ork_research_v0.5.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:49",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/okr-matrix/clippings/research.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:50",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/okr-matrix/clippings/research.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:51",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/okr-matrix/clippings/research.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:52",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/okr-matrix/clippings/research.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:53",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/okr-matrix/clippings/research.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:54",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/okr-matrix/clippings/research.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:55",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/okr-matrix/plans/plan(okr.v0.5).md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:56",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/okr-matrix/plans/plan(okr.v0.5).md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:57",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/okr-matrix/plans/plan(okr.v0.5).md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:58",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/okr-matrix/plans/plan(okr.v0.5).md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:59",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/okr-matrix/plans/plan(okr.v0.5).md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:60",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/okr-matrix/plans/plan(okr.v0.5).md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:61",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/okr-matrix/plans/plan(okr.v0.5).md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:62",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/okr-matrix/plans/plan(okr.v0.5).md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:63",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/okr-matrix/plans/plan(okr.v0.5).md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:64",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/okr-matrix/plans/plan(okr.v0.5).md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:65",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/okr-matrix/plans/plan.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:66",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/okr-matrix/plans/plan.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:67",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/okr-matrix/plans/plan.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:68",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/okr-matrix/plans/plan.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:69",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/okr-matrix/plans/plan.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:70",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/okr-matrix/plans/plan.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:71",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/okr-matrix/plans/plan.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:72",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/okr-matrix/plans/plan.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:73",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/okr-matrix/plans/plan.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:74",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/okr-matrix/plans/plan.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:75",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/seat-dashboard/results/result-seat-manage-260707-v1.0.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:76",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/seat-dashboard/results/result-seat-manage-260707-v1.0.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:77",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/seat-dashboard/results/result-seat-manage-260707-v1.0.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:78",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/seat-dashboard/results/result-seat-manage-260707-v1.0.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:79",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/v1-dashboard/plans/plan-dashboard-json-260521.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:80",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/v1-dashboard/plans/plan-dashboard-json-260521.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:81",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/v1-dashboard/plans/plan-dashboard-json-260521.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:82",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/v1-dashboard/plans/plan-dashjson2-260521.md)"
+    },
+    {
+      "id": "lint:raw_reference_notes:83",
+      "reason": "target is inside 10_RAW (read-only raw) or points outside the vault; reconcile must never modify 10_RAW and this is a link-hygiene note, not a semantic contradiction (source: 10_RAW/projects/v1-dashboard/plans/plan-dashjson2-260521.md)"
+    }
+  ],
+  "rewritten": [],
+  "conflicts": [],
+  "drafts": [],
+  "log_rows": [],
+  "errors": []
+}
