@@ -5,7 +5,7 @@ This vault is an LLM-maintained dual-axis knowledge base. You are the maintainer
 ## Folder ↔ Layer Mapping (BINDING)
 - `10_*`, `90_*`, `_attachments/`  → Layer 1 (Raw). NEVER modify.
 - `20_*`, root `INDEX.md`/`LOG.md`/`MAP.md`  → Layer 2 (Wiki). LLM writes only. .md only.
-- `/CLAUDE.md`, `_templates/`  → Layer 3 (Schema).
+- `/CLAUDE.md`, `_templates/`, `scripts/`, `automation/`  → Layer 3 (Schema/Infra). git 추적 대상.
 
 ## Two Axes
 - **Asset axis**: `10_RAW/assets/<CATEGORY>-<ID>/`, `20_WIKI/assets/<ID>/`
