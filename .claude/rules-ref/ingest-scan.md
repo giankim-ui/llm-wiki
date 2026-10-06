@@ -1,3 +1,6 @@
+---
+trigger: /ingest, /projects 백로그 스캔, 미반영 파일, stage 모드 프로젝트, synthesis grep, 슬러그 분류, 수동 이관 manifest, stage_ingest_gate
+---
 # Ingest/Projects — 백로그 스캔 규칙
 
 경로 범위: `10_RAW/projects/**`, `.claude/commands/ingest-project-modes.json`, `scripts/stage_ingest_gate.py`
@@ -25,3 +28,13 @@ python scripts/stage_ingest_gate.py inspect
 **검증 방법**: raw 본문에 `참조 plan:` 또는 유사 표기로 다른 파일명이 나오면, 그 파일명을 `grep -rl "<참조파일명>" 20_WIKI/projects/*/stage-*.md 20_WIKI/projects/*/synthesis.md` 로 먼저 찾는다. 매치되는 Stage 문서가 있으면 그 프로젝트 슬러그를 쓰고, 없으면 키워드 테이블 결과를 그대로 쓴다.
 
 **사고 기록 (2026-08-27)**: `result-lc-data-check-260825-v1.0.md`/`result-lc-data-issues-260825-v1.0.md`가 본문에 `hcroi`/`headcount`/`salary` 관련 테이블 언급을 포함해 키워드 테이블(우선순위 7 hr-pipeline)로 분류·이관됐으나, 실제로는 `참조 plan: plan-lc-dashboard-260824-v1_0.md`를 명시하고 있었고 그 plan은 `anlyz-hrIndexData`의 `stage-6-p03-cost-dashboard.md` 흐름 #1로 이미 등록돼 있었다. 사용자가 직접 지적해 `10_RAW/projects/hr-pipeline/results/` → `10_RAW/projects/anlyz-hrIndexData/results/`로 재이관하고 stage-6 흐름에 재편입.
+
+## /projects 수동 이관 후 manifest 기록 필수 (stage 프로젝트)
+
+**트리거**: `/projects` 실행 중 `collect_map.ps1`이 `unknowns`로 분류한 파일을 Level 3/4에서 슬러그 확정한 뒤 직접 `Move-ProjectFile`로 옮기는 경우. 특히 frontmatter `project:`가 있는데 스크립트 canonical 목록에 없는 신규 slug(예: `infra-guide`)일 때 `classified=0, unknowns=N`이 나온다.
+
+**가드레일**: unknowns를 수동으로 옮겨도 §5.1 절차대로 `classified.json`에 merge하고 §5.4의 `classified.json` 로드 → 이동 흐름을 따른다. 어떤 경로로 옮기든 이동 직후 `$env:TEMP\claude-projects-state\moved.json`에 `{source, destination, slug, type}` 항목을 추가하고 `completed: true`, `consumed_at: null`, 새 `run_id`로 기록한다. `moved.json`에 없는 stage 프로젝트 파일은 `stage_ingest_gate.py inspect`가 `pending: 0`을 내 `/ingest`가 조용히 0건으로 끝난다.
+
+**검증 방법**: `/projects` 종료 보고 전에 `python scripts/stage_ingest_gate.py inspect`로 이동한 파일 수와 `pending Stage files`가 일치하는지 확인한다. 불일치하면 `/ingest`로 넘어가지 말고 manifest부터 보정한다. `/ingest`가 `pending: 0`이어도 이번 런에서 이동한 파일이 있으면 오탐으로 보고 즉시 중단·보정한다.
+
+**사고 기록 (2026-09-30)**: `handoff-infra-guide-260929(-2).md` 두 건을 수동 이관하고 manifest를 남기지 않아 `/ingest`가 "반영할 파일 없음"으로 종료했다. 사용자 지적 후 Stage 1 흐름에 수동 편입.
