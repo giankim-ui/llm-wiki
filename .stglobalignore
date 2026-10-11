@@ -1,0 +1,27 @@
+// Syncthing 동기화 제외 패턴 — km-vault 폴더 (집 PC ↔ 노트북) 공용
+// 이 파일은 동기화되지만 Syncthing이 직접 읽지는 않는다.
+// 각 PC의 vault 루트 .stignore (동기화 안 됨) 첫 줄에 아래 한 줄만 둔다:
+//   #include .stglobalignore
+// 근거: automation/PLAN_모바일PC동기화_v2.0_261011.md §3
+
+// git 저장소는 집 PC 전용 — 두 PC가 .git을 공유하면 손상 위험
+.git
+
+// Obsidian 기기별 화면 상태 (매번 바뀌어 충돌 사본만 만든다)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache
+.trash
+
+// Claude Code 기기별 설정
+.claude/settings.local.json
+
+// 런타임 부산물
+(?d)__pycache__
+(?d)*.pyc
+(?d)desktop.ini
+(?d)Thumbs.db
+(?d).DS_Store
+
+// 주의: scripts/.hub_lease 와 scripts/.morning_last_run 은 제외하지 않는다
+//       (두 PC가 공유해야 하는 "누가 hub인가 / 오늘 돌았나" 상태)

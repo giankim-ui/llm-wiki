@@ -10,8 +10,10 @@ description: 출근 브리핑 — DAILY.md 강제 갱신 후 내용 출력
 
 ### 1. 스크립트 실행
 
+(vault 루트에서 실행 — 기기마다 vault 절대경로가 달라도 동작하도록 상대경로 사용)
+
 ```powershell
-python "C:\Users\Pulmuone\OneDrive - 풀무원\20-Obsidian\scripts\daily_brief.py"
+python scripts/daily_brief.py
 ```
 
 `--skip-if-today` 없이 호출 → 항상 최신 상태로 덮어쓰기.
@@ -21,7 +23,7 @@ python "C:\Users\Pulmuone\OneDrive - 풀무원\20-Obsidian\scripts\daily_brief.p
 스크립트 완료 후 DAILY.md 전체 내용을 사용자에게 마크다운으로 보여준다.
 
 ```powershell
-Get-Content "C:\Users\Pulmuone\OneDrive - 풀무원\20-Obsidian\DAILY.md" -Encoding UTF8
+Get-Content DAILY.md -Encoding UTF8
 ```
 
 ### 3. 완료 보고

@@ -72,7 +72,7 @@ decision, plan-version, result, phase-start, phase-complete, status-change, conc
 **`ingest`는 워크플로우 이름이며 LOG/synthesis 이벤트 값으로 절대 사용 금지.** `| ingest |` 쓰기는 PreToolUse 훅(`event-vocab-guard.py`)이 차단한다. `/projects` 이관은 LOG/synthesis 미기록 — `/ingest` 단계에서 파일별 기록.
 
 ## Workflows
-- Reading Discipline: see PLAN v2.2.x §6.0 ("C:\Users\Pulmuone\OneDrive - 풀무원\20-Obsidian\10_RAW\projects\knowledge-management\plans\PLAN_통합지식관리체계_v2.2.1_260505.md")
+- Reading Discipline: see PLAN v2.2.x §6.0 (vault 루트 기준 `10_RAW/projects/knowledge-management/plans/PLAN_통합지식관리체계_v2.2.1_260505.md`)
 - Ingest: §6.1 → `/ingest` 커맨드
 - Query: §6.2 → `/query` 커맨드. **file-back 경로 = `20_WIKI/methodology/<주제>-<YYMMDD>.md`** (BINDING — PLAN v2.0.0의 `50_RESEARCH/` 는 폐기 경로). 가치 있는 발견은 반드시 wiki 회수, `query` 이벤트로 root LOG 기록.
 - Lint: §6.3

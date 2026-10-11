@@ -10,6 +10,11 @@ dist/
 __pycache__/
 *.pyc
 scripts/.morning_last_run
+scripts/.hub_lease
+
+# Syncthing
+.stversions/
+.stignore
 
 # OS
 .DS_Store

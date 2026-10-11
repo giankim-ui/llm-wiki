@@ -9,7 +9,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python \"C:\\Users\\Pulmuone\\OneDrive - 풀무원\\20-Obsidian\\scripts\\daily_brief.py\""
+            "command": "python scripts/daily_brief.py"
           }
         ]
       }
